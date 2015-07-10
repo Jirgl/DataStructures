@@ -2,7 +2,6 @@
 *.dll
 bin/DataStructures.dll.config
 *.pdb
-*.ts
 *.csproj
 DataStructures.csproj.user
 obj/Debug/DataStructures.csproj.FileListAbsolute.txt
