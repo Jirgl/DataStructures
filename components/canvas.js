@@ -11,7 +11,7 @@ var JirglStructures;
             var children = [];
             var maxHeight = JirglStructures.itemHeight + (2 * JirglStructures.itemMargin);
             while (iterator.hasNext()) {
-                var guiItem = iterator.nextGuiItem();
+                var guiItem = iterator.next();
                 var position = ctx.data.grid.getPosition(width);
                 children.push(JirglStructures.item({ content: guiItem.content, x: position.x, y: position.y, isCurrent: guiItem.isCurrent }));
                 var currentHeight = position.y + JirglStructures.itemHeight + (2 * JirglStructures.itemMargin);

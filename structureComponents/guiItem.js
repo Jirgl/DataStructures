@@ -7,4 +7,4 @@ var JirglStructures;
     })();
     JirglStructures.GuiItem = GuiItem;
 })(JirglStructures || (JirglStructures = {}));
-//# sourceMappingURL=guiIterator.js.map
+//# sourceMappingURL=guiItem.js.map

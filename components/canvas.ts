@@ -4,8 +4,8 @@
 
 module JirglStructures {
     export interface ICanvasData {
-        contentIterator: IGuiIterator;
-        grid: IGrid<string>;
+        contentIterator: IIterator<GuiItem>;
+        grid: IGrid;
     }
 
     interface ICanvasCtx {
@@ -21,7 +21,7 @@ module JirglStructures {
             var maxHeight = itemHeight + (2 * itemMargin);
 
             while (iterator.hasNext()) {
-                var guiItem = iterator.nextGuiItem();
+                var guiItem = iterator.next();
                 var position = ctx.data.grid.getPosition(width);
                 children.push(item({ content: guiItem.content, x: position.x, y: position.y, isCurrent: guiItem.isCurrent }));
 

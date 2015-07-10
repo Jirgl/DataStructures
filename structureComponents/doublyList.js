@@ -18,13 +18,14 @@ var JirglStructures;
             this.iterator = new GuiDoublyLinkedListIterator(this);
         }
         GuiDoublyLinkedList.prototype.getPosition = function (maxWidth) {
-            var itemsPerLine = Math.floor(maxWidth / (JirglStructures.itemWidth + (JirglStructures.itemMargin * 2)));
+            var itemWidthWithMargin = (JirglStructures.itemWidth + (JirglStructures.itemMargin * 2));
+            var itemsPerLine = Math.floor(maxWidth / itemWidthWithMargin);
             return {
-                x: ((this.iterator.orderOfItem - 1) % itemsPerLine) * (JirglStructures.itemWidth + (JirglStructures.itemMargin * 2)),
-                y: Math.floor((this.iterator.orderOfItem - 1) / itemsPerLine) * (JirglStructures.itemHeight + (JirglStructures.itemMargin * 2))
+                x: ((this.iterator.orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
+                y: Math.floor((this.iterator.orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
             };
         };
-        GuiDoublyLinkedList.prototype.getGuiIterator = function () {
+        GuiDoublyLinkedList.prototype.getIterator = function () {
             return this.iterator;
         };
         return GuiDoublyLinkedList;
@@ -34,12 +35,12 @@ var JirglStructures;
         __extends(GuiDoublyLinkedListIterator, _super);
         function GuiDoublyLinkedListIterator(doublyLinkedList) {
             _super.call(this, doublyLinkedList);
+            this.orderOfItem = 0;
         }
-        GuiDoublyLinkedListIterator.prototype.nextGuiItem = function () {
-            var item = new JirglStructures.GuiItem();
-            item.isCurrent = this.doublyLinkedList.currentItem === this.iteratorCurrentItem;
-            var next = _super.prototype.next.call(this);
-            item.content = next;
+        GuiDoublyLinkedListIterator.prototype.next = function () {
+            var isCurrent = this.doublyLinkedList.currentItem === this.iteratorCurrentItem;
+            var item = _super.prototype.next.call(this);
+            item.isCurrent = isCurrent;
             this.orderOfItem++;
             return item;
         };
@@ -52,7 +53,7 @@ var JirglStructures;
     var doublyListComponent = {
         init: function (ctx, me) {
             ctx.doublyLinkedList = new GuiDoublyLinkedList();
-            ctx.doublyLinkedList.addFirstItem("init item");
+            ctx.doublyLinkedList.addFirstItem({ content: "init item", isCurrent: true });
             ctx.option = "first";
             ctx.action = "add";
         },
@@ -88,16 +89,16 @@ var JirglStructures;
                         onClick: function () {
                             if (ctx.action === "add") {
                                 if (ctx.option === "first") {
-                                    ctx.doublyLinkedList.addFirstItem(ctx.value);
+                                    ctx.doublyLinkedList.addFirstItem({ content: ctx.value, isCurrent: true });
                                 }
                                 else if (ctx.option === "predecessor") {
-                                    ctx.doublyLinkedList.addPreviousItem(ctx.value);
+                                    ctx.doublyLinkedList.addPreviousItem({ content: ctx.value, isCurrent: true });
                                 }
                                 else if (ctx.option === "successor") {
-                                    ctx.doublyLinkedList.addNextItem(ctx.value);
+                                    ctx.doublyLinkedList.addNextItem({ content: ctx.value, isCurrent: true });
                                 }
                                 else if (ctx.option === "last") {
-                                    ctx.doublyLinkedList.addLastItem(ctx.value);
+                                    ctx.doublyLinkedList.addLastItem({ content: ctx.value, isCurrent: true });
                                 }
                             }
                             else if (ctx.action === "remove") {
@@ -122,7 +123,7 @@ var JirglStructures;
                     })
                 }),
                 JirglStructures.canvas({
-                    contentIterator: ctx.doublyLinkedList.getGuiIterator(),
+                    contentIterator: ctx.doublyLinkedList.getIterator(),
                     grid: ctx.doublyLinkedList
                 })
             ];

@@ -4,7 +4,7 @@
         y: number;
     }
 
-    export interface IGrid<T>
+    export interface IGrid
     {
         getPosition(maxWidth: number) : Position;
     }

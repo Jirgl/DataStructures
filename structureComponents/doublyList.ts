@@ -17,7 +17,7 @@ module JirglStructures {
         data: IDoublyListData;
     }
 
-    export class GuiDoublyLinkedList extends Lists.DoublyLinkedList<string> implements IGrid<string> {
+    export class GuiDoublyLinkedList extends Lists.DoublyLinkedList<GuiItem> implements IGrid {
         private iterator: GuiDoublyLinkedListIterator;
 
         constructor() {
@@ -26,32 +26,31 @@ module JirglStructures {
         }
 
         getPosition(maxWidth: number): Position {
-            var itemsPerLine = Math.floor(maxWidth / (itemWidth + (itemMargin * 2)));
+            var itemWidthWithMargin = (itemWidth + (itemMargin * 2));
+            var itemsPerLine = Math.floor(maxWidth / itemWidthWithMargin);
             return {
-                x: ((this.iterator.orderOfItem - 1) % itemsPerLine) * (itemWidth + (itemMargin * 2)),
-                y: Math.floor((this.iterator.orderOfItem- 1) / itemsPerLine) * (itemHeight + (itemMargin * 2))
+                x: ((this.iterator.orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
+                y: Math.floor((this.iterator.orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
             };
         }
 
-        getGuiIterator(): IGuiIterator {
+        getIterator(): IIterator<GuiItem> {
             return this.iterator;
         }
     }
 
-    class GuiDoublyLinkedListIterator extends Lists.DoublyLinkedListIterator<string> implements IGuiIterator {
+    class GuiDoublyLinkedListIterator extends Lists.DoublyLinkedListIterator<GuiItem> implements IIterator<GuiItem> {
         orderOfItem: number;
 
-        constructor(doublyLinkedList: Lists.DoublyLinkedList<string>) {
+        constructor(doublyLinkedList: Lists.DoublyLinkedList<GuiItem>) {
             super(doublyLinkedList);
+            this.orderOfItem = 0;
         }
 
-        nextGuiItem(): GuiItem {
-            var item = new GuiItem();
-            item.isCurrent = this.doublyLinkedList.currentItem === this.iteratorCurrentItem;
-
-            var next = super.next();
-            item.content = next;
-
+        next(): GuiItem {
+            var isCurrent = this.doublyLinkedList.currentItem === this.iteratorCurrentItem;
+            var item = super.next();
+            item.isCurrent = isCurrent;
             this.orderOfItem++;
 
             return item;
@@ -66,7 +65,7 @@ module JirglStructures {
     var doublyListComponent: IBobrilComponent = {
         init(ctx: IDoublyListCtx, me: IBobrilNode): void {
             ctx.doublyLinkedList = new GuiDoublyLinkedList();
-            ctx.doublyLinkedList.addFirstItem("init item");
+            ctx.doublyLinkedList.addFirstItem({ content: "init item", isCurrent: true });
             ctx.option = "first";
             ctx.action = "add";
         },
@@ -104,13 +103,13 @@ module JirglStructures {
                         onClick: () => {
                             if (ctx.action === "add") {
                                 if (ctx.option === "first") {
-                                    ctx.doublyLinkedList.addFirstItem(ctx.value);
+                                    ctx.doublyLinkedList.addFirstItem({ content: ctx.value, isCurrent: true });
                                 } else if (ctx.option === "predecessor") {
-                                    ctx.doublyLinkedList.addPreviousItem(ctx.value);
+                                    ctx.doublyLinkedList.addPreviousItem({ content: ctx.value, isCurrent: true });
                                 } else if (ctx.option === "successor") {
-                                    ctx.doublyLinkedList.addNextItem(ctx.value);
+                                    ctx.doublyLinkedList.addNextItem({ content: ctx.value, isCurrent: true });
                                 } else if (ctx.option === "last") {
-                                    ctx.doublyLinkedList.addLastItem(ctx.value);
+                                    ctx.doublyLinkedList.addLastItem({ content: ctx.value, isCurrent: true });
                                 }
                             } else if (ctx.action === "remove") {
                                 if (ctx.option === "first") {
@@ -131,7 +130,7 @@ module JirglStructures {
                     })
                 }),
                 canvas({
-                    contentIterator: ctx.doublyLinkedList.getGuiIterator(),
+                    contentIterator: ctx.doublyLinkedList.getIterator(),
                     grid: ctx.doublyLinkedList
                 })
             ];

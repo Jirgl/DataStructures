@@ -11,7 +11,6 @@ module JirglStructures {
             header({ content: "Data structures", size: Size.H1 }),
             header({ content: "Lists", size: Size.H2 }),
             header({ content: "Doubly linked list", size: Size.H3 }),
-            header({ content: "Doubly linked list", size: Size.H3 }),
             doublyList({}),
             header({ content: "Trees", size: Size.H2 }),
             header({ content: "Graphs", size: Size.H2 })
