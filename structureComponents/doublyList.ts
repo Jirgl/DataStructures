@@ -17,51 +17,6 @@ module JirglStructures {
         data: IDoublyListData;
     }
 
-    export class GuiDoublyLinkedList extends Lists.DoublyLinkedList<GuiItem> implements IGrid {
-        private iterator: GuiDoublyLinkedListIterator;
-
-        constructor() {
-            super();
-            this.iterator = new GuiDoublyLinkedListIterator(this);
-        }
-
-        getPosition(maxWidth: number): Position {
-            var itemWidthWithMargin = (itemWidth + (itemMargin * 2));
-            var itemsPerLine = Math.floor(maxWidth / itemWidthWithMargin);
-            return {
-                x: ((this.iterator.orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
-                y: Math.floor((this.iterator.orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
-            };
-        }
-
-        getIterator(): IIterator<GuiItem> {
-            return this.iterator;
-        }
-    }
-
-    class GuiDoublyLinkedListIterator extends Lists.DoublyLinkedListIterator<GuiItem> implements IIterator<GuiItem> {
-        orderOfItem: number;
-
-        constructor(doublyLinkedList: Lists.DoublyLinkedList<GuiItem>) {
-            super(doublyLinkedList);
-            this.orderOfItem = 0;
-        }
-
-        next(): GuiItem {
-            var isCurrent = this.doublyLinkedList.currentItem === this.iteratorCurrentItem;
-            var item = super.next();
-            item.isCurrent = isCurrent;
-            this.orderOfItem++;
-
-            return item;
-        }
-
-        reset(): void {
-            super.reset();
-            this.orderOfItem = 0;
-        }
-    }
-
     var doublyListComponent: IBobrilComponent = {
         init(ctx: IDoublyListCtx, me: IBobrilNode): void {
             ctx.doublyLinkedList = new GuiDoublyLinkedList();

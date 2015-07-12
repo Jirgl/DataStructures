@@ -4,8 +4,14 @@
         y: number;
     }
 
+    export class ArrowPosition {
+        start: Position;
+        end: Position;
+    }
+
     export interface IGrid
     {
-        getPosition(maxWidth: number) : Position;
+        getItemPosition(maxWidth: number): Position;
+        getArrowsPositions(previousPosition: Position, position: Position): ArrowPosition[];
     }
 }
