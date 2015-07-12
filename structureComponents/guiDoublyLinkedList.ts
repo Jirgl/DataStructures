@@ -7,6 +7,10 @@
             this.iterator = new GuiDoublyLinkedListIterator(this);
         }
 
+        getArrowType(): ArrowType {
+            return ArrowType.SchemaTwoWay;
+        }
+
         getItemPosition(maxWidth: number): Position {
             var itemWidthWithMargin = (itemWidth + (itemMargin * 2));
             var itemsPerLine = Math.floor(maxWidth / itemWidthWithMargin);

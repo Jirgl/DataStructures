@@ -1,62 +1,108 @@
 ﻿/// <reference path="../bobril/bobril.d.ts" />
 
 module JirglStructures {
-    export enum Type {
-        Direct,
-        Schema
+    export enum ArrowType {
+        DirectOneWay,
+        DirectTwoWay,
+        SchemaOneWay,
+        SchemaTwoWay
     }
 
-    function drawSchemaLine(start: Position, end: Position): any {
-        var startArrowhead: Position = { x: end.x - 10, y: end.y - 10 };
-        var middleArrowhead: Position = { x: end.x, y: end.y };
-        var endArrowhead: Position = { x: end.x - 10, y: end.y + 10 };
-        var path: any[] = undefined;
+    class Arrow {
+        private axisOffset = 5;
+        private arrowheadOffset = 7;
+        private itemArrowOffset = 17;
 
-        if (start.y === end.y && start.x < end.x) {
-            path = ["M", start.x, start.y, "L", end.x, end.y];
-        } else if (start.y === end.y && start.x > end.x) {
+        drawSchemaLine(start: Position, end: Position, type: ArrowType): any {
+            var linePath: any[] = undefined;
+            var arrowPath: any[] = undefined;
 
-        } else if (start.x === end.x && start.y < end.y) {
+            if (type === ArrowType.SchemaOneWay) {
+                arrowPath = [
+                    "M", end.x - this.arrowheadOffset, end.y - this.arrowheadOffset,
+                    "L", end.x, end.y,
+                    "L", end.x - this.arrowheadOffset, end.y + this.arrowheadOffset
+                ];
+            } else if (type === ArrowType.SchemaTwoWay) {
+                arrowPath = [
+                    "M", end.x - this.arrowheadOffset, end.y - this.arrowheadOffset - this.axisOffset,
+                    "L", end.x, end.y - this.axisOffset,
+                    "L", end.x - this.arrowheadOffset, end.y + this.arrowheadOffset - this.axisOffset,
+                    "M", start.x + this.arrowheadOffset, start.y - this.arrowheadOffset + this.axisOffset,
+                    "L", start.x, start.y + this.axisOffset,
+                    "L", start.x + this.arrowheadOffset, start.y + this.arrowheadOffset + this.axisOffset
+                ];
+            }
 
-        } else if (start.x === end.x && start.y > end.y) {
-
-        } else if (start.x > end.x && start.y < end.y) {
-            path = [
-                "M", start.x, start.y,
-                "L", start.x + 15, start.y,
-                "L", start.x + 15, start.y + ((end.y - start.y) / 2),
-                "L", end.x - 15, start.y + ((end.y - start.y) / 2),
-                "L", end.x - 15, end.y,
-                "L", end.x, end.y
-            ];
-        }
-
-        return [
-            {
-                data: {
-                    path: path,
-                    stroke: "#000000",
-                    strokeWidth: 3
+            if (start.y === end.y && start.x < end.x) {
+                if (type === ArrowType.SchemaOneWay) {
+                    linePath = ["M", start.x, start.y, "L", end.x, end.y];
+                } else if (type === ArrowType.SchemaTwoWay) {
+                    linePath = [
+                        "M", start.x, start.y - this.axisOffset,
+                        "L", end.x, end.y - this.axisOffset,
+                        "M", end.x, end.y + this.axisOffset,
+                        "L", start.x, start.y + this.axisOffset
+                    ];
                 }
-            }, {
-                data: {
-                    path: [
-                        "M", startArrowhead.x, startArrowhead.y,
-                        "L", middleArrowhead.x, middleArrowhead.y,
-                        "L", endArrowhead.x, endArrowhead.y
-                    ],
-                    stroke: "#000000",
-                    strokeWidth: 3,
-                    lineJoin: "miter"
+            } else if (start.y === end.y && start.x > end.x) {
+
+            } else if (start.x === end.x && start.y < end.y) {
+
+            } else if (start.x === end.x && start.y > end.y) {
+
+            } else if (start.x > end.x && start.y < end.y) {
+                if (type === ArrowType.SchemaOneWay) {
+                    linePath = [
+                        "M", start.x, start.y,
+                        "L", start.x + this.itemArrowOffset, start.y,
+                        "L", start.x + this.itemArrowOffset, start.y + ((end.y - start.y) / 2),
+                        "L", end.x - this.itemArrowOffset, start.y + ((end.y - start.y) / 2),
+                        "L", end.x - this.itemArrowOffset, end.y,
+                        "L", end.x, end.y
+                    ];
+                }else if (type === ArrowType.SchemaTwoWay) {
+                    linePath = [
+                        "M", start.x, start.y - this.axisOffset,
+                        "L", start.x + this.itemArrowOffset + this.axisOffset, start.y - this.axisOffset,
+                        "L", start.x + this.itemArrowOffset + this.axisOffset, start.y + ((end.y - start.y) / 2) + this.axisOffset,
+                        "L", end.x - this.itemArrowOffset + this.axisOffset, start.y + ((end.y - start.y) / 2) + this.axisOffset,
+                        "L", end.x - this.itemArrowOffset + this.axisOffset, end.y - this.axisOffset,
+                        "L", end.x, end.y - this.axisOffset,
+                        "M", start.x, start.y + this.axisOffset,
+                        "L", start.x + this.itemArrowOffset - this.axisOffset, start.y + this.axisOffset,
+                        "L", start.x + this.itemArrowOffset - this.axisOffset, start.y + ((end.y - start.y) / 2) - this.axisOffset,
+                        "L", end.x - this.itemArrowOffset - this.axisOffset, start.y + ((end.y - start.y) / 2) - this.axisOffset,
+                        "L", end.x - this.itemArrowOffset - this.axisOffset, end.y + this.axisOffset,
+                        "L", end.x, end.y + this.axisOffset
+                    ];
                 }
             }
-        ];
+
+            return [
+                {
+                    data: {
+                        path: linePath,
+                        stroke: "#000000",
+                        strokeWidth: 2
+                    }
+                }, {
+                    data: {
+                        path: arrowPath,
+                        stroke: "#000000",
+                        strokeWidth: 2,
+                        lineJoin: "miter"
+                    }
+                }
+            ];
+        }
     }
 
-    export function arrow(arrowPostion: ArrowPosition, type: Type): any {
-        if (type === Type.Schema) {
-            return drawSchemaLine(arrowPostion.start, arrowPostion.end);
-        } else if (type === Type.Direct) {
+
+    export function arrow(arrowPostion: ArrowPosition, type: ArrowType): any {
+        if (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay) {
+            return new Arrow().drawSchemaLine(arrowPostion.start, arrowPostion.end, type);
+        } else if (type === ArrowType.DirectOneWay || type === ArrowType.DirectTwoWay) {
 
         }
 

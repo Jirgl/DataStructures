@@ -11,6 +11,7 @@
 
     export interface IGrid
     {
+        getArrowType(): ArrowType;
         getItemPosition(maxWidth: number): Position;
         getArrowsPositions(previousPosition: Position, position: Position): ArrowPosition[];
     }

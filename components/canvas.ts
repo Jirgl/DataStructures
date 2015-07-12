@@ -32,7 +32,7 @@ module JirglStructures {
                 if (previousPosition !== undefined) {
                     var itemArrows = ctx.data.grid.getArrowsPositions(previousPosition, position);
                     for (var index = 0; index < itemArrows.length; index++) {
-                        arrows.push(arrow(itemArrows[index], Type.Schema));
+                        arrows.push(arrow(itemArrows[index], ctx.data.grid.getArrowType()));
                     }
                 }
 

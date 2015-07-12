@@ -1,9 +1,9 @@
 ﻿/// <reference path="../bobril/bobril.d.ts" />
 
 module JirglStructures {
-    export var itemWidth = 100;
-    export var itemHeight = 100;
-    export var itemMargin = 20;
+    export var itemWidth = 80;
+    export var itemHeight = 80;
+    export var itemMargin = 30;
 
     export interface IItemData {
         content: string;

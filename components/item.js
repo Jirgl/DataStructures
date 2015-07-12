@@ -1,9 +1,9 @@
 /// <reference path="../bobril/bobril.d.ts" />
 var JirglStructures;
 (function (JirglStructures) {
-    JirglStructures.itemWidth = 100;
-    JirglStructures.itemHeight = 100;
-    JirglStructures.itemMargin = 20;
+    JirglStructures.itemWidth = 80;
+    JirglStructures.itemHeight = 80;
+    JirglStructures.itemMargin = 30;
     var itemComponent = {
         render: function (ctx, me) {
             me.tag = "div";

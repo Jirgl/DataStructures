@@ -12,6 +12,9 @@ var JirglStructures;
             _super.call(this);
             this.iterator = new GuiDoublyLinkedListIterator(this);
         }
+        GuiDoublyLinkedList.prototype.getArrowType = function () {
+            return JirglStructures.ArrowType.SchemaTwoWay;
+        };
         GuiDoublyLinkedList.prototype.getItemPosition = function (maxWidth) {
             var itemWidthWithMargin = (JirglStructures.itemWidth + (JirglStructures.itemMargin * 2));
             var itemsPerLine = Math.floor(maxWidth / itemWidthWithMargin);

@@ -21,7 +21,7 @@ var JirglStructures;
                 if (previousPosition !== undefined) {
                     var itemArrows = ctx.data.grid.getArrowsPositions(previousPosition, position);
                     for (var index = 0; index < itemArrows.length; index++) {
-                        arrows.push(JirglStructures.arrow(itemArrows[index], JirglStructures.Type.Schema));
+                        arrows.push(JirglStructures.arrow(itemArrows[index], ctx.data.grid.getArrowType()));
                     }
                 }
                 var currentHeight = position.y + JirglStructures.itemHeight + (2 * JirglStructures.itemMargin);
