@@ -9,7 +9,6 @@ var JirglStructures;
         render: function (ctx, me) {
             var width = b.getMedia().width - 500;
             var iterator = ctx.data.contentIterator;
-            iterator.reset();
             var children = [];
             var arrows = [];
             var previousPosition;

@@ -18,7 +18,6 @@ module JirglStructures {
         render(ctx: ICanvasCtx, me: IBobrilNode) {
             var width = b.getMedia().width - 500;
             var iterator = ctx.data.contentIterator;
-            iterator.reset();
             var children: IBobrilNode[] = [];
             var arrows: IBobrilNode[] = [];
             var previousPosition: Position;

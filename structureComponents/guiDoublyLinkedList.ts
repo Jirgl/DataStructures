@@ -2,11 +2,6 @@
     export class GuiDoublyLinkedList extends Lists.DoublyLinkedList<GuiItem> implements IGrid {
         private iterator: GuiDoublyLinkedListIterator;
 
-        constructor() {
-            super();
-            this.iterator = new GuiDoublyLinkedListIterator(this);
-        }
-
         getArrowType(): ArrowType {
             return ArrowType.SchemaTwoWay;
         }
@@ -30,20 +25,24 @@
         }
 
         getIterator(): IIterator<GuiItem> {
+            this.iterator = new GuiDoublyLinkedListIterator(this.firstItem,() => { return this.currentItem; });
             return this.iterator;
         }
     }
 
     class GuiDoublyLinkedListIterator extends Lists.DoublyLinkedListIterator<GuiItem> implements IIterator<GuiItem> {
+        private getCurrentItem;
         orderOfItem: number;
 
-        constructor(doublyLinkedList: Lists.DoublyLinkedList<GuiItem>) {
-            super(doublyLinkedList);
+        constructor(firstItem: Lists.Item<GuiItem>, getCurrentItem: () => Lists.Item<GuiItem>) {
+            super(firstItem);
+            this.getCurrentItem = getCurrentItem();
             this.orderOfItem = 0;
         }
 
         next(): GuiItem {
-            var isCurrent = this.doublyLinkedList.currentItem === this.iteratorCurrentItem;
+            //check isCurrent is important here, next() changes iteratorCurrentItem
+            var isCurrent = this.getCurrentItem === this.iteratorCurrentItem;
             var item = super.next();
             item.isCurrent = isCurrent;
             this.orderOfItem++;

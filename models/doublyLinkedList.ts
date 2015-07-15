@@ -8,9 +8,9 @@ module JirglStructures.Lists {
     }
 
     export class DoublyLinkedList<T> {
-        currentItem: Item<T>;
-        firstItem: Item<T>;
-        lastItem: Item<T>;
+        protected currentItem: Item<T>;
+        protected firstItem: Item<T>;
+        protected lastItem: Item<T>;
 
         clear(): void {
             this.currentItem = undefined;
@@ -187,17 +187,16 @@ module JirglStructures.Lists {
         }
 
         getIterator(): IIterator<T> {
-            return new DoublyLinkedListIterator(this);
+            return new DoublyLinkedListIterator<T>(this.firstItem);
         }
     }
 
     export class DoublyLinkedListIterator<T> implements IIterator<T> {
-        iteratorCurrentItem: Item<T>;
-        doublyLinkedList: DoublyLinkedList<T>;
+        protected iteratorCurrentItem: Item<T>;
+        protected firstItem: Item<T>;
 
-        constructor(doublyLinkedList: DoublyLinkedList<T>) {
-            this.doublyLinkedList = doublyLinkedList;
-            this.iteratorCurrentItem = doublyLinkedList.firstItem;
+        constructor(firstItem: Item<T>) {
+            this.firstItem = this.iteratorCurrentItem = firstItem;
         }
 
         hasNext(): boolean {
@@ -211,7 +210,7 @@ module JirglStructures.Lists {
         }
 
         reset(): void {
-            this.iteratorCurrentItem = this.doublyLinkedList.firstItem;
+            this.iteratorCurrentItem = this.firstItem;
         }
     }
 }

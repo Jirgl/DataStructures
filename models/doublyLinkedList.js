@@ -175,15 +175,14 @@ var JirglStructures;
                 }
             };
             DoublyLinkedList.prototype.getIterator = function () {
-                return new DoublyLinkedListIterator(this);
+                return new DoublyLinkedListIterator(this.firstItem);
             };
             return DoublyLinkedList;
         })();
         Lists.DoublyLinkedList = DoublyLinkedList;
         var DoublyLinkedListIterator = (function () {
-            function DoublyLinkedListIterator(doublyLinkedList) {
-                this.doublyLinkedList = doublyLinkedList;
-                this.iteratorCurrentItem = doublyLinkedList.firstItem;
+            function DoublyLinkedListIterator(firstItem) {
+                this.firstItem = this.iteratorCurrentItem = firstItem;
             }
             DoublyLinkedListIterator.prototype.hasNext = function () {
                 return this.iteratorCurrentItem != undefined;
@@ -194,7 +193,7 @@ var JirglStructures;
                 return current.data;
             };
             DoublyLinkedListIterator.prototype.reset = function () {
-                this.iteratorCurrentItem = this.doublyLinkedList.firstItem;
+                this.iteratorCurrentItem = this.firstItem;
             };
             return DoublyLinkedListIterator;
         })();
