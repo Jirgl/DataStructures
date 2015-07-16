@@ -31,10 +31,7 @@ var JirglStructures;
             ];
         };
         GuiDoublyLinkedList.prototype.getIterator = function () {
-            var _this = this;
-            this.iterator = new GuiDoublyLinkedListIterator(this.firstItem, function () {
-                return _this.currentItem;
-            });
+            this.iterator = new GuiDoublyLinkedListIterator(this.firstItem, this.currentItem);
             return this.iterator;
         };
         return GuiDoublyLinkedList;
@@ -42,14 +39,14 @@ var JirglStructures;
     JirglStructures.GuiDoublyLinkedList = GuiDoublyLinkedList;
     var GuiDoublyLinkedListIterator = (function (_super) {
         __extends(GuiDoublyLinkedListIterator, _super);
-        function GuiDoublyLinkedListIterator(firstItem, getCurrentItem) {
+        function GuiDoublyLinkedListIterator(firstItem, currentItem) {
             _super.call(this, firstItem);
-            this.getCurrentItem = getCurrentItem();
+            this.currentItem = currentItem;
             this.orderOfItem = 0;
         }
         GuiDoublyLinkedListIterator.prototype.next = function () {
             //check isCurrent is important here, next() changes iteratorCurrentItem
-            var isCurrent = this.getCurrentItem === this.iteratorCurrentItem;
+            var isCurrent = this.currentItem === this.iteratorCurrentItem;
             var item = _super.prototype.next.call(this);
             item.isCurrent = isCurrent;
             this.orderOfItem++;

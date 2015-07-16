@@ -1,4 +1,7 @@
-describe("Doubly Linked list", function() {
+///<reference path="../jasmine/jasmine.js"/>
+///<reference path="../models/doublyLinkedList.js"/>
+
+describe("Doubly Linked list - add methods", function() {
     var doublyLinkedlist;
 
     beforeEach(function() {
@@ -91,6 +94,111 @@ describe("Doubly Linked list", function() {
         expect(doublyLinkedlist.currentItem.next.previous).toBe(doublyLinkedlist.currentItem);
         expect(doublyLinkedlist.currentItem.previous.data).toBe("previous");
         expect(doublyLinkedlist.currentItem.previous.next).toBe(doublyLinkedlist.currentItem);
+    });
+});
+
+describe("Doubly Linked list - remove methods", function() {
+    var doublyLinkedlist;
+
+    beforeEach(function() {
+        doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList();
+        doublyLinkedlist.addLastItem("one");
+        doublyLinkedlist.addLastItem("two");
+        doublyLinkedlist.addLastItem("three");
+    });
+
+    it("remove first item", function () {
+        var removedItem = doublyLinkedlist.removeFirstItem();
+        expect(removedItem).toBe("one");
+        expect(doublyLinkedlist.firstItem.data).toBe("two");
+        expect(doublyLinkedlist.firstItem.previous).toEqual(undefined);
+        expect(doublyLinkedlist.firstItem.next).toBe(doublyLinkedlist.lastItem);
+
+        removedItem = doublyLinkedlist.removeFirstItem();
+        expect(removedItem).toBe("two");
+        expect(doublyLinkedlist.firstItem.data).toBe("three");
+        expect(doublyLinkedlist.firstItem.previous).toEqual(undefined);
+        expect(doublyLinkedlist.firstItem.next).toEqual(undefined);
+
+        removedItem = doublyLinkedlist.removeFirstItem();
+        expect(removedItem).toBe("three");
+        expect(doublyLinkedlist.firstItem).toEqual(undefined);
+        expect(doublyLinkedlist.lastItem).toEqual(undefined);
+        expect(doublyLinkedlist.currentItem).toEqual(undefined);
+    });
+
+    it("remove last item", function () {
+        var removedItem = doublyLinkedlist.removeLastItem();
+        expect(removedItem).toBe("three");
+        expect(doublyLinkedlist.lastItem.data).toBe("two");
+        expect(doublyLinkedlist.lastItem.previous).toBe(doublyLinkedlist.firstItem);
+        expect(doublyLinkedlist.lastItem.next).toEqual(undefined);
+
+        removedItem = doublyLinkedlist.removeLastItem();
+        expect(removedItem).toBe("two");
+        expect(doublyLinkedlist.lastItem.data).toBe("one");
+        expect(doublyLinkedlist.lastItem.previous).toEqual(undefined);
+        expect(doublyLinkedlist.lastItem.next).toEqual(undefined);
+
+        removedItem = doublyLinkedlist.removeLastItem();
+        expect(removedItem).toBe("one");
+        expect(doublyLinkedlist.firstItem).toEqual(undefined);
+        expect(doublyLinkedlist.lastItem).toEqual(undefined);
+        expect(doublyLinkedlist.currentItem).toEqual(undefined);
+    });
+
+    it("remove current item", function () {
+        var removedItem = doublyLinkedlist.removeCurrentItem();
+        expect(removedItem).toBe("three");
+        expect(doublyLinkedlist.currentItem.data).toBe("one");
+        expect(doublyLinkedlist.currentItem.previous).toEqual(undefined);
+        expect(doublyLinkedlist.currentItem.next).toBe(doublyLinkedlist.lastItem);
+
+        removedItem = doublyLinkedlist.removeCurrentItem();
+        expect(removedItem).toBe("one");
+        expect(doublyLinkedlist.currentItem.data).toBe("two");
+        expect(doublyLinkedlist.currentItem.previous).toEqual(undefined);
+        expect(doublyLinkedlist.currentItem.next).toEqual(undefined);
+
+        removedItem = doublyLinkedlist.removeCurrentItem();
+        expect(removedItem).toBe("two");
+        expect(doublyLinkedlist.firstItem).toEqual(undefined);
+        expect(doublyLinkedlist.lastItem).toEqual(undefined);
+        expect(doublyLinkedlist.currentItem).toEqual(undefined);
+    });
+
+    it("remove next item", function () {
+        doublyLinkedlist.addFirstItem("move current item to first");
+
+        var removedItem = doublyLinkedlist.removeNextItem();
+        expect(removedItem).toBe("one");
+
+        removedItem = doublyLinkedlist.removeNextItem();
+        expect(removedItem).toBe("two");
+
+        removedItem = doublyLinkedlist.removeNextItem();
+        expect(removedItem).toBe("three");
+    });
+
+    it("remove previous item", function () {
+        doublyLinkedlist.addLastItem("move current item to last");
+
+        var removedItem = doublyLinkedlist.removePreviousItem();
+        expect(removedItem).toBe("three");
+
+        removedItem = doublyLinkedlist.removePreviousItem();
+        expect(removedItem).toBe("two");
+
+        removedItem = doublyLinkedlist.removePreviousItem();
+        expect(removedItem).toBe("one");
+    });
+});
+
+describe("Doubly Linked list - iterator", function() {
+    var doublyLinkedlist;
+
+    beforeEach(function() {
+        doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList();
     });
 
     it("iterate by iterator", function() {

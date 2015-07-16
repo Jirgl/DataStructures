@@ -25,24 +25,24 @@
         }
 
         getIterator(): IIterator<GuiItem> {
-            this.iterator = new GuiDoublyLinkedListIterator(this.firstItem,() => { return this.currentItem; });
+            this.iterator = new GuiDoublyLinkedListIterator(this.firstItem, this.currentItem);
             return this.iterator;
         }
     }
 
     class GuiDoublyLinkedListIterator extends Lists.DoublyLinkedListIterator<GuiItem> implements IIterator<GuiItem> {
-        private getCurrentItem;
+        private currentItem: Lists.Item<GuiItem>;
         orderOfItem: number;
 
-        constructor(firstItem: Lists.Item<GuiItem>, getCurrentItem: () => Lists.Item<GuiItem>) {
+        constructor(firstItem: Lists.Item<GuiItem>, currentItem: Lists.Item<GuiItem>) {
             super(firstItem);
-            this.getCurrentItem = getCurrentItem();
+            this.currentItem = currentItem;
             this.orderOfItem = 0;
         }
 
         next(): GuiItem {
             //check isCurrent is important here, next() changes iteratorCurrentItem
-            var isCurrent = this.getCurrentItem === this.iteratorCurrentItem;
+            var isCurrent = this.currentItem === this.iteratorCurrentItem;
             var item = super.next();
             item.isCurrent = isCurrent;
             this.orderOfItem++;

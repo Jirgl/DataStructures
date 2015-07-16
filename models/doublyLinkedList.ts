@@ -100,29 +100,33 @@ module JirglStructures.Lists {
             return this.currentItem.previous.data;
         }
 
-        removeCurrentItem(): void {
+        removeCurrentItem(): T {
             if (this.currentItem === undefined) {
-                return;
+                return undefined;
             }
 
             if (this.currentItem === this.firstItem) {
-                this.removeFirstItem();
+                return this.removeFirstItem();
             } else if (this.currentItem === this.lastItem) {
-                this.removeLastItem();
+                return this.removeLastItem();
             } else {
+                var itemData = this.currentItem.data;
                 this.currentItem.previous.next = this.currentItem.next;
                 this.currentItem.next.previous = this.currentItem.previous;
                 this.currentItem.previous = undefined;
                 this.currentItem.next = undefined;
                 this.currentItem = this.firstItem;
+
+                return itemData;
             }
         }
 
-        removeFirstItem(): void {
+        removeFirstItem(): T {
             if (this.firstItem === undefined) {
-                return;
+                return undefined;
             }
 
+            var itemData = this.firstItem.data;
             if (this.firstItem === this.lastItem) {
                 this.firstItem = this.lastItem = this.currentItem = undefined;
             } else {
@@ -133,15 +137,19 @@ module JirglStructures.Lists {
                 if (this.firstItem === this.currentItem) {
                     this.currentItem = newFirstItem;
                 }
+
                 this.firstItem = newFirstItem;
             }
+
+            return itemData;
         }
 
-        removeLastItem(): void {
+        removeLastItem(): T {
             if (this.lastItem === undefined) {
-                return;
+                return undefined;
             }
 
+            var itemData = this.lastItem.data;
             if (this.lastItem === this.firstItem) {
                 this.firstItem = this.lastItem = this.currentItem = undefined;
             } else {
@@ -155,34 +163,41 @@ module JirglStructures.Lists {
 
                 this.lastItem = newLastItem;
             }
+
+            return itemData;
         }
 
-        removeNextItem(): void {
+        removeNextItem(): T {
             if (this.currentItem === undefined || this.currentItem.next === undefined) {
-                return;
-            } else if (this.currentItem.next.next === undefined) {
-                this.removeLastItem();
+                return undefined;
+            } else if (this.currentItem.next === this.lastItem) {
+                return this.removeLastItem();
             } else {
+                var itemData = this.currentItem.next.data;
                 var newNextItem = this.currentItem.next.next;
                 this.currentItem.next.next.previous = this.currentItem;
                 this.currentItem.next.next = undefined;
                 this.currentItem.next.previous = undefined;
                 this.currentItem.next = newNextItem;
+
+                return itemData;
             }
         }
 
-
-        removePreviousItem(): void {
+        removePreviousItem(): T {
             if (this.currentItem == undefined || this.currentItem.previous === undefined) {
-                return;
-            } else if (this.currentItem.previous.previous === undefined) {
-                this.removeFirstItem();
+                return undefined;
+            } else if (this.currentItem.previous === this.firstItem) {
+                return this.removeFirstItem();
             } else {
+                var itemData = this.currentItem.previous.data;
                 var newPreviousItem = this.currentItem.previous.previous;
                 this.currentItem.previous.previous.next = this.currentItem;
                 this.currentItem.previous.previous = undefined;
                 this.currentItem.previous.next = undefined;
                 this.currentItem.previous = newPreviousItem;
+
+                return itemData;
             }
         }
 
