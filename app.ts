@@ -8,12 +8,12 @@
 module JirglStructures {
     b.init(() => {
         return [
-            header({ content: "Data structures", size: Size.H1 }),
-            header({ content: "Lists", size: Size.H2 }),
-            header({ content: "Doubly linked list", size: Size.H3 }),
+            header({ content: "Data structures", size: HeaderSize.H1 }),
+            header({ content: "Lists", size: HeaderSize.H2 }),
+            header({ content: "Doubly linked list", size: HeaderSize.H3 }),
             doublyList({}),
-            header({ content: "Trees", size: Size.H2 }),
-            header({ content: "Graphs", size: Size.H2 })
+            header({ content: "Trees", size: HeaderSize.H2 }),
+            header({ content: "Graphs", size: HeaderSize.H2 })
         ];
     });
 }

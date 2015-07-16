@@ -8,12 +8,12 @@ var JirglStructures;
 (function (JirglStructures) {
     b.init(function () {
         return [
-            JirglStructures.header({ content: "Data structures", size: JirglStructures.Size.H1 }),
-            JirglStructures.header({ content: "Lists", size: JirglStructures.Size.H2 }),
-            JirglStructures.header({ content: "Doubly linked list", size: JirglStructures.Size.H3 }),
+            JirglStructures.header({ content: "Data structures", size: 0 /* H1 */ }),
+            JirglStructures.header({ content: "Lists", size: 1 /* H2 */ }),
+            JirglStructures.header({ content: "Doubly linked list", size: 2 /* H3 */ }),
             JirglStructures.doublyList({}),
-            JirglStructures.header({ content: "Trees", size: JirglStructures.Size.H2 }),
-            JirglStructures.header({ content: "Graphs", size: JirglStructures.Size.H2 })
+            JirglStructures.header({ content: "Trees", size: 1 /* H2 */ }),
+            JirglStructures.header({ content: "Graphs", size: 1 /* H2 */ })
         ];
     });
 })(JirglStructures || (JirglStructures = {}));

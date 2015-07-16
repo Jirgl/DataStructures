@@ -1,7 +1,7 @@
 ﻿/// <reference path="../bobril/bobril.d.ts" />
 
 module JirglStructures {
-    export enum Size {
+    export enum HeaderSize {
         H1,
         H2,
         H3,
@@ -12,7 +12,7 @@ module JirglStructures {
 
     export interface IHeaderData {
         content: string;
-        size: Size;
+        size: HeaderSize;
     }
 
     interface IHeaderCtx {
@@ -20,19 +20,19 @@ module JirglStructures {
     }
 
     var headerComponent: IBobrilComponent = {
-        toTag(size: Size): string {
+        toTag(size: HeaderSize): string {
             switch (size) {
-            case Size.H1:
+            case HeaderSize.H1:
                 return "h1";
-            case Size.H2:
+            case HeaderSize.H2:
                 return "h2";
-            case Size.H3:
+            case HeaderSize.H3:
                 return "h3";
-            case Size.H4:
+            case HeaderSize.H4:
                 return "h4";
-            case Size.H5:
+            case HeaderSize.H5:
                 return "h5";
-            case Size.H6:
+            case HeaderSize.H6:
                 return "h6";
             default:
                 return "h2";

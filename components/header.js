@@ -1,15 +1,15 @@
 /// <reference path="../bobril/bobril.d.ts" />
 var JirglStructures;
 (function (JirglStructures) {
-    (function (Size) {
-        Size[Size["H1"] = 0] = "H1";
-        Size[Size["H2"] = 1] = "H2";
-        Size[Size["H3"] = 2] = "H3";
-        Size[Size["H4"] = 3] = "H4";
-        Size[Size["H5"] = 4] = "H5";
-        Size[Size["H6"] = 5] = "H6";
-    })(JirglStructures.Size || (JirglStructures.Size = {}));
-    var Size = JirglStructures.Size;
+    (function (HeaderSize) {
+        HeaderSize[HeaderSize["H1"] = 0] = "H1";
+        HeaderSize[HeaderSize["H2"] = 1] = "H2";
+        HeaderSize[HeaderSize["H3"] = 2] = "H3";
+        HeaderSize[HeaderSize["H4"] = 3] = "H4";
+        HeaderSize[HeaderSize["H5"] = 4] = "H5";
+        HeaderSize[HeaderSize["H6"] = 5] = "H6";
+    })(JirglStructures.HeaderSize || (JirglStructures.HeaderSize = {}));
+    var HeaderSize = JirglStructures.HeaderSize;
     var headerComponent = {
         toTag: function (size) {
             switch (size) {
