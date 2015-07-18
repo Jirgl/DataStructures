@@ -13,12 +13,10 @@ var JirglStructures;
             ctx.action = "add";
         },
         render: function (ctx, me) {
-            var options = ["first", "predecessor"];
+            var options = ["first", "predecessor", "successor", "last"];
             if (ctx.action === "remove") {
                 options.push("current");
             }
-            options.push("successor");
-            options.push("last");
             me.children = [
                 JirglStructures.controlPanel({
                     actions: JirglStructures.combobox({

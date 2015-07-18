@@ -25,13 +25,10 @@ module JirglStructures {
             ctx.action = "add";
         },
         render(ctx: IDoublyListCtx, me: IBobrilNode): void {
-            var options = ["first", "predecessor"];
+            var options = ["first", "predecessor", "successor", "last"];
             if (ctx.action === "remove") {
                 options.push("current");
             }
-
-            options.push("successor");
-            options.push("last");
 
             me.children = [
                 controlPanel({
