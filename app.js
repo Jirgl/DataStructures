@@ -8,12 +8,14 @@ var JirglStructures;
 (function (JirglStructures) {
     b.init(function () {
         return [
-            JirglStructures.header({ content: "Data structures", size: 0 /* H1 */ }),
-            JirglStructures.header({ content: "Lists", size: 1 /* H2 */ }),
-            JirglStructures.header({ content: "Doubly linked list", size: 2 /* H3 */ }),
+            JirglStructures.header({ content: "Data structures", size: JirglStructures.HeaderSize.H1 }),
+            JirglStructures.header({ content: "Lists", size: JirglStructures.HeaderSize.H2 }),
+            JirglStructures.header({ content: "Doubly linked list", size: JirglStructures.HeaderSize.H3 }),
             JirglStructures.doublyList({}),
-            JirglStructures.header({ content: "Trees", size: 1 /* H2 */ }),
-            JirglStructures.header({ content: "Graphs", size: 1 /* H2 */ })
+            JirglStructures.header({ content: "Trees", size: JirglStructures.HeaderSize.H2 }),
+            JirglStructures.header({ content: "Binary tree", size: JirglStructures.HeaderSize.H3 }),
+            JirglStructures.header({ content: "Binary search tree", size: JirglStructures.HeaderSize.H3 }),
+            JirglStructures.header({ content: "Graphs", size: JirglStructures.HeaderSize.H2 })
         ];
     });
 })(JirglStructures || (JirglStructures = {}));
