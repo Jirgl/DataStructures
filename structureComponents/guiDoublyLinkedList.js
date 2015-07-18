@@ -41,12 +41,12 @@ var JirglStructures;
         __extends(GuiDoublyLinkedListIterator, _super);
         function GuiDoublyLinkedListIterator(firstItem, currentItem) {
             _super.call(this, firstItem);
-            this.currentItem = currentItem;
+            this.currentGuiItem = currentItem;
             this.orderOfItem = 0;
         }
         GuiDoublyLinkedListIterator.prototype.next = function () {
-            //check isCurrent is important here, next() changes iteratorCurrentItem
-            var isCurrent = this.currentItem === this.iteratorCurrentItem;
+            //check isCurrent is important here, next() changes currentItem
+            var isCurrent = this.currentItem === this.currentGuiItem;
             var item = _super.prototype.next.call(this);
             item.isCurrent = isCurrent;
             this.orderOfItem++;

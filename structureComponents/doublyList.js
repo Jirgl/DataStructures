@@ -2,7 +2,7 @@
 /// <reference path="../bobril/bobril.mouse.d.ts" />
 /// <reference path="../components/button.ts" />
 /// <reference path="../components/canvas.ts" />
-/// <reference path="../models/grid.ts" />
+/// <reference path="../structureComponents/grid.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var doublyListComponent = {

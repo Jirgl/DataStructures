@@ -31,18 +31,18 @@
     }
 
     class GuiDoublyLinkedListIterator extends Lists.DoublyLinkedListIterator<GuiItem> implements IIterator<GuiItem> {
-        private currentItem: Lists.Item<GuiItem>;
+        private currentGuiItem: Lists.Item<GuiItem>;
         orderOfItem: number;
 
         constructor(firstItem: Lists.Item<GuiItem>, currentItem: Lists.Item<GuiItem>) {
             super(firstItem);
-            this.currentItem = currentItem;
+            this.currentGuiItem = currentItem;
             this.orderOfItem = 0;
         }
 
         next(): GuiItem {
-            //check isCurrent is important here, next() changes iteratorCurrentItem
-            var isCurrent = this.currentItem === this.iteratorCurrentItem;
+            //check isCurrent is important here, next() changes currentItem
+            var isCurrent = this.currentItem === this.currentGuiItem;
             var item = super.next();
             item.isCurrent = isCurrent;
             this.orderOfItem++;
