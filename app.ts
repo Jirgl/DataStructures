@@ -5,6 +5,7 @@
 /// <reference path="components/controlpanel.ts" />
 /// <reference path="structureComponents/view/doublyList.ts" />
 /// <reference path="structureComponents/view/queue.ts" />
+/// <reference path="structureComponents/view/stack.ts" />
 
 module JirglStructures {
     b.init(() => {
@@ -15,6 +16,8 @@ module JirglStructures {
             View.doublyList({}),
             header({ content: "Queue", size: HeaderSize.H3 }),
             View.queue({}),
+            header({ content: "Stack", size: HeaderSize.H3 }),
+            View.stack({}),
             header({ content: "Trees", size: HeaderSize.H2 }),
             header({ content: "Binary tree", size: HeaderSize.H3 }),
             header({ content: "Binary search tree", size: HeaderSize.H3 }),

@@ -5,6 +5,7 @@
 /// <reference path="components/controlpanel.ts" />
 /// <reference path="structureComponents/view/doublyList.ts" />
 /// <reference path="structureComponents/view/queue.ts" />
+/// <reference path="structureComponents/view/stack.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     b.init(function () {
@@ -15,6 +16,8 @@ var JirglStructures;
             JirglStructures.View.doublyList({}),
             JirglStructures.header({ content: "Queue", size: JirglStructures.HeaderSize.H3 }),
             JirglStructures.View.queue({}),
+            JirglStructures.header({ content: "Stack", size: JirglStructures.HeaderSize.H3 }),
+            JirglStructures.View.stack({}),
             JirglStructures.header({ content: "Trees", size: JirglStructures.HeaderSize.H2 }),
             JirglStructures.header({ content: "Binary tree", size: JirglStructures.HeaderSize.H3 }),
             JirglStructures.header({ content: "Binary search tree", size: JirglStructures.HeaderSize.H3 }),

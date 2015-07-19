@@ -6,9 +6,9 @@
     }
 
     export class GuiGridList implements IGrid {
-        private iterator: GuiDoublyLinkedListIterator;
+        private iterator: GuiListIterator;
 
-        constructor(iterator: GuiDoublyLinkedListIterator) {
+        constructor(iterator: GuiListIterator) {
             this.iterator = iterator;
         }
 

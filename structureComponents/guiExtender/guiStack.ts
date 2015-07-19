@@ -1,5 +1,5 @@
 ﻿module JirglStructures.GuiExtender {
-    export class GuiQueue {
+    export class GuiStack {
         private guiList: GuiDoublyLinkedList;
 
         constructor() {
@@ -10,11 +10,11 @@
             return this.guiList.getFirstGuiItem();
         }
 
-        enqueue(item: GuiItem): void {
-            this.guiList.addLastItem(item);
+        push(item: GuiItem): void {
+            this.guiList.addFirstItem(item);
         }
 
-        dequeue(): GuiItem {
+        pop(): GuiItem {
             return this.guiList.removeFirstItem();
         }
 

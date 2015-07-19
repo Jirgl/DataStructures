@@ -2,25 +2,25 @@ var JirglStructures;
 (function (JirglStructures) {
     var GuiExtender;
     (function (GuiExtender) {
-        var GuiQueue = (function () {
-            function GuiQueue() {
+        var GuiStack = (function () {
+            function GuiStack() {
                 this.guiList = new GuiExtender.GuiDoublyLinkedList();
             }
-            GuiQueue.prototype.getFirstGuiItem = function () {
+            GuiStack.prototype.getFirstGuiItem = function () {
                 return this.guiList.getFirstGuiItem();
             };
-            GuiQueue.prototype.enqueue = function (item) {
-                this.guiList.addLastItem(item);
+            GuiStack.prototype.push = function (item) {
+                this.guiList.addFirstItem(item);
             };
-            GuiQueue.prototype.dequeue = function () {
+            GuiStack.prototype.pop = function () {
                 return this.guiList.removeFirstItem();
             };
-            GuiQueue.prototype.getIterator = function () {
+            GuiStack.prototype.getIterator = function () {
                 return new GuiExtender.GuiListIterator(this.getFirstGuiItem());
             };
-            return GuiQueue;
+            return GuiStack;
         })();
-        GuiExtender.GuiQueue = GuiQueue;
+        GuiExtender.GuiStack = GuiStack;
     })(GuiExtender = JirglStructures.GuiExtender || (JirglStructures.GuiExtender = {}));
 })(JirglStructures || (JirglStructures = {}));
-//# sourceMappingURL=guiQueue.js.map
+//# sourceMappingURL=guiStack.js.map

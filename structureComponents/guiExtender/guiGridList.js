@@ -13,7 +13,7 @@ var JirglStructures;
                 this.iterator = iterator;
             }
             GuiGridList.prototype.getArrowType = function () {
-                return 3 /* SchemaTwoWay */;
+                return JirglStructures.ArrowType.SchemaTwoWay;
             };
             GuiGridList.prototype.getItemPosition = function (maxWidth) {
                 var itemWidthWithMargin = (JirglStructures.itemWidth + (JirglStructures.itemMargin * 2));

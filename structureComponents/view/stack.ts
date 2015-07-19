@@ -5,29 +5,29 @@
 /// <reference path="../../structureComponents/grid.ts" />
 
 module JirglStructures.View {
-    export interface IQueueData {
+    export interface IStackData {
 
     }
 
-    export interface IQueueCtx {
-        que: GuiExtender.GuiQueue;
+    export interface IStackCtx {
+        stack: GuiExtender.GuiStack;
         action: string;
         value: string;
-        data: IQueueData;
+        data: IStackData;
     }
 
     var queueComponent: IBobrilComponent = {
-        init(ctx: IQueueCtx, me: IBobrilNode): void {
-            ctx.que = new GuiExtender.GuiQueue();
-            ctx.que.enqueue({ content: "init item", isCurrent: true });
-            ctx.action = "enqueue";
+        init(ctx: IStackCtx, me: IBobrilNode): void {
+            ctx.stack = new GuiExtender.GuiStack();
+            ctx.stack.push({ content: "init item", isCurrent: true });
+            ctx.action = "push";
         },
-        render(ctx: IQueueCtx, me: IBobrilNode): void {
-            var iterator = ctx.que.getIterator();
+        render(ctx: IStackCtx, me: IBobrilNode): void {
+            var iterator = ctx.stack.getIterator();
             me.children = [
                 controlPanel({
                     actions: combobox({
-                        options: ["enqueue", "dequeue"],
+                        options: ["push", "pop"],
                         onChange: (value: string) => {
                             ctx.action = value;
                         }
@@ -36,15 +36,15 @@ module JirglStructures.View {
                         onChange: (value: string) => {
                             ctx.value = value;
                         },
-                        isDisabled: ctx.action === "dequeue"
+                        isDisabled: ctx.action === "pop"
                     }),
                     submitButton: button({
                         content: "Execute",
                         onClick: () => {
-                            if (ctx.action === "enqueue") {
-                                ctx.que.enqueue({ content: ctx.value, isCurrent: true });
-                            } else if (ctx.action === "dequeue") {
-                                ctx.que.dequeue();
+                            if (ctx.action === "push") {
+                                ctx.stack.push({ content: ctx.value, isCurrent: true });
+                            } else if (ctx.action === "pop") {
+                                ctx.stack.pop();
                             }
 
                             b.invalidate(ctx);
@@ -59,7 +59,7 @@ module JirglStructures.View {
         }
     }
 
-    export function queue(data: IQueueData): IBobrilNode {
+    export function stack(data: IStackData): IBobrilNode {
         return { component: queueComponent, data: data };
     }
 }

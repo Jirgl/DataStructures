@@ -20,36 +20,11 @@ var JirglStructures;
                 return this.firstItem;
             };
             GuiDoublyLinkedList.prototype.getIterator = function () {
-                return new GuiDoublyLinkedListIterator(this.firstItem, this.currentItem);
+                return new GuiExtender.GuiListIterator(this.firstItem, this.currentItem);
             };
             return GuiDoublyLinkedList;
         })(JirglStructures.Lists.DoublyLinkedList);
         GuiExtender.GuiDoublyLinkedList = GuiDoublyLinkedList;
-        var GuiDoublyLinkedListIterator = (function (_super) {
-            __extends(GuiDoublyLinkedListIterator, _super);
-            function GuiDoublyLinkedListIterator(firstItem, currentItem) {
-                _super.call(this, firstItem);
-                this.currentGuiItem = currentItem;
-                this.orderOfItem = 0;
-            }
-            GuiDoublyLinkedListIterator.prototype.next = function () {
-                //check isCurrent is important here, next() changes currentItem
-                var isCurrent = false;
-                if (this.currentGuiItem !== undefined) {
-                    isCurrent = this.currentItem === this.currentGuiItem;
-                }
-                var item = _super.prototype.next.call(this);
-                item.isCurrent = isCurrent;
-                this.orderOfItem++;
-                return item;
-            };
-            GuiDoublyLinkedListIterator.prototype.reset = function () {
-                _super.prototype.reset.call(this);
-                this.orderOfItem = 0;
-            };
-            return GuiDoublyLinkedListIterator;
-        })(JirglStructures.Lists.DoublyLinkedListIterator);
-        GuiExtender.GuiDoublyLinkedListIterator = GuiDoublyLinkedListIterator;
     })(GuiExtender = JirglStructures.GuiExtender || (JirglStructures.GuiExtender = {}));
 })(JirglStructures || (JirglStructures = {}));
 //# sourceMappingURL=guiDoublyLinkedList.js.map

@@ -1,15 +1,5 @@
-﻿module JirglStructures.View {
-    export class GuiDoublyLinkedList extends Lists.DoublyLinkedList<GuiItem> {
-        getCurrentGuiItem(): Lists.Item<GuiItem> {
-            return this.currentItem;
-        }
-
-        getFirstGuiItem(): Lists.Item<GuiItem> {
-            return this.firstItem;
-        }
-    }
-
-    export class GuiDoublyLinkedListIterator extends Lists.DoublyLinkedListIterator<GuiItem> {
+﻿module JirglStructures.GuiExtender {
+    export class GuiListIterator extends Lists.DoublyLinkedListIterator<GuiItem> {
         private currentGuiItem: Lists.Item<GuiItem>;
         orderOfItem: number;
 
