@@ -1,4 +1,4 @@
-﻿module JirglStructures.View {
+﻿module JirglStructures.GuiExtender {
     export class GuiDoublyLinkedList extends Lists.DoublyLinkedList<GuiItem> {
         getCurrentGuiItem(): Lists.Item<GuiItem> {
             return this.currentItem;
@@ -6,6 +6,10 @@
 
         getFirstGuiItem(): Lists.Item<GuiItem> {
             return this.firstItem;
+        }
+
+        getIterator(): GuiDoublyLinkedListIterator {
+            return new GuiDoublyLinkedListIterator(this.firstItem, this.currentItem);
         }
     }
 

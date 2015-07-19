@@ -7,7 +7,7 @@ module JirglStructures.Lists {
         previous: Item<T>;
     }
 
-    export class DoublyLinkedList<T> {
+    export class DoublyLinkedList<T> implements IIterable<T> {
         protected currentItem: Item<T>;
         protected firstItem: Item<T>;
         protected lastItem: Item<T>;

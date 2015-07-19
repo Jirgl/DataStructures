@@ -3,7 +3,8 @@
 /// <reference path="models/doublylinkedlist.ts" />
 /// <reference path="components/header.ts" />
 /// <reference path="components/controlpanel.ts" />
-/// <reference path="structureComponents/doublyList.ts" />
+/// <reference path="structureComponents/view/doublyList.ts" />
+/// <reference path="structureComponents/view/queue.ts" />
 
 module JirglStructures {
     b.init(() => {
@@ -11,7 +12,9 @@ module JirglStructures {
             header({ content: "Data structures", size: HeaderSize.H1 }),
             header({ content: "Lists", size: HeaderSize.H2 }),
             header({ content: "Doubly linked list", size: HeaderSize.H3 }),
-            doublyList({}),
+            View.doublyList({}),
+            header({ content: "Queue", size: HeaderSize.H3 }),
+            View.queue({}),
             header({ content: "Trees", size: HeaderSize.H2 }),
             header({ content: "Binary tree", size: HeaderSize.H3 }),
             header({ content: "Binary search tree", size: HeaderSize.H3 }),

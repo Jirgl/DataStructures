@@ -4,12 +4,13 @@ var JirglStructures;
     var controlPanelComoponent = {
         render: function (ctx, me) {
             me.tag = "table";
-            me.children = [
-                { tag: "td", children: ctx.data.actions },
-                { tag: "td", children: ctx.data.options },
-                { tag: "td", children: ctx.data.valueBox },
-                { tag: "td", children: ctx.data.submitButton }
-            ];
+            var children = [{ tag: "td", children: ctx.data.actions }];
+            if (ctx.data.options) {
+                children.push({ tag: "td", children: ctx.data.options });
+            }
+            children.push({ tag: "td", children: ctx.data.valueBox });
+            children.push({ tag: "td", children: ctx.data.submitButton });
+            me.children = children;
         }
     };
     function controlPanel(data) {

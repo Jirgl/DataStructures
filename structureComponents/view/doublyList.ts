@@ -1,16 +1,16 @@
-﻿/// <reference path="../bobril/bobril.d.ts" />
-/// <reference path="../bobril/bobril.mouse.d.ts" />
-/// <reference path="../components/button.ts" />
-/// <reference path="../components/canvas.ts" />
-/// <reference path="../structureComponents/grid.ts" />
+﻿/// <reference path="../../bobril/bobril.d.ts" />
+/// <reference path="../../bobril/bobril.mouse.d.ts" />
+/// <reference path="../../components/button.ts" />
+/// <reference path="../../components/canvas.ts" />
+/// <reference path="../../structureComponents/grid.ts" />
 
-module JirglStructures {
+module JirglStructures.View {
     export interface IDoublyListData {
         
     }
 
     export interface IDoublyListCtx {
-        doublyLinkedList: GuiDoublyLinkedList;
+        doublyLinkedList: GuiExtender.GuiDoublyLinkedList;
         option: string;
         action: string;
         value: string;
@@ -19,12 +19,13 @@ module JirglStructures {
 
     var doublyListComponent: IBobrilComponent = {
         init(ctx: IDoublyListCtx, me: IBobrilNode): void {
-            ctx.doublyLinkedList = new GuiDoublyLinkedList();
+            ctx.doublyLinkedList = new GuiExtender.GuiDoublyLinkedList();
             ctx.doublyLinkedList.addFirstItem({ content: "init item", isCurrent: true });
             ctx.option = "first";
             ctx.action = "add";
         },
         render(ctx: IDoublyListCtx, me: IBobrilNode): void {
+            var iterator = ctx.doublyLinkedList.getIterator();
             var options = ["first", "predecessor", "successor", "last"];
             if (ctx.action === "remove") {
                 options.push("current");
@@ -82,8 +83,8 @@ module JirglStructures {
                     })
                 }),
                 canvas({
-                    contentIterator: ctx.doublyLinkedList.getIterator(),
-                    grid: ctx.doublyLinkedList
+                    contentIterator: iterator,
+                    grid: new GuiExtender.GuiGridList(iterator)
                 })
             ];
         }

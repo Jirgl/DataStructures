@@ -6,20 +6,6 @@ var __extends = this.__extends || function (d, b) {
 };
 var JirglStructures;
 (function (JirglStructures) {
-    var GuiDoublyLinkedList = (function (_super) {
-        __extends(GuiDoublyLinkedList, _super);
-        function GuiDoublyLinkedList() {
-            _super.apply(this, arguments);
-        }
-        GuiDoublyLinkedList.prototype.getCurrentGuiItem = function () {
-            return this.currentItem;
-        };
-        GuiDoublyLinkedList.prototype.getFirstGuiItem = function () {
-            return this.firstItem;
-        };
-        return GuiDoublyLinkedList;
-    })(JirglStructures.Lists.DoublyLinkedList);
-    JirglStructures.GuiDoublyLinkedList = GuiDoublyLinkedList;
     var GuiDoublyLinkedListIterator = (function (_super) {
         __extends(GuiDoublyLinkedListIterator, _super);
         function GuiDoublyLinkedListIterator(firstItem, currentItem) {
@@ -46,4 +32,4 @@ var JirglStructures;
     })(JirglStructures.Lists.DoublyLinkedListIterator);
     JirglStructures.GuiDoublyLinkedListIterator = GuiDoublyLinkedListIterator;
 })(JirglStructures || (JirglStructures = {}));
-//# sourceMappingURL=guiDoublyLinkedList.js.map
+//# sourceMappingURL=guiIterator.js.map

@@ -3,7 +3,8 @@
 /// <reference path="models/doublylinkedlist.ts" />
 /// <reference path="components/header.ts" />
 /// <reference path="components/controlpanel.ts" />
-/// <reference path="structureComponents/doublyList.ts" />
+/// <reference path="structureComponents/view/doublyList.ts" />
+/// <reference path="structureComponents/view/queue.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     b.init(function () {
@@ -11,7 +12,9 @@ var JirglStructures;
             JirglStructures.header({ content: "Data structures", size: JirglStructures.HeaderSize.H1 }),
             JirglStructures.header({ content: "Lists", size: JirglStructures.HeaderSize.H2 }),
             JirglStructures.header({ content: "Doubly linked list", size: JirglStructures.HeaderSize.H3 }),
-            JirglStructures.doublyList({}),
+            JirglStructures.View.doublyList({}),
+            JirglStructures.header({ content: "Queue", size: JirglStructures.HeaderSize.H3 }),
+            JirglStructures.View.queue({}),
             JirglStructures.header({ content: "Trees", size: JirglStructures.HeaderSize.H2 }),
             JirglStructures.header({ content: "Binary tree", size: JirglStructures.HeaderSize.H3 }),
             JirglStructures.header({ content: "Binary search tree", size: JirglStructures.HeaderSize.H3 }),

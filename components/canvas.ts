@@ -6,7 +6,7 @@
 
 module JirglStructures {
     export interface ICanvasData {
-        contentIterator: IIterator<GuiItem>;
+        contentIterator: IIterator<GuiExtender.GuiItem>;
         grid: IGrid;
     }
 
