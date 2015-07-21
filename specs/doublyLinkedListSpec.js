@@ -194,6 +194,29 @@ describe("Doubly Linked list - remove methods", function() {
     });
 });
 
+describe("Doubly linked list - other functions", function () {
+    var doublyLinkedlist;
+
+    beforeEach(function () {
+        doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList();
+    });
+
+    it("clear doubly linked list", function () {
+        doublyLinkedlist.addLastItem("last");
+        expect(doublyLinkedlist.firstItem.data).toBe("last");
+
+        doublyLinkedlist.clear();
+        expect(doublyLinkedlist.firstItem).toEqual(undefined);
+    });
+
+    it("is empty doubly linked list", function () {
+        expect(doublyLinkedlist.isEmpty()).toBeTruthy();
+
+        doublyLinkedlist.addLastItem("last");
+        expect(doublyLinkedlist.isEmpty()).toBeFalsy();
+    });
+});
+
 describe("Doubly Linked list - iterator", function() {
     var doublyLinkedlist;
 
