@@ -6,6 +6,12 @@ var JirglStructures;
             function Queue() {
                 this.list = new Lists.DoublyLinkedList();
             }
+            Queue.prototype.clear = function () {
+                this.list.clear();
+            };
+            Queue.prototype.isEmpty = function () {
+                return this.list.isEmpty();
+            };
             Queue.prototype.enqueue = function (t) {
                 this.list.addLastItem(t);
             };

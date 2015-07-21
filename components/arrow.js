@@ -17,59 +17,33 @@ var JirglStructures;
         Arrow.prototype.drawSchemaLine = function (start, end, type) {
             var linePath = undefined;
             var arrowPath = undefined;
-            if (type === 2 /* SchemaOneWay */) {
+            if (type === ArrowType.SchemaOneWay) {
                 arrowPath = [
-                    "M",
-                    end.x - this.arrowheadOffset,
-                    end.y - this.arrowheadOffset,
-                    "L",
-                    end.x,
-                    end.y,
-                    "L",
-                    end.x - this.arrowheadOffset,
-                    end.y + this.arrowheadOffset
+                    "M", end.x - this.arrowheadOffset, end.y - this.arrowheadOffset,
+                    "L", end.x, end.y,
+                    "L", end.x - this.arrowheadOffset, end.y + this.arrowheadOffset
                 ];
             }
-            else if (type === 3 /* SchemaTwoWay */) {
+            else if (type === ArrowType.SchemaTwoWay) {
                 arrowPath = [
-                    "M",
-                    end.x - this.arrowheadOffset,
-                    end.y - this.arrowheadOffset - this.axisOffset,
-                    "L",
-                    end.x,
-                    end.y - this.axisOffset,
-                    "L",
-                    end.x - this.arrowheadOffset,
-                    end.y + this.arrowheadOffset - this.axisOffset,
-                    "M",
-                    start.x + this.arrowheadOffset,
-                    start.y - this.arrowheadOffset + this.axisOffset,
-                    "L",
-                    start.x,
-                    start.y + this.axisOffset,
-                    "L",
-                    start.x + this.arrowheadOffset,
-                    start.y + this.arrowheadOffset + this.axisOffset
+                    "M", end.x - this.arrowheadOffset, end.y - this.arrowheadOffset - this.axisOffset,
+                    "L", end.x, end.y - this.axisOffset,
+                    "L", end.x - this.arrowheadOffset, end.y + this.arrowheadOffset - this.axisOffset,
+                    "M", start.x + this.arrowheadOffset, start.y - this.arrowheadOffset + this.axisOffset,
+                    "L", start.x, start.y + this.axisOffset,
+                    "L", start.x + this.arrowheadOffset, start.y + this.arrowheadOffset + this.axisOffset
                 ];
             }
             if (start.y === end.y && start.x < end.x) {
-                if (type === 2 /* SchemaOneWay */) {
+                if (type === ArrowType.SchemaOneWay) {
                     linePath = ["M", start.x, start.y, "L", end.x, end.y];
                 }
-                else if (type === 3 /* SchemaTwoWay */) {
+                else if (type === ArrowType.SchemaTwoWay) {
                     linePath = [
-                        "M",
-                        start.x,
-                        start.y - this.axisOffset,
-                        "L",
-                        end.x,
-                        end.y - this.axisOffset,
-                        "M",
-                        end.x,
-                        end.y + this.axisOffset,
-                        "L",
-                        start.x,
-                        start.y + this.axisOffset
+                        "M", start.x, start.y - this.axisOffset,
+                        "L", end.x, end.y - this.axisOffset,
+                        "M", end.x, end.y + this.axisOffset,
+                        "L", start.x, start.y + this.axisOffset
                     ];
                 }
             }
@@ -80,66 +54,30 @@ var JirglStructures;
             else if (start.x === end.x && start.y > end.y) {
             }
             else if (start.x > end.x && start.y < end.y) {
-                if (type === 2 /* SchemaOneWay */) {
+                if (type === ArrowType.SchemaOneWay) {
                     linePath = [
-                        "M",
-                        start.x,
-                        start.y,
-                        "L",
-                        start.x + this.itemArrowOffset,
-                        start.y,
-                        "L",
-                        start.x + this.itemArrowOffset,
-                        start.y + ((end.y - start.y) / 2),
-                        "L",
-                        end.x - this.itemArrowOffset,
-                        start.y + ((end.y - start.y) / 2),
-                        "L",
-                        end.x - this.itemArrowOffset,
-                        end.y,
-                        "L",
-                        end.x,
-                        end.y
+                        "M", start.x, start.y,
+                        "L", start.x + this.itemArrowOffset, start.y,
+                        "L", start.x + this.itemArrowOffset, start.y + ((end.y - start.y) / 2),
+                        "L", end.x - this.itemArrowOffset, start.y + ((end.y - start.y) / 2),
+                        "L", end.x - this.itemArrowOffset, end.y,
+                        "L", end.x, end.y
                     ];
                 }
-                else if (type === 3 /* SchemaTwoWay */) {
+                else if (type === ArrowType.SchemaTwoWay) {
                     linePath = [
-                        "M",
-                        start.x,
-                        start.y - this.axisOffset,
-                        "L",
-                        start.x + this.itemArrowOffset + this.axisOffset,
-                        start.y - this.axisOffset,
-                        "L",
-                        start.x + this.itemArrowOffset + this.axisOffset,
-                        start.y + ((end.y - start.y) / 2) + this.axisOffset,
-                        "L",
-                        end.x - this.itemArrowOffset + this.axisOffset,
-                        start.y + ((end.y - start.y) / 2) + this.axisOffset,
-                        "L",
-                        end.x - this.itemArrowOffset + this.axisOffset,
-                        end.y - this.axisOffset,
-                        "L",
-                        end.x,
-                        end.y - this.axisOffset,
-                        "M",
-                        start.x,
-                        start.y + this.axisOffset,
-                        "L",
-                        start.x + this.itemArrowOffset - this.axisOffset,
-                        start.y + this.axisOffset,
-                        "L",
-                        start.x + this.itemArrowOffset - this.axisOffset,
-                        start.y + ((end.y - start.y) / 2) - this.axisOffset,
-                        "L",
-                        end.x - this.itemArrowOffset - this.axisOffset,
-                        start.y + ((end.y - start.y) / 2) - this.axisOffset,
-                        "L",
-                        end.x - this.itemArrowOffset - this.axisOffset,
-                        end.y + this.axisOffset,
-                        "L",
-                        end.x,
-                        end.y + this.axisOffset
+                        "M", start.x, start.y - this.axisOffset,
+                        "L", start.x + this.itemArrowOffset + this.axisOffset, start.y - this.axisOffset,
+                        "L", start.x + this.itemArrowOffset + this.axisOffset, start.y + ((end.y - start.y) / 2) + this.axisOffset,
+                        "L", end.x - this.itemArrowOffset + this.axisOffset, start.y + ((end.y - start.y) / 2) + this.axisOffset,
+                        "L", end.x - this.itemArrowOffset + this.axisOffset, end.y - this.axisOffset,
+                        "L", end.x, end.y - this.axisOffset,
+                        "M", start.x, start.y + this.axisOffset,
+                        "L", start.x + this.itemArrowOffset - this.axisOffset, start.y + this.axisOffset,
+                        "L", start.x + this.itemArrowOffset - this.axisOffset, start.y + ((end.y - start.y) / 2) - this.axisOffset,
+                        "L", end.x - this.itemArrowOffset - this.axisOffset, start.y + ((end.y - start.y) / 2) - this.axisOffset,
+                        "L", end.x - this.itemArrowOffset - this.axisOffset, end.y + this.axisOffset,
+                        "L", end.x, end.y + this.axisOffset
                     ];
                 }
             }
@@ -150,8 +88,7 @@ var JirglStructures;
                         stroke: "#000000",
                         strokeWidth: 2
                     }
-                },
-                {
+                }, {
                     data: {
                         path: arrowPath,
                         stroke: "#000000",
@@ -164,10 +101,10 @@ var JirglStructures;
         return Arrow;
     })();
     function arrow(arrowPostion, type) {
-        if (type === 2 /* SchemaOneWay */ || type === 3 /* SchemaTwoWay */) {
+        if (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay) {
             return new Arrow().drawSchemaLine(arrowPostion.start, arrowPostion.end, type);
         }
-        else if (type === 0 /* DirectOneWay */ || type === 1 /* DirectTwoWay */) {
+        else if (type === ArrowType.DirectOneWay || type === ArrowType.DirectTwoWay) {
         }
         return undefined;
     }

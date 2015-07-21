@@ -1,3 +1,5 @@
+/// <reference path="../../bobril/bobril.d.ts" />
+/// <reference path="../../bobril/bobril.media.d.ts"/>
 var JirglStructures;
 (function (JirglStructures) {
     var GuiExtender;
@@ -10,14 +12,15 @@ var JirglStructures;
         var GuiListType = GuiExtender.GuiListType;
         var GuiGridList = (function () {
             function GuiGridList(iterator) {
+                this.widthReduction = 500;
                 this.iterator = iterator;
             }
             GuiGridList.prototype.getArrowType = function () {
                 return JirglStructures.ArrowType.SchemaTwoWay;
             };
-            GuiGridList.prototype.getItemPosition = function (maxWidth) {
+            GuiGridList.prototype.getPosition = function () {
                 var itemWidthWithMargin = (JirglStructures.itemWidth + (JirglStructures.itemMargin * 2));
-                var itemsPerLine = Math.floor(maxWidth / itemWidthWithMargin);
+                var itemsPerLine = Math.floor(b.getMedia().width - this.widthReduction / itemWidthWithMargin);
                 return {
                     x: ((this.iterator.orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
                     y: Math.floor((this.iterator.orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
@@ -30,6 +33,9 @@ var JirglStructures;
                         end: { x: position.x + JirglStructures.itemMargin, y: position.y + JirglStructures.itemHeight / 2 + JirglStructures.itemMargin }
                     }
                 ];
+            };
+            GuiGridList.prototype.getWidth = function () {
+                return b.getMedia().width - this.widthReduction;
             };
             return GuiGridList;
         })();

@@ -3,7 +3,8 @@ var JirglStructures;
     var GuiExtender;
     (function (GuiExtender) {
         var GuiItem = (function () {
-            function GuiItem() {
+            function GuiItem(content) {
+                this.content = content;
             }
             return GuiItem;
         })();

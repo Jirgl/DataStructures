@@ -20,6 +20,7 @@ var JirglStructures;
             JirglStructures.View.stack({}),
             JirglStructures.header({ content: "Trees", size: JirglStructures.HeaderSize.H2 }),
             JirglStructures.header({ content: "Binary tree", size: JirglStructures.HeaderSize.H3 }),
+            JirglStructures.View.binaryTree({}),
             JirglStructures.header({ content: "Binary search tree", size: JirglStructures.HeaderSize.H3 }),
             JirglStructures.header({ content: "Graphs", size: JirglStructures.HeaderSize.H2 })
         ];

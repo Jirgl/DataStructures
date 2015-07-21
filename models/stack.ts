@@ -6,6 +6,14 @@
             this.list = new DoublyLinkedList<T>();
         }
 
+        clear(): void {
+            this.list.clear();
+        }
+
+        isEmpty(): boolean {
+            return this.list.isEmpty();
+        }
+
         push(t: T): void {
             this.list.addFirstItem(t);
         }

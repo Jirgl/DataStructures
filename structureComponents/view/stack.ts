@@ -10,7 +10,7 @@ module JirglStructures.View {
     }
 
     export interface IStackCtx {
-        stack: GuiExtender.GuiStack;
+        stack: GuiExtender.GuiStack<string>;
         action: string;
         value: string;
         data: IStackData;
@@ -18,7 +18,7 @@ module JirglStructures.View {
 
     var queueComponent: IBobrilComponent = {
         init(ctx: IStackCtx, me: IBobrilNode): void {
-            ctx.stack = new GuiExtender.GuiStack();
+            ctx.stack = new GuiExtender.GuiStack<string>();
             ctx.stack.push({ content: "init item", isCurrent: true });
             ctx.action = "push";
         },

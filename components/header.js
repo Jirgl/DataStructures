@@ -13,17 +13,17 @@ var JirglStructures;
     var headerComponent = {
         toTag: function (size) {
             switch (size) {
-                case 0 /* H1 */:
+                case HeaderSize.H1:
                     return "h1";
-                case 1 /* H2 */:
+                case HeaderSize.H2:
                     return "h2";
-                case 2 /* H3 */:
+                case HeaderSize.H3:
                     return "h3";
-                case 3 /* H4 */:
+                case HeaderSize.H4:
                     return "h4";
-                case 4 /* H5 */:
+                case HeaderSize.H5:
                     return "h5";
-                case 5 /* H6 */:
+                case HeaderSize.H6:
                     return "h6";
                 default:
                     return "h2";

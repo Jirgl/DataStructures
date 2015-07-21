@@ -1,15 +1,15 @@
 ﻿module JirglStructures.GuiExtender {
-    export class GuiDoublyLinkedList extends Lists.DoublyLinkedList<GuiItem> {
-        getCurrentGuiItem(): Lists.Item<GuiItem> {
+    export class GuiDoublyLinkedList<T> extends Lists.DoublyLinkedList<GuiItem<T>> {
+        getCurrentGuiItem(): Lists.Item<GuiItem<T>> {
             return this.currentItem;
         }
 
-        getFirstGuiItem(): Lists.Item<GuiItem> {
+        getFirstGuiItem(): Lists.Item<GuiItem<T>> {
             return this.firstItem;
         }
 
-        getIterator(): GuiListIterator {
-            return new GuiListIterator(this.firstItem, this.currentItem);
+        getIterator(): GuiListIterator<T> {
+            return new GuiListIterator<T>(this.firstItem, this.currentItem);
         }
     }
 }

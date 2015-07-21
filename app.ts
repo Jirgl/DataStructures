@@ -20,6 +20,7 @@ module JirglStructures {
             View.stack({}),
             header({ content: "Trees", size: HeaderSize.H2 }),
             header({ content: "Binary tree", size: HeaderSize.H3 }),
+            View.binaryTree({}),
             header({ content: "Binary search tree", size: HeaderSize.H3 }),
             header({ content: "Graphs", size: HeaderSize.H2 })
         ];

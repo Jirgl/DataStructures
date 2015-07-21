@@ -10,7 +10,7 @@ module JirglStructures.View {
     }
 
     export interface IDoublyListCtx {
-        doublyLinkedList: GuiExtender.GuiDoublyLinkedList;
+        doublyLinkedList: GuiExtender.GuiDoublyLinkedList<string>;
         option: string;
         action: string;
         value: string;
@@ -19,7 +19,7 @@ module JirglStructures.View {
 
     var doublyListComponent: IBobrilComponent = {
         init(ctx: IDoublyListCtx, me: IBobrilNode): void {
-            ctx.doublyLinkedList = new GuiExtender.GuiDoublyLinkedList();
+            ctx.doublyLinkedList = new GuiExtender.GuiDoublyLinkedList<string>();
             ctx.doublyLinkedList.addFirstItem({ content: "init item", isCurrent: true });
             ctx.option = "first";
             ctx.action = "add";
@@ -84,7 +84,7 @@ module JirglStructures.View {
                 }),
                 canvas({
                     contentIterator: iterator,
-                    grid: new GuiExtender.GuiGridList(iterator)
+                    grid: new GuiExtender.GuiGridList<string>(iterator)
                 })
             ];
         }

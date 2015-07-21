@@ -6,6 +6,12 @@ var JirglStructures;
             function GuiQueue() {
                 this.guiList = new GuiExtender.GuiDoublyLinkedList();
             }
+            GuiQueue.prototype.clear = function () {
+                this.guiList.clear();
+            };
+            GuiQueue.prototype.isEmpty = function () {
+                return this.guiList.isEmpty();
+            };
             GuiQueue.prototype.getFirstGuiItem = function () {
                 return this.guiList.getFirstGuiItem();
             };

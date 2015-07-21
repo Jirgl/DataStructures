@@ -1,5 +1,4 @@
 /// <reference path="../bobril/bobril.d.ts" />
-/// <reference path="../bobril/bobril.media.d.ts"/>
 /// <reference path="../models/iterator.ts" />
 /// <reference path="item.ts" />
 /// <reference path="arrow.ts" />
@@ -7,7 +6,6 @@ var JirglStructures;
 (function (JirglStructures) {
     var canvasComponent = {
         render: function (ctx, me) {
-            var width = b.getMedia().width - 500;
             var iterator = ctx.data.contentIterator;
             var children = [];
             var arrows = [];
@@ -15,7 +13,7 @@ var JirglStructures;
             var maxHeight = JirglStructures.itemHeight + (2 * JirglStructures.itemMargin);
             while (iterator.hasNext()) {
                 var guiItem = iterator.next();
-                var position = ctx.data.grid.getItemPosition(width);
+                var position = ctx.data.grid.getPosition();
                 children.push(JirglStructures.item({ content: guiItem.content, x: position.x, y: position.y, isCurrent: guiItem.isCurrent }));
                 if (previousPosition !== undefined) {
                     var itemArrows = ctx.data.grid.getArrowsPositions(previousPosition, position);
@@ -31,12 +29,12 @@ var JirglStructures;
             }
             children.push({
                 component: b.vg,
-                data: { width: width, height: maxHeight },
+                data: { width: ctx.data.grid.getWidth(), height: maxHeight },
                 children: arrows
             });
             me.tag = "div";
             me.style = {
-                width: width,
+                width: ctx.data.grid.getWidth(),
                 height: maxHeight,
                 background: "#CCC",
                 position: "relative"

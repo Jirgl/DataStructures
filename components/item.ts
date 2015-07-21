@@ -5,19 +5,19 @@ module JirglStructures {
     export var itemHeight = 80;
     export var itemMargin = 30;
 
-    export interface IItemData {
-        content: string;
+    export interface IItemData<T> {
+        content: T;
         x: number;
         y: number;
         isCurrent: boolean;
     }
 
-    interface IItemCtx {
-        data: IItemData;
+    interface IItemCtx<T> {
+        data: IItemData<T>;
     }
 
     var itemComponent: IBobrilComponent = {
-        render(ctx: IItemCtx, me: IBobrilNode) {
+        render<T>(ctx: IItemCtx<T>, me: IBobrilNode) {
             me.tag = "div";
             me.style = {
                 background: ctx.data.isCurrent ? "green" : "red",
@@ -32,7 +32,7 @@ module JirglStructures {
         }
     }
 
-    export function item(data: IItemData): IBobrilNode {
+    export function item<T>(data: IItemData<T>): IBobrilNode {
         return { component: itemComponent, data: data };
     }
 }

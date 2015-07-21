@@ -12,7 +12,8 @@
     export interface IGrid
     {
         getArrowType(): ArrowType;
-        getItemPosition(maxWidth: number): Position;
+        getPosition(): Position;
         getArrowsPositions(previousPosition: Position, position: Position): ArrowPosition[];
+        getWidth(): number;
     }
 }

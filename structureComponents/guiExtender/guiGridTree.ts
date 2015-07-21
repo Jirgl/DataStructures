@@ -1,33 +1,26 @@
-﻿/// <reference path="../../bobril/bobril.d.ts" />
-/// <reference path="../../bobril/bobril.media.d.ts"/>
-
-module JirglStructures.GuiExtender {
-    export enum GuiListType {
-        LinkedList,
-        Queue,
-        Stack
-    }
-
-    export class GuiGridList<T> implements IGrid {
-        private iterator: GuiListIterator<T>;
+﻿module JirglStructures.GuiExtender {
+    export class GuiGridTree implements IGrid {
+        private depth: number;
+        private iterator: GuiTreeIterator;
         private widthReduction = 500;
 
-        constructor(iterator: GuiListIterator<T>) {
+        constructor(depth: number, iterator: GuiTreeIterator) {
+            this.depth = depth;
             this.iterator = iterator;
         }
 
         getArrowType(): ArrowType {
-            return ArrowType.SchemaTwoWay;
+            return ArrowType.DirectTwoWay;
         }
 
         getPosition(): Position {
             var itemWidthWithMargin = (itemWidth + (itemMargin * 2));
-            var itemsPerLine = Math.floor(b.getMedia().width - this.widthReduction / itemWidthWithMargin);
+            //var itemsPerLine = Math.floor(maxWidth / itemWidthWithMargin);
 
-            return {
+            return null;/*{
                 x: ((this.iterator.orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
                 y: Math.floor((this.iterator.orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
-            };
+            };*/
         }
 
         getArrowsPositions(previousPosition: Position, position: Position): ArrowPosition[] {
@@ -40,7 +33,10 @@ module JirglStructures.GuiExtender {
         }
 
         getWidth(): number {
-            return b.getMedia().width - this.widthReduction;
+            var baseWidth = b.getMedia().width - this.widthReduction;
+            var treeWidth = Math.pow(2, this.depth) * (itemWidth + (2 * itemMargin));
+
+            return Math.max(baseWidth, treeWidth);
         }
     }
 }

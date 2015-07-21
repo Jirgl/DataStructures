@@ -1,22 +1,20 @@
 ﻿/// <reference path="../bobril/bobril.d.ts" />
-/// <reference path="../bobril/bobril.media.d.ts"/>
 /// <reference path="../models/iterator.ts" />
 /// <reference path="item.ts" />
 /// <reference path="arrow.ts" />
 
 module JirglStructures {
-    export interface ICanvasData {
-        contentIterator: IIterator<GuiExtender.GuiItem>;
+    export interface ICanvasData<T> {
+        contentIterator: IIterator<GuiExtender.GuiItem<T>>;
         grid: IGrid;
     }
 
-    interface ICanvasCtx {
-        data: ICanvasData;
+    interface ICanvasCtx<T> {
+        data: ICanvasData<T>;
     }
 
     var canvasComponent: IBobrilComponent = {
-        render(ctx: ICanvasCtx, me: IBobrilNode) {
-            var width = b.getMedia().width - 500;
+        render<T>(ctx: ICanvasCtx<T>, me: IBobrilNode) {
             var iterator = ctx.data.contentIterator;
             var children: IBobrilNode[] = [];
             var arrows: IBobrilNode[] = [];
@@ -25,7 +23,7 @@ module JirglStructures {
 
             while (iterator.hasNext()) {
                 var guiItem = iterator.next();
-                var position = ctx.data.grid.getItemPosition(width);
+                var position = ctx.data.grid.getPosition();
                 children.push(item({ content: guiItem.content, x: position.x, y: position.y, isCurrent: guiItem.isCurrent }));
 
                 if (previousPosition !== undefined) {
@@ -45,13 +43,13 @@ module JirglStructures {
 
             children.push({
                 component: b.vg,
-                data: { width: width, height: maxHeight },
+                data: { width: ctx.data.grid.getWidth(), height: maxHeight },
                 children: arrows
             });
 
             me.tag = "div";
             me.style = {
-                width: width,
+                width: ctx.data.grid.getWidth(),
                 height: maxHeight,
                 background: "#CCC",
                 position: "relative"
@@ -60,7 +58,7 @@ module JirglStructures {
         }
     }
 
-    export function canvas(data: ICanvasData): IBobrilNode {
+    export function canvas<T>(data: ICanvasData<T>): IBobrilNode {
         return { component: canvasComponent, data: data };
     }
 }

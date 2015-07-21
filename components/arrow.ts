@@ -98,7 +98,6 @@ module JirglStructures {
         }
     }
 
-
     export function arrow(arrowPostion: ArrowPosition, type: ArrowType): any {
         if (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay) {
             return new Arrow().drawSchemaLine(arrowPostion.start, arrowPostion.end, type);

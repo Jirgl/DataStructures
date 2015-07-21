@@ -6,6 +6,12 @@ var JirglStructures;
             function Stack() {
                 this.list = new Lists.DoublyLinkedList();
             }
+            Stack.prototype.clear = function () {
+                this.list.clear();
+            };
+            Stack.prototype.isEmpty = function () {
+                return this.list.isEmpty();
+            };
             Stack.prototype.push = function (t) {
                 this.list.addFirstItem(t);
             };

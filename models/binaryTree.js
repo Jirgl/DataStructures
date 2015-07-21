@@ -9,6 +9,11 @@ var JirglStructures;
             return Node;
         })();
         Trees.Node = Node;
+        (function (BaseTreeTraversal) {
+            BaseTreeTraversal[BaseTreeTraversal["DepthFirst"] = 0] = "DepthFirst";
+            BaseTreeTraversal[BaseTreeTraversal["BreadthFirst"] = 1] = "BreadthFirst";
+        })(Trees.BaseTreeTraversal || (Trees.BaseTreeTraversal = {}));
+        var BaseTreeTraversal = Trees.BaseTreeTraversal;
         var BinaryTree = (function () {
             function BinaryTree() {
             }
@@ -25,7 +30,7 @@ var JirglStructures;
                 }
             };
             BinaryTree.prototype.addLeftChild = function (t) {
-                if (this.currentNode === undefined && this.currentNode.leftChild === undefined) {
+                if (this.currentNode !== undefined && this.currentNode.leftChild === undefined) {
                     var node = new Node();
                     node.data = t;
                     this.currentNode.leftChild = node;
@@ -33,7 +38,7 @@ var JirglStructures;
                 }
             };
             BinaryTree.prototype.addRightChild = function (t) {
-                if (this.currentNode === undefined && this.currentNode.rightChild === undefined) {
+                if (this.currentNode !== undefined && this.currentNode.rightChild === undefined) {
                     var node = new Node();
                     node.data = t;
                     this.currentNode.rightChild = node;
@@ -61,14 +66,16 @@ var JirglStructures;
                 return this.currentNode.data;
             };
             BinaryTree.prototype.getLeftChildNode = function () {
-                if (this.currentNode === undefined || this.currentNode.leftChild === undefined) {
+                if (this.currentNode === undefined ||
+                    this.currentNode.leftChild === undefined) {
                     return undefined;
                 }
                 this.currentNode = this.currentNode.leftChild;
                 return this.currentNode.data;
             };
             BinaryTree.prototype.getRightChildNode = function () {
-                if (this.currentNode === undefined || this.currentNode.rightChild === undefined) {
+                if (this.currentNode === undefined ||
+                    this.currentNode.rightChild === undefined) {
                     return undefined;
                 }
                 this.currentNode = this.currentNode.rightChild;
@@ -78,7 +85,8 @@ var JirglStructures;
                 if (this.rootNode === undefined) {
                     return undefined;
                 }
-                else if (this.rootNode.leftChild === undefined && this.rootNode.rightChild === undefined) {
+                else if (this.rootNode.leftChild === undefined
+                    && this.rootNode.rightChild === undefined) {
                     var nodeData = this.currentNode.data;
                     this.rootNode = this.currentNode = undefined;
                     return nodeData;
@@ -89,7 +97,8 @@ var JirglStructures;
                 if (this.currentNode.leftChild === undefined) {
                     return undefined;
                 }
-                else if (this.currentNode.leftChild.leftChild === undefined && this.currentNode.leftChild.rightChild === undefined) {
+                else if (this.currentNode.leftChild.leftChild === undefined
+                    && this.currentNode.leftChild.rightChild === undefined) {
                     var nodeData = this.currentNode.leftChild.data;
                     this.currentNode.leftChild.parent = undefined;
                     this.currentNode.leftChild = undefined;
@@ -101,7 +110,8 @@ var JirglStructures;
                 if (this.currentNode.rightChild === undefined) {
                     return undefined;
                 }
-                else if (this.currentNode.rightChild.leftChild === undefined && this.currentNode.rightChild.rightChild === undefined) {
+                else if (this.currentNode.rightChild.leftChild === undefined
+                    && this.currentNode.rightChild.rightChild === undefined) {
                     var nodeData = this.currentNode.rightChild.data;
                     this.currentNode.rightChild.parent = undefined;
                     this.currentNode.rightChild = undefined;
@@ -109,23 +119,67 @@ var JirglStructures;
                 }
                 return undefined;
             };
-            BinaryTree.prototype.getIterator = function () {
-                return new BinaryTreeIterator(this.rootNode);
+            BinaryTree.prototype.getIterator = function (traversal) {
+                return new BinaryTreeIterator(this.rootNode, traversal);
             };
             return BinaryTree;
         })();
         Trees.BinaryTree = BinaryTree;
         var BinaryTreeIterator = (function () {
-            function BinaryTreeIterator(rootNode) {
+            function BinaryTreeIterator(rootNode, traversal) {
                 this.rootNode = rootNode;
+                this.traversal = traversal;
+                if (traversal === BaseTreeTraversal.BreadthFirst) {
+                    this.que = new JirglStructures.Lists.Queue();
+                    this.que.enqueue(rootNode);
+                }
+                else if (traversal === BaseTreeTraversal.DepthFirst) {
+                    this.stack = new JirglStructures.Lists.Stack();
+                    this.stack.push(rootNode);
+                }
             }
             BinaryTreeIterator.prototype.hasNext = function () {
-                throw new Error("Not implemented");
+                if (this.traversal === BaseTreeTraversal.BreadthFirst) {
+                    return !this.que.isEmpty();
+                }
+                else if (this.traversal === BaseTreeTraversal.DepthFirst) {
+                    return !this.stack.isEmpty();
+                }
+                return false;
             };
             BinaryTreeIterator.prototype.next = function () {
-                throw new Error("Not implemented");
+                var node;
+                if (this.traversal === BaseTreeTraversal.BreadthFirst) {
+                    node = this.que.dequeue();
+                    if (node.leftChild !== undefined) {
+                        this.que.enqueue(node.leftChild);
+                    }
+                    if (node.rightChild !== undefined) {
+                        this.que.enqueue(node.rightChild);
+                    }
+                    return node.data;
+                }
+                else if (this.traversal === BaseTreeTraversal.DepthFirst) {
+                    node = this.stack.pop();
+                    if (node.rightChild !== undefined) {
+                        this.stack.push(node.rightChild);
+                    }
+                    if (node.leftChild !== undefined) {
+                        this.stack.push(node.leftChild);
+                    }
+                    return node.data;
+                }
+                return undefined;
             };
             BinaryTreeIterator.prototype.reset = function () {
+                if (this.traversal === BaseTreeTraversal.BreadthFirst) {
+                    this.que.clear();
+                    this.que.enqueue(this.rootNode);
+                }
+                else if (this.traversal === BaseTreeTraversal.DepthFirst) {
+                    this.stack.clear();
+                    this.stack.push(this.rootNode);
+                }
             };
             return BinaryTreeIterator;
         })();
