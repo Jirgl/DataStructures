@@ -4,8 +4,13 @@
 /// <reference path="arrow.ts" />
 
 module JirglStructures {
+    export interface IGuiContent {
+        getContent(): string;
+        isCurrent;
+    }
+
     export interface ICanvasData<T> {
-        contentIterator: IIterator<GuiExtender.GuiItem<T>>;
+        contentIterator: IIterator<IGuiContent>;
         grid: IGrid;
     }
 
@@ -24,7 +29,12 @@ module JirglStructures {
             while (iterator.hasNext()) {
                 var guiItem = iterator.next();
                 var position = ctx.data.grid.getPosition();
-                children.push(item({ content: guiItem.content, x: position.x, y: position.y, isCurrent: guiItem.isCurrent }));
+                children.push(item({
+                    content: guiItem.getContent(),
+                    x: position.x,
+                    y: position.y,
+                    isCurrent: guiItem.isCurrent
+                }));
 
                 if (previousPosition !== undefined) {
                     var itemArrows = ctx.data.grid.getArrowsPositions(previousPosition, position);

@@ -10,7 +10,7 @@ module JirglStructures.View {
     }
 
     export interface IStackCtx {
-        stack: GuiExtender.GuiStack<string>;
+        stack: GuiExtender.GuiStack;
         action: string;
         value: string;
         data: IStackData;
@@ -18,8 +18,8 @@ module JirglStructures.View {
 
     var queueComponent: IBobrilComponent = {
         init(ctx: IStackCtx, me: IBobrilNode): void {
-            ctx.stack = new GuiExtender.GuiStack<string>();
-            ctx.stack.push({ content: "init item", isCurrent: true });
+            ctx.stack = new GuiExtender.GuiStack();
+            ctx.stack.push(new GuiExtender.GuiItem("init item"));
             ctx.action = "push";
         },
         render(ctx: IStackCtx, me: IBobrilNode): void {
@@ -42,7 +42,7 @@ module JirglStructures.View {
                         content: "Execute",
                         onClick: () => {
                             if (ctx.action === "push") {
-                                ctx.stack.push({ content: ctx.value, isCurrent: true });
+                                ctx.stack.push(new GuiExtender.GuiItem(ctx.value));
                             } else if (ctx.action === "pop") {
                                 ctx.stack.pop();
                             }

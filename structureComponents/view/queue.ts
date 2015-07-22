@@ -10,7 +10,7 @@ module JirglStructures.View {
     }
 
     export interface IQueueCtx {
-        que: GuiExtender.GuiQueue<string>;
+        que: GuiExtender.GuiQueue;
         action: string;
         value: string;
         data: IQueueData;
@@ -18,8 +18,8 @@ module JirglStructures.View {
 
     var queueComponent: IBobrilComponent = {
         init(ctx: IQueueCtx, me: IBobrilNode): void {
-            ctx.que = new GuiExtender.GuiQueue<string>();
-            ctx.que.enqueue({ content: "init item", isCurrent: true });
+            ctx.que = new GuiExtender.GuiQueue();
+            ctx.que.enqueue(new GuiExtender.GuiItem("init item"));
             ctx.action = "enqueue";
         },
         render(ctx: IQueueCtx, me: IBobrilNode): void {
@@ -42,7 +42,7 @@ module JirglStructures.View {
                         content: "Execute",
                         onClick: () => {
                             if (ctx.action === "enqueue") {
-                                ctx.que.enqueue({ content: ctx.value, isCurrent: true });
+                                ctx.que.enqueue(new GuiExtender.GuiItem(ctx.value));
                             } else if (ctx.action === "dequeue") {
                                 ctx.que.dequeue();
                             }

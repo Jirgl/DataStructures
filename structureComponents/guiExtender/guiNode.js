@@ -8,17 +8,17 @@ var JirglStructures;
 (function (JirglStructures) {
     var GuiExtender;
     (function (GuiExtender) {
-        var GuiItem = (function (_super) {
-            __extends(GuiItem, _super);
-            function GuiItem(content) {
+        var GuiNode = (function (_super) {
+            __extends(GuiNode, _super);
+            function GuiNode(content) {
                 _super.call(this, content);
             }
-            GuiItem.prototype.getContent = function () {
+            GuiNode.prototype.getContent = function () {
                 return this.data;
             };
-            return GuiItem;
-        })(JirglStructures.Lists.Item);
-        GuiExtender.GuiItem = GuiItem;
+            return GuiNode;
+        })(JirglStructures.Trees.Node);
+        GuiExtender.GuiNode = GuiNode;
     })(GuiExtender = JirglStructures.GuiExtender || (JirglStructures.GuiExtender = {}));
 })(JirglStructures || (JirglStructures = {}));
-//# sourceMappingURL=guiItem.js.map
+//# sourceMappingURL=guiNode.js.map

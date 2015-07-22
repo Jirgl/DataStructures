@@ -20,9 +20,9 @@ module JirglStructures.View {
     var binaryTreeComponent: IBobrilComponent = {
         init(ctx: IBinaryTreeCtx, me: IBobrilNode): void {
             ctx.binaryTree = new GuiExtender.GuiBinaryTree();
-            ctx.binaryTree.addRoot(new GuiExtender.GuiItem<string>("root node"));
-            ctx.binaryTree.addLeftChild(new GuiExtender.GuiItem<string>("left node"));
-            ctx.binaryTree.addRightChild(new GuiExtender.GuiItem<string>("right node"));
+            ctx.binaryTree.addRoot(new GuiExtender.GuiNode("root node"));
+            ctx.binaryTree.addLeftChild(new GuiExtender.GuiNode("left node"));
+            ctx.binaryTree.addRightChild(new GuiExtender.GuiNode("right node"));
             ctx.action = "add";
             ctx.option = "left child";
         },
@@ -30,7 +30,7 @@ module JirglStructures.View {
             var iterator = ctx.binaryTree.getGuiIterator();
             while (iterator.hasNext()) {
                 var node = iterator.next().data;
-                console.log(node.content + ": " + node.isCurrent);
+                console.log(node.data + ": " + node.isCurrent);
             }
 
             var options = ["root", "left child", "right child"];

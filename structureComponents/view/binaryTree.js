@@ -10,9 +10,9 @@ var JirglStructures;
         var binaryTreeComponent = {
             init: function (ctx, me) {
                 ctx.binaryTree = new JirglStructures.GuiExtender.GuiBinaryTree();
-                ctx.binaryTree.addRoot(new JirglStructures.GuiExtender.GuiItem("root node"));
-                ctx.binaryTree.addLeftChild(new JirglStructures.GuiExtender.GuiItem("left node"));
-                ctx.binaryTree.addRightChild(new JirglStructures.GuiExtender.GuiItem("right node"));
+                ctx.binaryTree.addRoot(new JirglStructures.GuiExtender.GuiNode("root node"));
+                ctx.binaryTree.addLeftChild(new JirglStructures.GuiExtender.GuiNode("left node"));
+                ctx.binaryTree.addRightChild(new JirglStructures.GuiExtender.GuiNode("right node"));
                 ctx.action = "add";
                 ctx.option = "left child";
             },
@@ -20,7 +20,7 @@ var JirglStructures;
                 var iterator = ctx.binaryTree.getGuiIterator();
                 while (iterator.hasNext()) {
                     var node = iterator.next().data;
-                    console.log(node.content + ": " + node.isCurrent);
+                    console.log(node.data + ": " + node.isCurrent);
                 }
                 var options = ["root", "left child", "right child"];
                 if (ctx.action === "get") {

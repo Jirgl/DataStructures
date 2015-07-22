@@ -4,7 +4,8 @@ var JirglStructures;
     var Lists;
     (function (Lists) {
         var Item = (function () {
-            function Item() {
+            function Item(data) {
+                this.data = data;
             }
             return Item;
         })();
@@ -19,8 +20,7 @@ var JirglStructures;
                 return this.firstItem === undefined;
             };
             DoublyLinkedList.prototype.addFirstItem = function (t) {
-                var item = new Item();
-                item.data = t;
+                var item = new Item(t);
                 if (this.firstItem === undefined) {
                     this.firstItem = this.lastItem = this.currentItem = item;
                 }
@@ -32,8 +32,7 @@ var JirglStructures;
                 }
             };
             DoublyLinkedList.prototype.addLastItem = function (t) {
-                var item = new Item();
-                item.data = t;
+                var item = new Item(t);
                 if (this.lastItem === undefined) {
                     this.firstItem = this.lastItem = this.currentItem = item;
                 }
@@ -45,8 +44,7 @@ var JirglStructures;
                 }
             };
             DoublyLinkedList.prototype.addNextItem = function (t) {
-                var item = new Item();
-                item.data = t;
+                var item = new Item(t);
                 if (this.currentItem === undefined) {
                     this.firstItem = this.lastItem = this.currentItem = item;
                 }
@@ -62,8 +60,7 @@ var JirglStructures;
                 }
             };
             DoublyLinkedList.prototype.addPreviousItem = function (t) {
-                var item = new Item();
-                item.data = t;
+                var item = new Item(t);
                 if (this.currentItem == null) {
                     this.firstItem = this.lastItem = this.currentItem = item;
                 }

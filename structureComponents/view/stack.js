@@ -10,7 +10,7 @@ var JirglStructures;
         var queueComponent = {
             init: function (ctx, me) {
                 ctx.stack = new JirglStructures.GuiExtender.GuiStack();
-                ctx.stack.push({ content: "init item", isCurrent: true });
+                ctx.stack.push(new JirglStructures.GuiExtender.GuiItem("init item"));
                 ctx.action = "push";
             },
             render: function (ctx, me) {
@@ -33,7 +33,7 @@ var JirglStructures;
                             content: "Execute",
                             onClick: function () {
                                 if (ctx.action === "push") {
-                                    ctx.stack.push({ content: ctx.value, isCurrent: true });
+                                    ctx.stack.push(new JirglStructures.GuiExtender.GuiItem(ctx.value));
                                 }
                                 else if (ctx.action === "pop") {
                                     ctx.stack.pop();

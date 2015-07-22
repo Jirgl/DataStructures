@@ -1,5 +1,5 @@
 ﻿module JirglStructures.GuiExtender {
-    export class GuiItem extends Lists.Item<string> implements IGuiContent {
+    export class GuiNode extends Trees.Node<string> implements IGuiContent {
         isCurrent: boolean;
 
         constructor(content: string) {

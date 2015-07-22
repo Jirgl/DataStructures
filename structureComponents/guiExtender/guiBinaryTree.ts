@@ -1,5 +1,5 @@
 ﻿module JirglStructures.GuiExtender {
-    export class GuiBinaryTree extends Trees.BinaryTree<GuiItem<string>> {
+    export class GuiBinaryTree extends Trees.BinaryTree<GuiNode> {
         private depth: number;
 
         constructor() {
@@ -12,7 +12,7 @@
             this.depth = 0;
         }
 
-        addLeftChild(node: GuiItem<string>): void {
+        addLeftChild(node: GuiNode): void {
             var isAvailableToAdd = this.currentNode !== undefined && this.currentNode.leftChild === undefined;
             super.addLeftChild(node);
             if (isAvailableToAdd && this.currentNode.rightChild === undefined) {
@@ -20,7 +20,7 @@
             }
         }
 
-        addRightChild(node: GuiItem<string>): void {
+        addRightChild(node: GuiNode): void {
             var isAvailableToAdd = this.currentNode !== undefined && this.currentNode.rightChild === undefined;
             super.addRightChild(node);
             if (isAvailableToAdd && this.currentNode.leftChild === undefined) {

@@ -14,7 +14,12 @@ var JirglStructures;
             while (iterator.hasNext()) {
                 var guiItem = iterator.next();
                 var position = ctx.data.grid.getPosition();
-                children.push(JirglStructures.item({ content: guiItem.content, x: position.x, y: position.y, isCurrent: guiItem.isCurrent }));
+                children.push(JirglStructures.item({
+                    content: guiItem.getContent(),
+                    x: position.x,
+                    y: position.y,
+                    isCurrent: guiItem.isCurrent
+                }));
                 if (previousPosition !== undefined) {
                     var itemArrows = ctx.data.grid.getArrowsPositions(previousPosition, position);
                     for (var index = 0; index < itemArrows.length; index++) {

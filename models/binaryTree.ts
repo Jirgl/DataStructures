@@ -6,6 +6,10 @@ module JirglStructures.Trees {
         parent: Node<T>;
         leftChild: Node<T>;
         rightChild: Node<T>;
+
+        constructor(data: T) {
+            this.data = data;
+        }
     }
 
     export enum BaseTreeTraversal {
@@ -27,15 +31,13 @@ module JirglStructures.Trees {
 
         addRoot(t: T): void {
             if (this.rootNode === undefined) {
-                this.rootNode = this.currentNode = new Node<T>();
-                this.rootNode.data = t;
+                this.rootNode = this.currentNode = new Node<T>(t);
             }
         }
 
         addLeftChild(t: T): void {
             if (this.currentNode !== undefined && this.currentNode.leftChild === undefined) {
-                var node = new Node<T>();
-                node.data = t;
+                var node = new Node<T>(t);
                 this.currentNode.leftChild = node;
                 node.parent = this.currentNode;
             }
@@ -43,8 +45,7 @@ module JirglStructures.Trees {
 
         addRightChild(t: T): void {
             if (this.currentNode !== undefined && this.currentNode.rightChild === undefined) {
-                var node = new Node<T>();
-                node.data = t;
+                var node = new Node<T>(t);
                 this.currentNode.rightChild = node;
                 node.parent = this.currentNode;
             }

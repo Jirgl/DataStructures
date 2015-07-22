@@ -10,7 +10,7 @@ var JirglStructures;
         var doublyListComponent = {
             init: function (ctx, me) {
                 ctx.doublyLinkedList = new JirglStructures.GuiExtender.GuiDoublyLinkedList();
-                ctx.doublyLinkedList.addFirstItem({ content: "init item", isCurrent: true });
+                ctx.doublyLinkedList.addFirstItem(new JirglStructures.GuiExtender.GuiItem("init item"));
                 ctx.option = "first";
                 ctx.action = "add";
             },
@@ -45,16 +45,16 @@ var JirglStructures;
                             onClick: function () {
                                 if (ctx.action === "add") {
                                     if (ctx.option === "first") {
-                                        ctx.doublyLinkedList.addFirstItem({ content: ctx.value, isCurrent: true });
+                                        ctx.doublyLinkedList.addFirstItem(new JirglStructures.GuiExtender.GuiItem(ctx.value));
                                     }
                                     else if (ctx.option === "predecessor") {
-                                        ctx.doublyLinkedList.addPreviousItem({ content: ctx.value, isCurrent: true });
+                                        ctx.doublyLinkedList.addPreviousItem(new JirglStructures.GuiExtender.GuiItem(ctx.value));
                                     }
                                     else if (ctx.option === "successor") {
-                                        ctx.doublyLinkedList.addNextItem({ content: ctx.value, isCurrent: true });
+                                        ctx.doublyLinkedList.addNextItem(new JirglStructures.GuiExtender.GuiItem(ctx.value));
                                     }
                                     else if (ctx.option === "last") {
-                                        ctx.doublyLinkedList.addLastItem({ content: ctx.value, isCurrent: true });
+                                        ctx.doublyLinkedList.addLastItem(new JirglStructures.GuiExtender.GuiItem(ctx.value));
                                     }
                                 }
                                 else if (ctx.action === "remove") {

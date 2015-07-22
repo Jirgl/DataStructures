@@ -1,25 +1,25 @@
 ﻿module JirglStructures.GuiExtender {
-    export class GuiStack<T> {
-        private guiList: GuiDoublyLinkedList<T>;
+    export class GuiStack {
+        private guiList: GuiDoublyLinkedList;
 
         constructor() {
-            this.guiList = new GuiDoublyLinkedList<T>();
+            this.guiList = new GuiDoublyLinkedList();
         }
 
-        getFirstGuiItem(): Lists.Item<GuiItem<T>> {
+        getFirstGuiItem(): Lists.Item<GuiItem> {
             return this.guiList.getFirstGuiItem();
         }
 
-        push(item: GuiItem<T>): void {
+        push(item: GuiItem): void {
             this.guiList.addFirstItem(item);
         }
 
-        pop(): GuiItem<T> {
+        pop(): GuiItem {
             return this.guiList.removeFirstItem();
         }
 
-        getIterator(): GuiListIterator<T> {
-            return new GuiListIterator<T>(this.getFirstGuiItem());
+        getIterator(): GuiListIterator {
+            return new GuiListIterator(this.getFirstGuiItem());
         }
     }
 }

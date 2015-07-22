@@ -8,11 +8,11 @@ module JirglStructures.GuiExtender {
         Stack
     }
 
-    export class GuiGridList<T> implements IGrid {
-        private iterator: GuiListIterator<T>;
+    export class GuiGridList implements IGrid {
+        private iterator: GuiListIterator;
         private widthReduction = 500;
 
-        constructor(iterator: GuiListIterator<T>) {
+        constructor(iterator: GuiListIterator) {
             this.iterator = iterator;
         }
 

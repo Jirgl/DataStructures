@@ -4,7 +4,8 @@ var JirglStructures;
     var Trees;
     (function (Trees) {
         var Node = (function () {
-            function Node() {
+            function Node(data) {
+                this.data = data;
             }
             return Node;
         })();
@@ -25,22 +26,19 @@ var JirglStructures;
             };
             BinaryTree.prototype.addRoot = function (t) {
                 if (this.rootNode === undefined) {
-                    this.rootNode = this.currentNode = new Node();
-                    this.rootNode.data = t;
+                    this.rootNode = this.currentNode = new Node(t);
                 }
             };
             BinaryTree.prototype.addLeftChild = function (t) {
                 if (this.currentNode !== undefined && this.currentNode.leftChild === undefined) {
-                    var node = new Node();
-                    node.data = t;
+                    var node = new Node(t);
                     this.currentNode.leftChild = node;
                     node.parent = this.currentNode;
                 }
             };
             BinaryTree.prototype.addRightChild = function (t) {
                 if (this.currentNode !== undefined && this.currentNode.rightChild === undefined) {
-                    var node = new Node();
-                    node.data = t;
+                    var node = new Node(t);
                     this.currentNode.rightChild = node;
                     node.parent = this.currentNode;
                 }

@@ -5,6 +5,10 @@ module JirglStructures.Lists {
         data: T;
         next: Item<T>;
         previous: Item<T>;
+
+        constructor(data: T) {
+            this.data = data;
+        }
     }
 
     export class DoublyLinkedList<T> implements IIterable<T> {
@@ -21,8 +25,7 @@ module JirglStructures.Lists {
         }
 
         addFirstItem(t: T): void {
-            var item = new Item<T>();
-            item.data = t;
+            var item = new Item<T>(t);
 
             if (this.firstItem === undefined) {
                 this.firstItem = this.lastItem = this.currentItem = item;
@@ -35,8 +38,7 @@ module JirglStructures.Lists {
         }
 
         addLastItem(t: T): void {
-            var item = new Item<T>();
-            item.data = t;
+            var item = new Item<T>(t);
 
             if (this.lastItem === undefined) {
                 this.firstItem = this.lastItem = this.currentItem = item;
@@ -49,8 +51,7 @@ module JirglStructures.Lists {
         }
 
         addNextItem(t: T): void {
-            var item = new Item<T>();
-            item.data = t;
+            var item = new Item<T>(t);
 
             if (this.currentItem === undefined) {
                 this.firstItem = this.lastItem = this.currentItem = item;
@@ -66,8 +67,7 @@ module JirglStructures.Lists {
         }
 
         addPreviousItem(t: T): void {
-            var item = new Item<T>();
-            item.data = t;
+            var item = new Item<T>(t);
 
             if (this.currentItem == null) {
                 this.firstItem = this.lastItem = this.currentItem = item;

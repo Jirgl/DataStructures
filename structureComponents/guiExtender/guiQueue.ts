@@ -1,9 +1,9 @@
 ﻿module JirglStructures.GuiExtender {
-    export class GuiQueue<T> {
-        private guiList: GuiDoublyLinkedList<T>;
+    export class GuiQueue {
+        private guiList: GuiDoublyLinkedList;
 
         constructor() {
-            this.guiList = new GuiDoublyLinkedList<T>();
+            this.guiList = new GuiDoublyLinkedList();
         }
 
         clear(): void {
@@ -14,20 +14,20 @@
             return this.guiList.isEmpty();
         }
 
-        getFirstGuiItem(): Lists.Item<GuiItem<T>> {
+        getFirstGuiItem(): Lists.Item<GuiItem> {
             return this.guiList.getFirstGuiItem();
         }
 
-        enqueue(item: GuiItem<T>): void {
+        enqueue(item: GuiItem): void {
             this.guiList.addLastItem(item);
         }
 
-        dequeue(): GuiItem<T> {
+        dequeue(): GuiItem {
             return this.guiList.removeFirstItem();
         }
 
-        getIterator(): GuiListIterator<T> {
-            return new GuiListIterator<T>(this.getFirstGuiItem());
+        getIterator(): GuiListIterator {
+            return new GuiListIterator(this.getFirstGuiItem());
         }
     }
 }

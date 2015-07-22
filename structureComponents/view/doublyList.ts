@@ -10,7 +10,7 @@ module JirglStructures.View {
     }
 
     export interface IDoublyListCtx {
-        doublyLinkedList: GuiExtender.GuiDoublyLinkedList<string>;
+        doublyLinkedList: GuiExtender.GuiDoublyLinkedList;
         option: string;
         action: string;
         value: string;
@@ -19,8 +19,8 @@ module JirglStructures.View {
 
     var doublyListComponent: IBobrilComponent = {
         init(ctx: IDoublyListCtx, me: IBobrilNode): void {
-            ctx.doublyLinkedList = new GuiExtender.GuiDoublyLinkedList<string>();
-            ctx.doublyLinkedList.addFirstItem({ content: "init item", isCurrent: true });
+            ctx.doublyLinkedList = new GuiExtender.GuiDoublyLinkedList();
+            ctx.doublyLinkedList.addFirstItem(new GuiExtender.GuiItem("init item"));
             ctx.option = "first";
             ctx.action = "add";
         },
@@ -56,13 +56,13 @@ module JirglStructures.View {
                         onClick: () => {
                             if (ctx.action === "add") {
                                 if (ctx.option === "first") {
-                                    ctx.doublyLinkedList.addFirstItem({ content: ctx.value, isCurrent: true });
+                                    ctx.doublyLinkedList.addFirstItem(new GuiExtender.GuiItem(ctx.value));
                                 } else if (ctx.option === "predecessor") {
-                                    ctx.doublyLinkedList.addPreviousItem({ content: ctx.value, isCurrent: true });
+                                    ctx.doublyLinkedList.addPreviousItem(new GuiExtender.GuiItem(ctx.value));
                                 } else if (ctx.option === "successor") {
-                                    ctx.doublyLinkedList.addNextItem({ content: ctx.value, isCurrent: true });
+                                    ctx.doublyLinkedList.addNextItem(new GuiExtender.GuiItem(ctx.value));
                                 } else if (ctx.option === "last") {
-                                    ctx.doublyLinkedList.addLastItem({ content: ctx.value, isCurrent: true });
+                                    ctx.doublyLinkedList.addLastItem(new GuiExtender.GuiItem(ctx.value));
                                 }
                             } else if (ctx.action === "remove") {
                                 if (ctx.option === "first") {
@@ -84,7 +84,7 @@ module JirglStructures.View {
                 }),
                 canvas({
                     contentIterator: iterator,
-                    grid: new GuiExtender.GuiGridList<string>(iterator)
+                    grid: new GuiExtender.GuiGridList(iterator)
                 })
             ];
         }
