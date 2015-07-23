@@ -14,13 +14,14 @@
         }
 
         getPosition(): Position {
-            var itemWidthWithMargin = (itemWidth + (itemMargin * 2));
-            //var itemsPerLine = Math.floor(maxWidth / itemWidthWithMargin);
+            var countInLevel = Math.pow(2, this.iterator.depth);
+            var itemWidthWithMargin = itemWidth + (itemMargin * 2);
+            var widthPerItem = Math.max(this.getWidth() / countInLevel, itemWidthWithMargin);
 
-            return null;/*{
-                x: ((this.iterator.orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
-                y: Math.floor((this.iterator.orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
-            };*/
+            return {
+                x: this.iterator.orderInLevel * widthPerItem + widthPerItem / 2 - itemWidthWithMargin / 2,
+                y: this.iterator.depth * itemWidthWithMargin
+            };
         }
 
         getArrowsPositions(previousPosition: Position, position: Position): ArrowPosition[] {

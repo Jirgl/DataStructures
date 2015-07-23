@@ -27,12 +27,7 @@ module JirglStructures.View {
             ctx.option = "left child";
         },
         render(ctx: IBinaryTreeCtx, me: IBobrilNode): void {
-            var iterator = ctx.binaryTree.getGuiIterator();
-            while (iterator.hasNext()) {
-                var node = iterator.next().data;
-                console.log(node.data + ": " + node.isCurrent);
-            }
-
+            var iterator = ctx.binaryTree.getIterator();
             var options = ["root", "left child", "right child"];
 
             if (ctx.action === "get") {
@@ -63,13 +58,13 @@ module JirglStructures.View {
                     submitButton: button({
                         content: "Execute",
                         onClick: () => {
-                            /*if (ctx.action === "add") {
+                            if (ctx.action === "add") {
                                 if (ctx.option === "root") {
-                                    ctx.binaryTree.addRoot({ content: ctx.value, isCurrent: true });
+                                    ctx.binaryTree.addRoot(new GuiExtender.GuiNode(ctx.value));
                                 } else if (ctx.option === "left child") {
-                                    ctx.binaryTree.addLeftChild({ content: ctx.value, isCurrent: false });
+                                    ctx.binaryTree.addLeftChild(new GuiExtender.GuiNode(ctx.value));
                                 } else if (ctx.option === "right child") {
-                                    ctx.binaryTree.addRightChild({ content: ctx.value, isCurrent: false });
+                                    ctx.binaryTree.addRightChild(new GuiExtender.GuiNode(ctx.value));
                                 }
                             } else if (ctx.action === "get") {
                                 if (ctx.option === "root") {
@@ -91,18 +86,16 @@ module JirglStructures.View {
                                 } else if (ctx.option === "right child") {
                                     ctx.binaryTree.removeRightChildNode();
                                 }
-                            }*/
-
-                            ctx.binaryTree.getLeftChildNode();
+                            }
 
                             b.invalidate(ctx);
                         }
                     })
-                })/*,
+                }),
                 canvas({
                     contentIterator: iterator,
                     grid: new GuiExtender.GuiGridTree(ctx.binaryTree.getDepth(), iterator)
-                })*/
+                })
             ];
         }
     }

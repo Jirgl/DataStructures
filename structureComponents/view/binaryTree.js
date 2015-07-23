@@ -17,11 +17,7 @@ var JirglStructures;
                 ctx.option = "left child";
             },
             render: function (ctx, me) {
-                var iterator = ctx.binaryTree.getGuiIterator();
-                while (iterator.hasNext()) {
-                    var node = iterator.next().data;
-                    console.log(node.data + ": " + node.isCurrent);
-                }
+                var iterator = ctx.binaryTree.getIterator();
                 var options = ["root", "left child", "right child"];
                 if (ctx.action === "get") {
                     options.push("parent");
@@ -50,44 +46,53 @@ var JirglStructures;
                         submitButton: JirglStructures.button({
                             content: "Execute",
                             onClick: function () {
-                                /*if (ctx.action === "add") {
+                                if (ctx.action === "add") {
                                     if (ctx.option === "root") {
-                                        ctx.binaryTree.addRoot({ content: ctx.value, isCurrent: true });
-                                    } else if (ctx.option === "left child") {
-                                        ctx.binaryTree.addLeftChild({ content: ctx.value, isCurrent: false });
-                                    } else if (ctx.option === "right child") {
-                                        ctx.binaryTree.addRightChild({ content: ctx.value, isCurrent: false });
+                                        ctx.binaryTree.addRoot(new JirglStructures.GuiExtender.GuiNode(ctx.value));
                                     }
-                                } else if (ctx.action === "get") {
+                                    else if (ctx.option === "left child") {
+                                        ctx.binaryTree.addLeftChild(new JirglStructures.GuiExtender.GuiNode(ctx.value));
+                                    }
+                                    else if (ctx.option === "right child") {
+                                        ctx.binaryTree.addRightChild(new JirglStructures.GuiExtender.GuiNode(ctx.value));
+                                    }
+                                }
+                                else if (ctx.action === "get") {
                                     if (ctx.option === "root") {
                                         ctx.binaryTree.getRootNode();
-                                    } else if (ctx.option === "left child") {
+                                    }
+                                    else if (ctx.option === "left child") {
                                         ctx.binaryTree.getLeftChildNode();
-                                    } else if (ctx.option === "right child") {
+                                    }
+                                    else if (ctx.option === "right child") {
                                         ctx.binaryTree.getRightChildNode();
-                                    } else if (ctx.option === "parent") {
+                                    }
+                                    else if (ctx.option === "parent") {
                                         ctx.binaryTree.getParentNode();
-                                    } else if (ctx.option === "current") {
+                                    }
+                                    else if (ctx.option === "current") {
                                         ctx.binaryTree.getCurrentNode();
                                     }
-                                } else if (ctx.action === "remove") {
+                                }
+                                else if (ctx.action === "remove") {
                                     if (ctx.option === "root") {
                                         ctx.binaryTree.removeRootNode();
-                                    } else if (ctx.option === "left child") {
+                                    }
+                                    else if (ctx.option === "left child") {
                                         ctx.binaryTree.removeLeftChildNode();
-                                    } else if (ctx.option === "right child") {
+                                    }
+                                    else if (ctx.option === "right child") {
                                         ctx.binaryTree.removeRightChildNode();
                                     }
-                                }*/
-                                ctx.binaryTree.getLeftChildNode();
+                                }
                                 b.invalidate(ctx);
                             }
                         })
-                    }) /*,
-                    canvas({
+                    }),
+                    JirglStructures.canvas({
                         contentIterator: iterator,
-                        grid: new GuiExtender.GuiGridTree(ctx.binaryTree.getDepth(), iterator)
-                    })*/
+                        grid: new JirglStructures.GuiExtender.GuiGridTree(ctx.binaryTree.getDepth(), iterator)
+                    })
                 ];
             }
         };

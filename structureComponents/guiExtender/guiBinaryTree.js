@@ -18,24 +18,41 @@ var JirglStructures;
                 _super.prototype.clear.call(this);
                 this.depth = 0;
             };
+            GuiBinaryTree.prototype.addRoot = function (node) {
+                node.indexOfNode = 0;
+                _super.prototype.addRoot.call(this, node);
+            };
             GuiBinaryTree.prototype.addLeftChild = function (node) {
                 var isAvailableToAdd = this.currentNode !== undefined && this.currentNode.leftChild === undefined;
+                node.indexOfNode = this.currentNode.data.indexOfNode * 2 + 1;
                 _super.prototype.addLeftChild.call(this, node);
-                if (isAvailableToAdd && this.currentNode.rightChild === undefined) {
+                if (isAvailableToAdd && this.currentNode.rightChild === undefined &&
+                    GuiBinaryTree.calculateDepth(node) > this.depth) {
                     this.depth++;
                 }
             };
             GuiBinaryTree.prototype.addRightChild = function (node) {
                 var isAvailableToAdd = this.currentNode !== undefined && this.currentNode.rightChild === undefined;
+                node.indexOfNode = this.currentNode.data.indexOfNode * 2 + 2;
                 _super.prototype.addRightChild.call(this, node);
-                if (isAvailableToAdd && this.currentNode.leftChild === undefined) {
+                if (isAvailableToAdd && this.currentNode.leftChild === undefined &&
+                    GuiBinaryTree.calculateDepth(node) > this.depth) {
                     this.depth++;
                 }
+            };
+            GuiBinaryTree.calculateDepth = function (guiNode) {
+                var depth = 0;
+                var index = guiNode.indexOfNode;
+                while (index > 0) {
+                    index = Math.floor((index - 1) / 2);
+                    depth++;
+                }
+                return depth;
             };
             GuiBinaryTree.prototype.getDepth = function () {
                 return this.depth;
             };
-            GuiBinaryTree.prototype.getGuiIterator = function () {
+            GuiBinaryTree.prototype.getIterator = function () {
                 return new GuiExtender.GuiTreeIterator(this.rootNode, this.currentNode);
             };
             return GuiBinaryTree;

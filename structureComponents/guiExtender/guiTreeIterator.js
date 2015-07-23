@@ -6,10 +6,9 @@ var JirglStructures;
             function GuiTreeIterator(rootNode, currentNode) {
                 this.rootNode = rootNode;
                 this.currentNode = currentNode;
-                this.orderInLevel = 0;
-                this.depth = 0;
+                this.rootNode.data.indexOfNode = this.orderInLevel = this.depth = 0;
                 this.que = new JirglStructures.Lists.Queue();
-                this.que.enqueue(rootNode);
+                this.que.enqueue(this.rootNode);
             }
             GuiTreeIterator.prototype.hasNext = function () {
                 return !this.que.isEmpty();
@@ -23,7 +22,9 @@ var JirglStructures;
                     this.que.enqueue(node.rightChild);
                 }
                 node.data.isCurrent = node === this.currentNode;
-                return node;
+                this.depth = GuiExtender.GuiBinaryTree.calculateDepth(node.data);
+                this.orderInLevel = (node.data.indexOfNode + 1) - Math.pow(2, this.depth);
+                return node.data;
             };
             GuiTreeIterator.prototype.reset = function () {
                 this.que.clear();

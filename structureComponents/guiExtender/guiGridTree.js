@@ -12,12 +12,13 @@ var JirglStructures;
                 return JirglStructures.ArrowType.DirectTwoWay;
             };
             GuiGridTree.prototype.getPosition = function () {
-                var itemWidthWithMargin = (JirglStructures.itemWidth + (JirglStructures.itemMargin * 2));
-                //var itemsPerLine = Math.floor(maxWidth / itemWidthWithMargin);
-                return null; /*{
-                    x: ((this.iterator.orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
-                    y: Math.floor((this.iterator.orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
-                };*/
+                var countInLevel = Math.pow(2, this.iterator.depth);
+                var itemWidthWithMargin = JirglStructures.itemWidth + (JirglStructures.itemMargin * 2);
+                var widthPerItem = Math.max(this.getWidth() / countInLevel, itemWidthWithMargin);
+                return {
+                    x: this.iterator.orderInLevel * widthPerItem + widthPerItem / 2 - itemWidthWithMargin / 2,
+                    y: this.iterator.depth * itemWidthWithMargin
+                };
             };
             GuiGridTree.prototype.getArrowsPositions = function (previousPosition, position) {
                 return [
