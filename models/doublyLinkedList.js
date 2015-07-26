@@ -208,4 +208,4 @@ var JirglStructures;
         Lists.DoublyLinkedListIterator = DoublyLinkedListIterator;
     })(Lists = JirglStructures.Lists || (JirglStructures.Lists = {}));
 })(JirglStructures || (JirglStructures = {}));
-//# sourceMappingURL=doublylinkedlist.js.map
+//# sourceMappingURL=doublyLinkedList.js.map
