@@ -49,6 +49,10 @@ interface IBobrilStatic {
     setStyleShim(name: string, action: (style: any, value: any, oldName: string) => void): void;
     // Set callback after frame is done, returns previous callback to allow chaining
     setAfterFrame(callback: (root: IBobrilCacheNode[]) => void): (root: IBobrilCacheNode[]) => void;
+    // Set callback before frame is rendering, returns previous callback to allow chaining
+    setBeforeFrame(callback: () => void): () => void;
+    // Set callback before init passes callback to continue with initialization
+    setBeforeInit(callback: (cb: () => void) => void): void;
     // shim for [].isArray
     isArray(a: any): boolean;
     // time in miliseconds from start only use from roots factory function
@@ -61,8 +65,8 @@ interface IBobrilStatic {
     lastFrameDuration(): number;
     // returns IE version 8 - 11, for other browsers returns undefined
     ieVersion(): number;
-    // shalows copy all own members from source to target returns target, source could be null, target must be non-null
-    assign(target: Object, source: Object): Object;
+    // shalows copy all own members from source to target returns target, source could be null, if target is null then it is create empty
+    assign(target: Object, ...sources: Object[]): Object;
     // shim for Event.preventDefault()
     preventDefault(event: Event): void;
     // DOM to vdom stack resolver
@@ -85,6 +89,8 @@ interface IBobrilStatic {
     postEnhance(node: IBobrilNode, methods: IBobrilComponent): IBobrilNode;
     // clone IBobrilNode with attrs, style, children cloned deeply
     cloneNode(node: IBobrilNode): IBobrilNode;
+    // shim inline style (it is used internally)
+    shimStyle(style: any): void;
 }
 
 interface IBobrilAttributes {
@@ -99,9 +105,8 @@ interface IBobrilComponent {
     // if id of old node is different from new node it is considered completely different so init will be called before render directly
     // it does prevent calling render method twice on same node
     id?: string;
-    // called before new node in vdom should be created, me members (tag, attrs, children) could be modified, ctx is initialized to { data: me.data||{}, me: me }
-    // WARNING don't use 3rd and 4th parameters they are internal and should be used only for vml in IE8, after IE8 will be not be supported these parameters will be removed!
-    init?(ctx: IBobrilCtx, me: IBobrilCacheNode, createInto: Element, createBefore: Node): void;
+    // called before new node in vdom should be created, me members (tag, attrs, children, ...) could be modified, ctx is initialized to { data: me.data||{}, me: me, cfg: fromparent }
+    init?(ctx: IBobrilCtx, me: IBobrilCacheNode): void;
     // in case of update after shouldChange returns true, you can do any update/init tasks, ctx.data is updated to me.data and oldMe.component updated to me.component before calling this
     // in case of init this is called after init method, oldMe is equal to undefined in that case
     render?(ctx: IBobrilCtx, me: IBobrilNode, oldMe?: IBobrilCacheNode): void;
@@ -130,7 +135,7 @@ interface IBobrilNode {
     style?: any;
     attrs?: IBobrilAttributes;
     children?: IBobrilChildren;
-    ref?: [IBobrilCtx, string];
+    ref?: [IBobrilCtx, string]| ((node: IBobrilCacheNode) => void);
     // set this for children to be set to their ctx.cfg, if undefined your own ctx.cfg will be used anyway
     cfg?: any;
     component?: IBobrilComponent;

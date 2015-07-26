@@ -1,65 +1,12 @@
 /// <reference path="bobril.d.ts"/>
 if (typeof DEBUG === "undefined")
     DEBUG = true;
-// IE8 [].map polyfill Reference: http://es5.github.io/#x15.4.4.19
-if (!Array.prototype.map) {
-    Array.prototype.map = function (callback, thisArg) {
-        var a, k;
-        // ReSharper disable once ConditionIsAlwaysConst
-        if (DEBUG && this == null) {
-            throw new TypeError("this==null");
-        }
-        var o = Object(this);
-        var len = o.length >>> 0;
-        if (DEBUG && typeof callback != "function") {
-            throw new TypeError(callback + " isn't func");
-        }
-        a = new Array(len);
-        k = 0;
-        while (k < len) {
-            var kValue, mappedValue;
-            if (k in o) {
-                kValue = o[k];
-                mappedValue = callback.call(thisArg, kValue, k, o);
-                a[k] = mappedValue;
-            }
-            k++;
-        }
-        return a;
-    };
-}
-// Object create polyfill
-if (!Object.create) {
-    Object.create = function (o) {
-        function f() { }
-        f.prototype = o;
-        return new f();
-    };
-}
-// Object keys polyfill
-if (!Object.keys) {
-    Object.keys = (function (obj) {
-        var keys = [];
-        for (var i in obj) {
-            if (obj.hasOwnProperty(i)) {
-                keys.push(i);
-            }
-        }
-        return keys;
-    });
-}
-// Array isArray polyfill
-if (!Array.isArray) {
-    var objectToString = {}.toString;
-    Array.isArray = (function (a) { return objectToString.call(a) === "[object Array]"; });
-}
 b = (function (window, document) {
     function assert(shoudBeTrue, messageIfFalse) {
         if (DEBUG && !shoudBeTrue)
             throw Error(messageIfFalse || "assertion failed");
     }
     var isArray = Array.isArray;
-    var objectKeys = Object.keys;
     function createTextNode(content) {
         return document.createTextNode(content);
     }
@@ -67,7 +14,6 @@ b = (function (window, document) {
         return document.createElement(name);
     }
     var hasTextContent = "textContent" in createTextNode("");
-    var hasRemovePropertyInStyle = "removeProperty" in createElement("a").style;
     function isObject(value) {
         return typeof value === "object";
     }
@@ -137,10 +83,6 @@ b = (function (window, document) {
     function ieVersion() {
         return document.documentMode;
     }
-    var onIE8 = ieVersion() === 8;
-    if (onIE8) {
-        mapping.cssFloat = renamer("styleFloat");
-    }
     function shimStyle(newValue) {
         var k = Object.keys(newValue);
         for (var i = 0, l = k.length; i < l; i++) {
@@ -180,10 +122,7 @@ b = (function (window, document) {
         }
     }
     function removeProperty(s, name) {
-        if (hasRemovePropertyInStyle)
-            s[name] = "";
-        else
-            s.removeAttribute(name);
+        s[name] = "";
     }
     function updateStyle(n, el, newStyle, oldStyle) {
         var s = el.style;
@@ -255,8 +194,6 @@ b = (function (window, document) {
                     else
                         el.setAttribute(attrName, newAttr);
                 }
-                else if (onIE8 && attrName === "type" && el.nodeName === "input") {
-                }
                 else if (attrName in el && !(attrName === "list" || attrName === "form")) {
                     el[attrName] = newAttr;
                 }
@@ -301,6 +238,10 @@ b = (function (window, document) {
     function setRef(ref, value) {
         if (ref == null)
             return;
+        if (typeof ref === "function") {
+            ref(value);
+            return;
+        }
         var ctx = ref[0];
         var refs = ctx.refs;
         if (!refs) {
@@ -333,13 +274,11 @@ b = (function (window, document) {
             var ctx = { data: c.data || {}, me: c, cfg: findCfg(parentNode) };
             c.ctx = ctx;
             if (component.init) {
-                component.init(ctx, c, createInto, createBefore);
+                component.init(ctx, c);
             }
             if (component.render) {
                 component.render(ctx, c);
             }
-            if (c.element)
-                return c;
         }
         var tag = c.tag;
         var children = c.children;
@@ -417,10 +356,6 @@ b = (function (window, document) {
         }
         else if (!el) {
             el = createElement(tag);
-        }
-        if (onIE8 && tag === "input" && "type" in c.attrs) {
-            // On IE8 input.type has to be written before writing adding to document
-            el.type = c.attrs.type;
         }
         createInto.insertBefore(el, createBefore);
         c.element = el;
@@ -649,14 +584,17 @@ b = (function (window, document) {
                         return c;
                 ctx.data = n.data || {};
                 c.component = component;
-                if (component.render)
+                if (component.render) {
+                    n = assign({}, n); // need to clone me because it should not be modified for next updates
                     component.render(ctx, n, c);
+                }
                 c.cfg = n.cfg;
             }
         }
         if (DEBUG) {
             if (!((n.ref == null && c.ref == null) ||
-                ((n.ref != null && c.ref != null && n.ref[0] === c.ref[0] && n.ref[1] === c.ref[1])))) {
+                ((n.ref != null && c.ref != null && (typeof n.ref === "function" || typeof c.ref === "function" ||
+                    n.ref[0] === c.ref[0] && n.ref[1] === c.ref[1]))))) {
                 if (window.console && console.warn)
                     console.warn("ref changed in child in update");
             }
@@ -1180,27 +1118,27 @@ b = (function (window, document) {
     function addListener(el, name) {
         if (name[0] == "!")
             return;
+        var capture = (name[0] == "^");
+        var eventName = name;
+        if (capture) {
+            eventName = name.slice(1);
+        }
         function enhanceEvent(ev) {
             ev = ev || window.event;
             var t = ev.target || ev.srcElement || el;
             var n = getCacheNode(t);
             emitEvent(name, ev, t, n);
         }
-        if (("on" + name) in window)
+        if (("on" + eventName) in window)
             el = window;
-        if (el.addEventListener) {
-            el.addEventListener(name, enhanceEvent);
-        }
-        else {
-            el.attachEvent("on" + name, enhanceEvent);
-        }
+        el.addEventListener(eventName, enhanceEvent, capture);
     }
     var eventsCaptured = false;
     function initEvents() {
         if (eventsCaptured)
             return;
         eventsCaptured = true;
-        var eventNames = objectKeys(registryEvents);
+        var eventNames = Object.keys(registryEvents);
         for (var j = 0; j < eventNames.length; j++) {
             var eventName = eventNames[j];
             var arr = registryEvents[eventName];
@@ -1231,7 +1169,13 @@ b = (function (window, document) {
             }
         }
     }
+    var beforeFrameCallback = function () { };
     var afterFrameCallback = function () { };
+    function setBeforeFrame(callback) {
+        var res = beforeFrameCallback;
+        beforeFrameCallback = callback;
+        return res;
+    }
     function setAfterFrame(callback) {
         var res = afterFrameCallback;
         afterFrameCallback = callback;
@@ -1265,6 +1209,7 @@ b = (function (window, document) {
         frame++;
         uptime = time;
         scheduled = false;
+        beforeFrameCallback();
         var fullRefresh = false;
         if (fullRecreateRequested) {
             fullRecreateRequested = false;
@@ -1335,10 +1280,17 @@ b = (function (window, document) {
     function getRoots() {
         return roots;
     }
+    var beforeInit = invalidate;
     function init(factory, element) {
         removeRoot("0");
         roots["0"] = { f: factory, e: element, c: [] };
-        invalidate();
+        beforeInit();
+    }
+    function setBeforeInit(callback) {
+        var prevBeforeInit = beforeInit;
+        beforeInit = function () {
+            callback(prevBeforeInit);
+        };
     }
     function bubbleEvent(node, name, param) {
         while (node) {
@@ -1454,15 +1406,25 @@ b = (function (window, document) {
         node.component = mergeComponents(comp, methods);
         return node;
     }
-    function assign(target, source) {
+    function assign(target) {
+        var sources = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            sources[_i - 1] = arguments[_i];
+        }
         if (target == null)
             target = {};
-        if (source != null)
-            for (var propname in source) {
-                if (!source.hasOwnProperty(propname))
-                    continue;
-                target[propname] = source[propname];
+        var totalArgs = arguments.length;
+        for (var i = 1; i < totalArgs; i++) {
+            var source = arguments[i];
+            if (source == null)
+                continue;
+            var keys = Object.keys(source);
+            var totalKeys = keys.length;
+            for (var j = 0; j < totalKeys; j++) {
+                var key = keys[j];
+                target[key] = source[key];
             }
+        }
         return target;
     }
     function preventDefault(event) {
@@ -1486,12 +1448,12 @@ b = (function (window, document) {
         return a;
     }
     function cloneNode(node) {
-        var r = b.assign({}, node);
+        var r = assign({}, node);
         if (r.attrs) {
-            r.attrs = b.assign({}, r.attrs);
+            r.attrs = assign({}, r.attrs);
         }
         if (isObject(r.style)) {
-            r.style = b.assign({}, r.style);
+            r.style = assign({}, r.style);
         }
         var ch = r.children;
         if (ch) {
@@ -1515,7 +1477,9 @@ b = (function (window, document) {
         addRoot: addRoot,
         removeRoot: removeRoot,
         getRoots: getRoots,
+        setBeforeFrame: setBeforeFrame,
         setAfterFrame: setAfterFrame,
+        setBeforeInit: setBeforeInit,
         isArray: isArray,
         uptime: function () { return uptime; },
         lastFrameDuration: function () { return lastFrameDuration; },
@@ -1535,6 +1499,7 @@ b = (function (window, document) {
         broadcast: broadcastEvent,
         preEnhance: preEnhance,
         postEnhance: postEnhance,
-        cloneNode: cloneNode
+        cloneNode: cloneNode,
+        shimStyle: shimStyle
     };
 })(window, document);
