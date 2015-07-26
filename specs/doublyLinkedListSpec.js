@@ -209,7 +209,7 @@ describe("Doubly linked list - other functions", function () {
         expect(doublyLinkedlist.firstItem).toEqual(undefined);
     });
 
-    it("is empty doubly linked list", function () {
+    it("is doubly linked list empty", function () {
         expect(doublyLinkedlist.isEmpty()).toBeTruthy();
 
         doublyLinkedlist.addLastItem("last");
