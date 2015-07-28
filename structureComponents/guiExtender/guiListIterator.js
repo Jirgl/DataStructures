@@ -12,6 +12,7 @@ var JirglStructures;
             __extends(GuiListIterator, _super);
             function GuiListIterator(firstItem, currentItem) {
                 _super.call(this, firstItem);
+                this.previousGuiItem = undefined;
                 this.currentGuiItem = currentItem;
                 this.orderOfItem = 0;
             }
@@ -21,6 +22,7 @@ var JirglStructures;
                 if (this.currentGuiItem !== undefined) {
                     isCurrent = this.currentItem === this.currentGuiItem;
                 }
+                this.previousGuiItem = this.currentItem;
                 var item = _super.prototype.next.call(this);
                 item.isCurrent = isCurrent;
                 this.orderOfItem++;

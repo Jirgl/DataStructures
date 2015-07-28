@@ -13,6 +13,7 @@
     {
         getArrowType(): ArrowType;
         getPosition(): Position;
+        getPositionOfPreviousItem(): Position;
         getArrowsPositions(previousPosition: Position, position: Position): ArrowPosition[];
         getWidth(): number;
     }

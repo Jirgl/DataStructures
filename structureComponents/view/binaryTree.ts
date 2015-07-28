@@ -23,6 +23,13 @@ module JirglStructures.View {
             ctx.binaryTree.addRoot(new GuiExtender.GuiNode("root node"));
             ctx.binaryTree.addLeftChild(new GuiExtender.GuiNode("left node"));
             ctx.binaryTree.addRightChild(new GuiExtender.GuiNode("right node"));
+            ctx.binaryTree.getLeftChildNode();
+            ctx.binaryTree.addLeftChild(new GuiExtender.GuiNode("0"));
+            ctx.binaryTree.addRightChild(new GuiExtender.GuiNode("1"));
+            ctx.binaryTree.getRootNode();
+            ctx.binaryTree.getRightChildNode();
+            ctx.binaryTree.addLeftChild(new GuiExtender.GuiNode("2"));
+            ctx.binaryTree.addRightChild(new GuiExtender.GuiNode("3"));
             ctx.action = "add";
             ctx.option = "left child";
         },
@@ -53,7 +60,7 @@ module JirglStructures.View {
                         onChange: (value: string) => {
                             ctx.value = value;
                         },
-                        isDisabled: ctx.action === "remove"
+                        isDisabled: ctx.action === "remove" || ctx.action === "get"
                     }),
                     submitButton: button({
                         content: "Execute",

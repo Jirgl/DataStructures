@@ -18,4 +18,4 @@ var JirglStructures;
     }
     JirglStructures.controlPanel = controlPanel;
 })(JirglStructures || (JirglStructures = {}));
-//# sourceMappingURL=controlpanel.js.map
+//# sourceMappingURL=controlPanel.js.map

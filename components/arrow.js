@@ -98,6 +98,28 @@ var JirglStructures;
                 }
             ];
         };
+        Arrow.prototype.drawLine = function (start, end, type) {
+            if (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay) {
+                return this.drawSchemaLine(start, end, type);
+            }
+            var linePath = ["M", start.x, start.y, "L", end.x, end.y];
+            return [
+                {
+                    data: {
+                        path: linePath,
+                        stroke: "#000000",
+                        strokeWidth: 2
+                    }
+                } /*, {
+                    data: {
+                        path: arrowPath,
+                        stroke: "#000000",
+                        strokeWidth: 2,
+                        lineJoin: "miter"
+                    }
+                }*/
+            ];
+        };
         return Arrow;
     })();
     function arrow(arrowPostion, type) {
@@ -105,6 +127,7 @@ var JirglStructures;
             return new Arrow().drawSchemaLine(arrowPostion.start, arrowPostion.end, type);
         }
         else if (type === ArrowType.DirectOneWay || type === ArrowType.DirectTwoWay) {
+            return new Arrow().drawLine(arrowPostion.start, arrowPostion.end, type);
         }
         return undefined;
     }

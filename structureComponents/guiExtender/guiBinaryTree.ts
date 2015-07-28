@@ -22,7 +22,7 @@
             node.indexOfNode = this.currentNode.data.indexOfNode * 2 + 1;
             super.addLeftChild(node);
             if (isAvailableToAdd && this.currentNode.rightChild === undefined &&
-                GuiBinaryTree.calculateDepth(node) > this.depth) {
+                GuiBinaryTree.calculateDepth(node.indexOfNode) > this.depth) {
                 this.depth++;
             }
         }
@@ -32,17 +32,17 @@
             node.indexOfNode = this.currentNode.data.indexOfNode * 2 + 2;
             super.addRightChild(node);
             if (isAvailableToAdd && this.currentNode.leftChild === undefined &&
-                GuiBinaryTree.calculateDepth(node) > this.depth) {
+                GuiBinaryTree.calculateDepth(node.indexOfNode) > this.depth) {
                 this.depth++;
             }
         }
 
-        static calculateDepth(guiNode: GuiNode): number {
+        static calculateDepth(indexOfNode: number): number {
             var depth = 0;
-            var index = guiNode.indexOfNode;
+            var currentIndex = indexOfNode;
 
-            while (index > 0) {
-                index = Math.floor((index - 1) / 2);
+            while (currentIndex > 0) {
+                currentIndex = Math.floor((currentIndex - 1) / 2);
                 depth++;
             }
 

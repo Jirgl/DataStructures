@@ -9,11 +9,11 @@ var JirglStructures;
             var iterator = ctx.data.contentIterator;
             var children = [];
             var arrows = [];
-            var previousPosition;
             var maxHeight = JirglStructures.itemHeight + (2 * JirglStructures.itemMargin);
             while (iterator.hasNext()) {
                 var guiItem = iterator.next();
                 var position = ctx.data.grid.getPosition();
+                var previousPosition = ctx.data.grid.getPositionOfPreviousItem();
                 children.push(JirglStructures.item({
                     content: guiItem.getContent(),
                     x: position.x,
@@ -30,7 +30,6 @@ var JirglStructures;
                 if (currentHeight > maxHeight) {
                     maxHeight = currentHeight;
                 }
-                previousPosition = position;
             }
             children.push({
                 component: b.vg,

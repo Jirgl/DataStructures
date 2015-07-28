@@ -1,10 +1,12 @@
 ﻿module JirglStructures.GuiExtender {
     export class GuiListIterator extends Lists.DoublyLinkedListIterator<GuiItem> {
-        private currentGuiItem: Lists.Item<GuiItem>;
+        previousGuiItem: Lists.Item<GuiItem>;
+        currentGuiItem: Lists.Item<GuiItem>;
         orderOfItem: number;
 
         constructor(firstItem: Lists.Item<GuiItem>, currentItem?: Lists.Item<GuiItem>) {
             super(firstItem);
+            this.previousGuiItem = undefined;
             this.currentGuiItem = currentItem;
             this.orderOfItem = 0;
         }
@@ -16,6 +18,7 @@
                 isCurrent = this.currentItem === this.currentGuiItem;
             }
 
+            this.previousGuiItem = this.currentItem;
             var item = super.next();
             item.isCurrent = isCurrent;
             this.orderOfItem++;

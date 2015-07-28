@@ -1,14 +1,15 @@
 ﻿module JirglStructures.GuiExtender {
     export class GuiTreeIterator implements IIterator<GuiNode> {
         private que: Lists.Queue<Trees.Node<GuiNode>>;
-        private rootNode: Trees.Node<GuiNode>;
-        private currentNode: Trees.Node<GuiNode>;
+        rootNode: Trees.Node<GuiNode>;
+        currentGuiNode: Trees.Node<GuiNode>;
+        indexOfCurrentNode: number;
         orderInLevel: number;
         depth: number;
 
         constructor(rootNode: Trees.Node<GuiNode>, currentNode: Trees.Node<GuiNode>) {
             this.rootNode = rootNode;
-            this.currentNode = currentNode;
+            this.currentGuiNode = currentNode;
             this.rootNode.data.indexOfNode = this.orderInLevel = this.depth = 0;
 
             this.que = new Lists.Queue<Trees.Node<GuiNode>>();
@@ -30,15 +31,13 @@
                 this.que.enqueue(node.rightChild);
             }
 
-            node.data.isCurrent = node === this.currentNode;
-            this.depth = GuiBinaryTree.calculateDepth(node.data);
+            node.data.isCurrent = node === this.currentGuiNode;
+            this.depth = GuiBinaryTree.calculateDepth(node.data.indexOfNode);
             this.orderInLevel = (node.data.indexOfNode + 1) - Math.pow(2, this.depth);
+            this.indexOfCurrentNode = node.data.indexOfNode;
 
             return node.data;
         }
-
-        
-
         reset(): void {
             this.que.clear();
             this.orderInLevel = 0;

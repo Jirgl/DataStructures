@@ -27,7 +27,7 @@ var JirglStructures;
                 node.indexOfNode = this.currentNode.data.indexOfNode * 2 + 1;
                 _super.prototype.addLeftChild.call(this, node);
                 if (isAvailableToAdd && this.currentNode.rightChild === undefined &&
-                    GuiBinaryTree.calculateDepth(node) > this.depth) {
+                    GuiBinaryTree.calculateDepth(node.indexOfNode) > this.depth) {
                     this.depth++;
                 }
             };
@@ -36,15 +36,15 @@ var JirglStructures;
                 node.indexOfNode = this.currentNode.data.indexOfNode * 2 + 2;
                 _super.prototype.addRightChild.call(this, node);
                 if (isAvailableToAdd && this.currentNode.leftChild === undefined &&
-                    GuiBinaryTree.calculateDepth(node) > this.depth) {
+                    GuiBinaryTree.calculateDepth(node.indexOfNode) > this.depth) {
                     this.depth++;
                 }
             };
-            GuiBinaryTree.calculateDepth = function (guiNode) {
+            GuiBinaryTree.calculateDepth = function (indexOfNode) {
                 var depth = 0;
-                var index = guiNode.indexOfNode;
-                while (index > 0) {
-                    index = Math.floor((index - 1) / 2);
+                var currentIndex = indexOfNode;
+                while (currentIndex > 0) {
+                    currentIndex = Math.floor((currentIndex - 1) / 2);
                     depth++;
                 }
                 return depth;

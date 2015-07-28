@@ -96,13 +96,37 @@ module JirglStructures {
                 }
             ];
         }
+
+        drawLine(start: Position, end: Position, type: ArrowType): any {
+            if (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay) {
+                return this.drawSchemaLine(start, end, type);
+            }
+
+            var linePath = ["M", start.x, start.y, "L", end.x, end.y];
+            return [
+                {
+                    data: {
+                        path: linePath,
+                        stroke: "#000000",
+                        strokeWidth: 2
+                    }
+                }/*, {
+                    data: {
+                        path: arrowPath,
+                        stroke: "#000000",
+                        strokeWidth: 2,
+                        lineJoin: "miter"
+                    }
+                }*/
+            ];
+        }
     }
 
     export function arrow(arrowPostion: ArrowPosition, type: ArrowType): any {
         if (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay) {
             return new Arrow().drawSchemaLine(arrowPostion.start, arrowPostion.end, type);
         } else if (type === ArrowType.DirectOneWay || type === ArrowType.DirectTwoWay) {
-
+            return new Arrow().drawLine(arrowPostion.start, arrowPostion.end, type);
         }
 
         return undefined;

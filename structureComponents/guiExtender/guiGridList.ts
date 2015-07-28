@@ -21,11 +21,23 @@ module JirglStructures.GuiExtender {
         }
 
         getPosition(): Position {
+            return this.getItemPosition(this.iterator.orderOfItem);
+        }
+
+        getPositionOfPreviousItem(): Position {
+            if (this.iterator.orderOfItem > 1) {
+                return this.getItemPosition(this.iterator.orderOfItem - 1);
+            } else {
+                return undefined;
+            }
+        }
+
+        private getItemPosition(orderOfItem: number): Position {
             var itemWidthWithMargin = (itemWidth + (itemMargin * 2));
             var itemsPerLine = Math.floor(b.getMedia().width - this.widthReduction / itemWidthWithMargin);
 
             return {
-                x: ((this.iterator.orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
+                x: ((orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
                 y: Math.floor((this.iterator.orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
             };
         }

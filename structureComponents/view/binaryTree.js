@@ -13,6 +13,13 @@ var JirglStructures;
                 ctx.binaryTree.addRoot(new JirglStructures.GuiExtender.GuiNode("root node"));
                 ctx.binaryTree.addLeftChild(new JirglStructures.GuiExtender.GuiNode("left node"));
                 ctx.binaryTree.addRightChild(new JirglStructures.GuiExtender.GuiNode("right node"));
+                ctx.binaryTree.getLeftChildNode();
+                ctx.binaryTree.addLeftChild(new JirglStructures.GuiExtender.GuiNode("0"));
+                ctx.binaryTree.addRightChild(new JirglStructures.GuiExtender.GuiNode("1"));
+                ctx.binaryTree.getRootNode();
+                ctx.binaryTree.getRightChildNode();
+                ctx.binaryTree.addLeftChild(new JirglStructures.GuiExtender.GuiNode("2"));
+                ctx.binaryTree.addRightChild(new JirglStructures.GuiExtender.GuiNode("3"));
                 ctx.action = "add";
                 ctx.option = "left child";
             },
@@ -41,7 +48,7 @@ var JirglStructures;
                             onChange: function (value) {
                                 ctx.value = value;
                             },
-                            isDisabled: ctx.action === "remove"
+                            isDisabled: ctx.action === "remove" || ctx.action === "get"
                         }),
                         submitButton: JirglStructures.button({
                             content: "Execute",

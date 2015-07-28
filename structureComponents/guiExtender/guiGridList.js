@@ -19,10 +19,21 @@ var JirglStructures;
                 return JirglStructures.ArrowType.SchemaTwoWay;
             };
             GuiGridList.prototype.getPosition = function () {
+                return this.getItemPosition(this.iterator.orderOfItem);
+            };
+            GuiGridList.prototype.getPositionOfPreviousItem = function () {
+                if (this.iterator.orderOfItem > 1) {
+                    return this.getItemPosition(this.iterator.orderOfItem - 1);
+                }
+                else {
+                    return undefined;
+                }
+            };
+            GuiGridList.prototype.getItemPosition = function (orderOfItem) {
                 var itemWidthWithMargin = (JirglStructures.itemWidth + (JirglStructures.itemMargin * 2));
                 var itemsPerLine = Math.floor(b.getMedia().width - this.widthReduction / itemWidthWithMargin);
                 return {
-                    x: ((this.iterator.orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
+                    x: ((orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
                     y: Math.floor((this.iterator.orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
                 };
             };
