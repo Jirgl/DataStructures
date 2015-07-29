@@ -5,6 +5,7 @@ var JirglStructures;
         var GuiGridTree = (function () {
             function GuiGridTree(depth, iterator) {
                 this.widthReduction = 500;
+                this.levelHeight = 80;
                 this.depth = depth;
                 this.iterator = iterator;
             }
@@ -27,9 +28,13 @@ var JirglStructures;
                 var countInLevel = Math.pow(2, depth);
                 var itemWidthWithMargin = JirglStructures.itemWidth + (JirglStructures.itemMargin * 2);
                 var widthPerItem = Math.max(this.getWidth() / countInLevel, itemWidthWithMargin);
+                var height = 0;
+                for (var i = depth; i > 0; i--) {
+                    height += (this.depth - i) * this.levelHeight;
+                }
                 return {
                     x: orderInLevel * widthPerItem + widthPerItem / 2 - itemWidthWithMargin / 2,
-                    y: depth * itemWidthWithMargin
+                    y: depth * itemWidthWithMargin + height
                 };
             };
             GuiGridTree.prototype.getArrowsPositions = function (previousPosition, position) {
