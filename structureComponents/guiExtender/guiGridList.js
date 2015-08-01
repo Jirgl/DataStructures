@@ -31,10 +31,10 @@ var JirglStructures;
             };
             GuiGridList.prototype.getItemPosition = function (orderOfItem) {
                 var itemWidthWithMargin = (JirglStructures.itemWidth + (JirglStructures.itemMargin * 2));
-                var itemsPerLine = Math.floor(b.getMedia().width - this.widthReduction / itemWidthWithMargin);
+                var itemsPerLine = Math.floor((b.getMedia().width - this.widthReduction) / itemWidthWithMargin);
                 return {
                     x: ((orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
-                    y: Math.floor((this.iterator.orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
+                    y: Math.floor((orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
                 };
             };
             GuiGridList.prototype.getArrowsPositions = function (previousPosition, position) {
