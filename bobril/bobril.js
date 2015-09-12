@@ -17,6 +17,30 @@ b = (function (window, document) {
     function isObject(value) {
         return typeof value === "object";
     }
+    function flatten(a) {
+        if (!isArray(a)) {
+            if (a == null || a === false || a === true)
+                return [];
+            return [a];
+        }
+        a = a.split(0);
+        var alen = a.length;
+        for (var i = 0; i < alen;) {
+            var item = a[i];
+            if (isArray(item)) {
+                a.splice.apply(a, [i, 1].concat(item));
+                alen = a.length;
+                continue;
+            }
+            if (item == null || item === false || item === true) {
+                a.splice(i, 1);
+                alen--;
+                continue;
+            }
+            i++;
+        }
+        return a;
+    }
     var inSvg = false;
     var updateCall = [];
     var updateInstance = [];
@@ -32,7 +56,7 @@ b = (function (window, document) {
     function newHashObj() {
         return Object.create(null);
     }
-    var vendors = ["webkit", "Moz", "ms", "o"];
+    var vendors = ["Webkit", "Moz", "ms", "O"];
     var testingDivStyle = document.createElement("div").style;
     function testPropExistence(name) {
         return typeof testingDivStyle[name] === "string";
@@ -295,6 +319,7 @@ b = (function (window, document) {
                 if (component.postRender) {
                     component.postRender(c.ctx, c);
                 }
+                pushInitCallback(c, false);
             }
             return c;
         }
@@ -347,6 +372,7 @@ b = (function (window, document) {
                 if (component.postRender) {
                     component.postRender(c.ctx, c);
                 }
+                pushInitCallback(c, false);
             }
             return c;
         }
@@ -416,7 +442,7 @@ b = (function (window, document) {
                 l--;
                 continue;
             }
-            var j = ch[i] = createNode(item, c, createInto, createBefore);
+            ch[i] = createNode(item, c, createInto, createBefore);
             i++;
         }
         c.children = ch;
@@ -580,7 +606,7 @@ b = (function (window, document) {
                 if (c.parent != undefined)
                     ctx.cfg = findCfg(c.parent);
                 if (component.shouldChange)
-                    if (!component.shouldChange(ctx, n, c))
+                    if (!component.shouldChange(ctx, n, c) && !ignoringShouldChange)
                         return c;
                 ctx.data = n.data || {};
                 c.component = component;
@@ -1093,7 +1119,7 @@ b = (function (window, document) {
     }
     var ctxInvalidated = "$invalidated";
     var ctxDeepness = "$deepness";
-    var fullRecreateRequested = false;
+    var fullRecreateRequested = true;
     var scheduled = false;
     var uptime = 0;
     var frame = 0;
@@ -1207,6 +1233,8 @@ b = (function (window, document) {
         renderFrameBegin = now();
         initEvents();
         frame++;
+        ignoringShouldChange = nextIgnoreShouldChange;
+        nextIgnoreShouldChange = false;
         uptime = time;
         scheduled = false;
         beforeFrameCallback();
@@ -1234,8 +1262,15 @@ b = (function (window, document) {
             }
         }
         callPostCallbacks();
-        afterFrameCallback(roots["0"].c);
+        var r0 = roots["0"];
+        afterFrameCallback(r0 ? r0.c : null);
         lastFrameDuration = now() - renderFrameBegin;
+    }
+    var nextIgnoreShouldChange = false;
+    var ignoringShouldChange = false;
+    function ignoreShouldChange() {
+        nextIgnoreShouldChange = true;
+        invalidate();
     }
     function invalidate(ctx, deepness) {
         if (fullRecreateRequested)
@@ -1261,11 +1296,16 @@ b = (function (window, document) {
         requestAnimationFrame(update);
     }
     var lastRootId = 0;
-    function addRoot(factory, element) {
+    function forceInvalidate() {
+        if (!scheduled)
+            fullRecreateRequested = false;
+        invalidate();
+    }
+    function addRoot(factory, element, parent) {
         lastRootId++;
         var rootId = "" + lastRootId;
-        roots[rootId] = { f: factory, e: element, c: [] };
-        invalidate();
+        roots[rootId] = { f: factory, e: element, c: [], p: parent };
+        forceInvalidate();
         return rootId;
     }
     function removeRoot(id) {
@@ -1280,11 +1320,12 @@ b = (function (window, document) {
     function getRoots() {
         return roots;
     }
-    var beforeInit = invalidate;
+    var beforeInit = forceInvalidate;
     function init(factory, element) {
         removeRoot("0");
-        roots["0"] = { f: factory, e: element, c: [] };
+        roots["0"] = { f: factory, e: element, c: [], p: undefined };
         beforeInit();
+        beforeInit = forceInvalidate;
     }
     function setBeforeInit(callback) {
         var prevBeforeInit = beforeInit;
@@ -1488,6 +1529,7 @@ b = (function (window, document) {
         assign: assign,
         ieVersion: ieVersion,
         invalidate: invalidate,
+        ignoreShouldChange: ignoreShouldChange,
         invalidated: function () { return scheduled; },
         preventDefault: preventDefault,
         vdomPath: vdomPath,
@@ -1500,6 +1542,7 @@ b = (function (window, document) {
         preEnhance: preEnhance,
         postEnhance: postEnhance,
         cloneNode: cloneNode,
-        shimStyle: shimStyle
+        shimStyle: shimStyle,
+        flatten: flatten
     };
 })(window, document);

@@ -12,6 +12,8 @@ interface IBobrilRoot {
     e: HTMLElement;
     // Virtual Dom Cache
     c: IBobrilCacheNode[];
+    // Optional Logical parent
+    p: IBobrilCacheNode;
 }
 
 declare type IBobrilRoots = { [id: string]: IBobrilRoot };
@@ -26,10 +28,14 @@ interface IBobrilStatic {
     // for deepness equal to zero only that node without its children will be rerendered
     // if deepness is not specified infinite deepness is implied
     invalidate(ctx?: Object, deepness?: number): void;
+    // next render it will ignore results of shouldChange and always render.
+    // Usefull if you have some rarely changed thing like UI language which you don't want to compare in every shouldChange
+    // it will call invalidate() for you, so you don't need to.
+    ignoreShouldChange(): void;
     // When you need to know if next frame/update is already scheduled
     invalidated(): boolean;
     // Register new root and return its id
-    addRoot(factory: () => IBobrilChildren, element?: HTMLElement): string;
+    addRoot(factory: () => IBobrilChildren, element?: HTMLElement, parent?: IBobrilCacheNode): string;
     // Unregister root with specified id
     removeRoot(id: string): void;
     // Returns all information about all roots
@@ -91,6 +97,8 @@ interface IBobrilStatic {
     cloneNode(node: IBobrilNode): IBobrilNode;
     // shim inline style (it is used internally)
     shimStyle(style: any): void;
+    // flatten array or wrap by array as needed - removing null, undefined, false, true - always returning new array
+    flatten(a:any|any[]): any[];
 }
 
 interface IBobrilAttributes {
