@@ -1,20 +1,24 @@
 /// <reference path="../bobril/bobril.d.ts" />
 var JirglStructures;
 (function (JirglStructures) {
-    JirglStructures.itemWidth = 80;
-    JirglStructures.itemHeight = 80;
-    JirglStructures.itemMargin = 30;
+    var Item;
+    (function (Item) {
+        Item.itemWidth = 80;
+        Item.itemHeight = 80;
+        Item.itemMargin = 30;
+        Item.arrowMargin = 2;
+    })(Item = JirglStructures.Item || (JirglStructures.Item = {}));
     var itemComponent = {
         render: function (ctx, me) {
             me.tag = "div";
             me.style = {
                 background: ctx.data.isCurrent ? "green" : "red",
-                width: JirglStructures.itemWidth,
-                height: JirglStructures.itemHeight,
+                width: Item.itemWidth,
+                height: Item.itemHeight,
                 position: "absolute",
                 left: ctx.data.x,
                 top: ctx.data.y,
-                margin: JirglStructures.itemMargin
+                margin: Item.itemMargin
             };
             me.children = ctx.data.content;
         }

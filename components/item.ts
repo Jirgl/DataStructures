@@ -1,9 +1,12 @@
 ﻿/// <reference path="../bobril/bobril.d.ts" />
 
 module JirglStructures {
-    export var itemWidth = 80;
-    export var itemHeight = 80;
-    export var itemMargin = 30;
+    export module Item {
+        export var itemWidth = 80;
+        export var itemHeight = 80;
+        export var itemMargin = 30;
+        export var arrowMargin = 2;
+    }
 
     export interface IItemData<T> {
         content: T;
@@ -21,12 +24,12 @@ module JirglStructures {
             me.tag = "div";
             me.style = {
                 background: ctx.data.isCurrent ? "green" : "red",
-                width: itemWidth,
-                height: itemHeight,
+                width: Item.itemWidth,
+                height: Item.itemHeight,
                 position: "absolute",
                 left: ctx.data.x,
                 top: ctx.data.y,
-                margin: itemMargin
+                margin: Item.itemMargin
             };
             me.children = ctx.data.content;
         }

@@ -11,7 +11,7 @@ module JirglStructures {
     export class Arrow {
         private arrowLength = 10;
         private itemBorder = 20;
-        private arrowAngle = 45;
+        private arrowAngle = 30;
 
         private getArrowhead(start: Position, end: Position): any {
             var currentAngle = Math.atan2(end.y - start.y, end.x - start.x) * 180 / Math.PI;

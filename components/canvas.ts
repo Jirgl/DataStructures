@@ -27,7 +27,7 @@ module JirglStructures {
             var iterator = ctx.data.contentIterator;
             var children: IBobrilNode[] = [];
             var arrows: IBobrilNode[] = [];
-            var maxHeight = itemHeight + (2 * itemMargin);
+            var maxHeight = Item.itemHeight + (2 * Item.itemMargin);
 
             while (iterator.hasNext()) {
                 var guiItem = iterator.next();
@@ -47,7 +47,7 @@ module JirglStructures {
                     }
                 }
 
-                var currentHeight = position.y + itemHeight + (2 * itemMargin);
+                var currentHeight = position.y + Item.itemHeight + (2 * Item.itemMargin);
                 if (currentHeight > maxHeight) {
                     maxHeight = currentHeight;
                 }

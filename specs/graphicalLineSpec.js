@@ -95,9 +95,9 @@ describe("Getting graphical arrowhead", function () {
         var path = arrow.getArrowhead({ x: 100, y: 0 }, endPosition);
 
         expect(path).toEqual([
-            "M", 90, 0,
+            "M", 90, 3,
             "L", 100, 0,
-            "L", 100, 10
+            "L", 97, 10
         ]);
     });
 
@@ -105,9 +105,9 @@ describe("Getting graphical arrowhead", function () {
         var path = arrow.getArrowhead({ x: 100, y: 100 }, endPosition);
 
         expect(path).toEqual([
-            "M", 100, 90,
+            "M", 97, 90,
             "L", 100, 100,
-            "L", 90, 100
+            "L", 90, 97
         ]);
     });
 
@@ -115,9 +115,9 @@ describe("Getting graphical arrowhead", function () {
         var path = arrow.getArrowhead({ x: 0, y: 0 }, endPosition);
 
         expect(path).toEqual([
-            "M", 0, 10,
+            "M", 3, 10,
             "L", 0, 0,
-            "L", 10, 0
+            "L", 10, 3
         ]);
     });
 
@@ -125,9 +125,9 @@ describe("Getting graphical arrowhead", function () {
         var path = arrow.getArrowhead({ x: 0, y: 100 }, endPosition);
 
         expect(path).toEqual([
-            "M", 10, 100,
+            "M", 10, 97,
             "L", 0, 100,
-            "L", 0, 90
+            "L", 3, 90
         ]);
     });
 });

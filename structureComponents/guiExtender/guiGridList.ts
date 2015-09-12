@@ -33,7 +33,7 @@ module JirglStructures.GuiExtender {
         }
 
         private getItemPosition(orderOfItem: number): Position {
-            var itemWidthWithMargin = (itemWidth + (itemMargin * 2));
+            var itemWidthWithMargin = (Item.itemWidth + (Item.itemMargin * 2));
             var itemsPerLine = Math.floor((b.getMedia().width - this.widthReduction) / itemWidthWithMargin);
 
             return {
@@ -45,8 +45,14 @@ module JirglStructures.GuiExtender {
         getArrowsPositions(previousPosition: Position, position: Position): ArrowPosition[] {
             return [
                 {
-                    start: { x: previousPosition.x + itemWidth + itemMargin, y: previousPosition.y + itemHeight / 2 + itemMargin },
-                    end: { x: position.x + itemMargin, y: position.y + itemHeight / 2 + itemMargin }
+                    start: {
+                        x: previousPosition.x + Item.itemWidth + Item.itemMargin + Item.arrowMargin,
+                        y: previousPosition.y + Item.itemHeight / 2 + Item.itemMargin
+                    },
+                    end: {
+                        x: position.x + Item.itemMargin - Item.arrowMargin,
+                        y: position.y + Item.itemHeight / 2 + Item.itemMargin
+                    }
                 }
             ];
         }

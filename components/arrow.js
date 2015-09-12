@@ -12,7 +12,7 @@ var JirglStructures;
         function Arrow() {
             this.arrowLength = 10;
             this.itemBorder = 20;
-            this.arrowAngle = 45;
+            this.arrowAngle = 30;
         }
         Arrow.prototype.getArrowhead = function (start, end) {
             var currentAngle = Math.atan2(end.y - start.y, end.x - start.x) * 180 / Math.PI;

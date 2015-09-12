@@ -30,7 +30,7 @@ var JirglStructures;
                 }
             };
             GuiGridList.prototype.getItemPosition = function (orderOfItem) {
-                var itemWidthWithMargin = (JirglStructures.itemWidth + (JirglStructures.itemMargin * 2));
+                var itemWidthWithMargin = (JirglStructures.Item.itemWidth + (JirglStructures.Item.itemMargin * 2));
                 var itemsPerLine = Math.floor((b.getMedia().width - this.widthReduction) / itemWidthWithMargin);
                 return {
                     x: ((orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
@@ -40,8 +40,14 @@ var JirglStructures;
             GuiGridList.prototype.getArrowsPositions = function (previousPosition, position) {
                 return [
                     {
-                        start: { x: previousPosition.x + JirglStructures.itemWidth + JirglStructures.itemMargin, y: previousPosition.y + JirglStructures.itemHeight / 2 + JirglStructures.itemMargin },
-                        end: { x: position.x + JirglStructures.itemMargin, y: position.y + JirglStructures.itemHeight / 2 + JirglStructures.itemMargin }
+                        start: {
+                            x: previousPosition.x + JirglStructures.Item.itemWidth + JirglStructures.Item.itemMargin + JirglStructures.Item.arrowMargin,
+                            y: previousPosition.y + JirglStructures.Item.itemHeight / 2 + JirglStructures.Item.itemMargin
+                        },
+                        end: {
+                            x: position.x + JirglStructures.Item.itemMargin - JirglStructures.Item.arrowMargin,
+                            y: position.y + JirglStructures.Item.itemHeight / 2 + JirglStructures.Item.itemMargin
+                        }
                     }
                 ];
             };

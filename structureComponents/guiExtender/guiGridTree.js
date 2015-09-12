@@ -21,12 +21,12 @@ var JirglStructures;
                 }
                 var parentIndex = Math.floor((this.iterator.indexOfCurrentNode - 1) / 2);
                 var parentOrderInLevel = (parentIndex + 1) - Math.pow(2, this.iterator.depth - 1);
-                var pos = this.getItemPosition(parentOrderInLevel, this.iterator.depth - 1);
-                return pos;
+                var position = this.getItemPosition(parentOrderInLevel, this.iterator.depth - 1);
+                return position;
             };
             GuiGridTree.prototype.getItemPosition = function (orderInLevel, depth) {
                 var countInLevel = Math.pow(2, depth);
-                var itemWidthWithMargin = JirglStructures.itemWidth + (JirglStructures.itemMargin * 2);
+                var itemWidthWithMargin = JirglStructures.Item.itemWidth + (JirglStructures.Item.itemMargin * 2);
                 var widthPerItem = Math.max(this.getWidth() / countInLevel, itemWidthWithMargin);
                 var height = 0;
                 for (var i = depth; i > 0; i--) {
@@ -38,16 +38,25 @@ var JirglStructures;
                 };
             };
             GuiGridTree.prototype.getArrowsPositions = function (previousPosition, position) {
+                var childArrowOffset = position.x < previousPosition.x
+                    ? -JirglStructures.Item.arrowMargin
+                    : JirglStructures.Item.arrowMargin;
                 return [
                     {
-                        start: { x: previousPosition.x + JirglStructures.itemWidth / 2 + JirglStructures.itemMargin, y: previousPosition.y + JirglStructures.itemHeight + JirglStructures.itemMargin },
-                        end: { x: position.x + JirglStructures.itemWidth / 2 + JirglStructures.itemMargin, y: position.y + JirglStructures.itemMargin }
+                        start: {
+                            x: previousPosition.x + JirglStructures.Item.itemWidth / 2 + JirglStructures.Item.itemMargin + childArrowOffset,
+                            y: previousPosition.y + JirglStructures.Item.itemHeight + JirglStructures.Item.itemMargin + JirglStructures.Item.arrowMargin
+                        },
+                        end: {
+                            x: position.x + JirglStructures.Item.itemWidth / 2 + JirglStructures.Item.itemMargin,
+                            y: position.y + JirglStructures.Item.itemMargin - JirglStructures.Item.arrowMargin
+                        }
                     }
                 ];
             };
             GuiGridTree.prototype.getWidth = function () {
                 var baseWidth = b.getMedia().width - this.widthReduction;
-                var treeWidth = Math.pow(2, this.depth) * (JirglStructures.itemWidth + (2 * JirglStructures.itemMargin));
+                var treeWidth = Math.pow(2, this.depth) * (JirglStructures.Item.itemWidth + (2 * JirglStructures.Item.itemMargin));
                 return Math.max(baseWidth, treeWidth);
             };
             return GuiGridTree;

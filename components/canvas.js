@@ -12,7 +12,7 @@ var JirglStructures;
             var iterator = ctx.data.contentIterator;
             var children = [];
             var arrows = [];
-            var maxHeight = JirglStructures.itemHeight + (2 * JirglStructures.itemMargin);
+            var maxHeight = JirglStructures.Item.itemHeight + (2 * JirglStructures.Item.itemMargin);
             while (iterator.hasNext()) {
                 var guiItem = iterator.next();
                 var position = ctx.data.grid.getPosition();
@@ -29,7 +29,7 @@ var JirglStructures;
                         arrows.push(ctx.arrow.getArrowPath(itemArrows[index].start, itemArrows[index].end, ctx.data.grid.getArrowType()));
                     }
                 }
-                var currentHeight = position.y + JirglStructures.itemHeight + (2 * JirglStructures.itemMargin);
+                var currentHeight = position.y + JirglStructures.Item.itemHeight + (2 * JirglStructures.Item.itemMargin);
                 if (currentHeight > maxHeight) {
                     maxHeight = currentHeight;
                 }
