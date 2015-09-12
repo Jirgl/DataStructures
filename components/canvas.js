@@ -5,6 +5,9 @@
 var JirglStructures;
 (function (JirglStructures) {
     var canvasComponent = {
+        init: function (ctx) {
+            ctx.arrow = new JirglStructures.Arrow();
+        },
         render: function (ctx, me) {
             var iterator = ctx.data.contentIterator;
             var children = [];
@@ -23,7 +26,7 @@ var JirglStructures;
                 if (previousPosition !== undefined) {
                     var itemArrows = ctx.data.grid.getArrowsPositions(previousPosition, position);
                     for (var index = 0; index < itemArrows.length; index++) {
-                        arrows.push(JirglStructures.arrow(itemArrows[index], ctx.data.grid.getArrowType()));
+                        arrows.push(ctx.arrow.getArrowPath(itemArrows[index].start, itemArrows[index].end, ctx.data.grid.getArrowType()));
                     }
                 }
                 var currentHeight = position.y + JirglStructures.itemHeight + (2 * JirglStructures.itemMargin);
@@ -33,7 +36,7 @@ var JirglStructures;
             }
             children.push({
                 component: b.vg,
-                data: { width: ctx.data.grid.getWidth(), height: maxHeight },
+                data: { width: ctx.data.grid.getWidth(), height: maxHeight, zIndex: 100 },
                 children: arrows
             });
             me.tag = "div";

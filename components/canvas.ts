@@ -16,9 +16,13 @@ module JirglStructures {
 
     interface ICanvasCtx<T> {
         data: ICanvasData<T>;
+        arrow: Arrow;
     }
 
     var canvasComponent: IBobrilComponent = {
+        init<T>(ctx: ICanvasCtx<T>) {
+            ctx.arrow = new Arrow();
+        },
         render<T>(ctx: ICanvasCtx<T>, me: IBobrilNode) {
             var iterator = ctx.data.contentIterator;
             var children: IBobrilNode[] = [];
@@ -39,7 +43,7 @@ module JirglStructures {
                 if (previousPosition !== undefined) {
                     var itemArrows = ctx.data.grid.getArrowsPositions(previousPosition, position);
                     for (var index = 0; index < itemArrows.length; index++) {
-                        arrows.push(arrow(itemArrows[index], ctx.data.grid.getArrowType()));
+                        arrows.push(ctx.arrow.getArrowPath(itemArrows[index].start, itemArrows[index].end, ctx.data.grid.getArrowType()));
                     }
                 }
 
@@ -47,11 +51,9 @@ module JirglStructures {
                 if (currentHeight > maxHeight) {
                     maxHeight = currentHeight;
                 }
-            }
-
-            children.push({
+            }children.push({
                 component: b.vg,
-                data: { width: ctx.data.grid.getWidth(), height: maxHeight },
+                data: { width: ctx.data.grid.getWidth(), height: maxHeight, zIndex: 100 },
                 children: arrows
             });
 

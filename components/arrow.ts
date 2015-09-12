@@ -8,87 +8,87 @@ module JirglStructures {
         SchemaTwoWay
     }
 
-    class Arrow {
-        private axisOffset = 5;
-        private arrowheadOffset = 7;
-        private itemArrowOffset = 17;
+    export class Arrow {
+        private arrowLength = 10;
+        private itemBorder = 20;
+        private arrowAngle = 45;
 
-        drawSchemaLine(start: Position, end: Position, type: ArrowType): any {
-            var linePath: any[] = undefined;
-            var arrowPath: any[] = undefined;
+        private getArrowhead(start: Position, end: Position): any {
+            var currentAngle = Math.atan2(end.y - start.y, end.x - start.x) * 180 / Math.PI;
+            var angle = currentAngle + this.arrowAngle;
+            var arrowStartX = Math.round(this.arrowLength * Math.cos(angle * Math.PI / 180));
+            var arrowStartY = Math.round(this.arrowLength * Math.sin(angle * Math.PI / 180));
 
-            if (type === ArrowType.SchemaOneWay) {
-                arrowPath = [
-                    "M", end.x - this.arrowheadOffset, end.y - this.arrowheadOffset,
-                    "L", end.x, end.y,
-                    "L", end.x - this.arrowheadOffset, end.y + this.arrowheadOffset
+            angle = currentAngle - this.arrowAngle;
+            var arrowEndX = Math.round(this.arrowLength * Math.cos(angle * Math.PI / 180));
+            var arrowEndY = Math.round(this.arrowLength * Math.sin(angle * Math.PI / 180));
+
+            return [
+                "M", start.x + arrowStartX, start.y + arrowStartY,
+                "L", start.x, start.y,
+                "L", start.x + arrowEndX, start.y + arrowEndY
+            ];
+        }
+
+        private getDirectLine(start: Position, end: Position): any {
+            return [
+                "M", start.x, start.y,
+                "L", end.x, end.y
+            ];
+        }
+
+        private getSchemaLine(start: Position, end: Position): any {
+            if (start.x < end.x) {
+                return [
+                    "M", start.x, start.y,
+                    "L", start.x + ((end.x - start.x) / 2), start.y,
+                    "L", start.x + ((end.x - start.x) / 2), start.y + (end.y - start.y),
+                    "L", end.x, end.y
                 ];
-            } else if (type === ArrowType.SchemaTwoWay) {
-                arrowPath = [
-                    "M", end.x - this.arrowheadOffset, end.y - this.arrowheadOffset - this.axisOffset,
-                    "L", end.x, end.y - this.axisOffset,
-                    "L", end.x - this.arrowheadOffset, end.y + this.arrowheadOffset - this.axisOffset,
-                    "M", start.x + this.arrowheadOffset, start.y - this.arrowheadOffset + this.axisOffset,
-                    "L", start.x, start.y + this.axisOffset,
-                    "L", start.x + this.arrowheadOffset, start.y + this.arrowheadOffset + this.axisOffset
+            } else {
+                return [
+                    "M", start.x, start.y,
+                    "L", start.x + this.itemBorder, start.y,
+                    "L", start.x + this.itemBorder, start.y + ((end.y - start.y) / 2),
+                    "L", end.x - this.itemBorder, start.y + ((end.y - start.y) / 2),
+                    "L", end.x - this.itemBorder, end.y,
+                    "L", end.x, end.y
                 ];
             }
+        }
 
-            if (start.y === end.y && start.x < end.x) {
-                if (type === ArrowType.SchemaOneWay) {
-                    linePath = ["M", start.x, start.y, "L", end.x, end.y];
-                } else if (type === ArrowType.SchemaTwoWay) {
-                    linePath = [
-                        "M", start.x, start.y - this.axisOffset,
-                        "L", end.x, end.y - this.axisOffset,
-                        "M", end.x, end.y + this.axisOffset,
-                        "L", start.x, start.y + this.axisOffset
-                    ];
+        getArrowPath(start: Position, end: Position, type: ArrowType): any {
+            var endForArrow = end;
+            var startForOppositeArrow = start;
+
+            if ((type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay) && start.y !== end.y) {
+                endForArrow = { x: start.x + 5, y: start.y };
+
+                if (type === ArrowType.SchemaTwoWay || type === ArrowType.DirectTwoWay) {
+                    startForOppositeArrow = { x: end.x - 5, y: end.y };
                 }
-            } else if (start.y === end.y && start.x > end.x) {
+            }
 
-            } else if (start.x === end.x && start.y < end.y) {
-
-            } else if (start.x === end.x && start.y > end.y) {
-
-            } else if (start.x > end.x && start.y < end.y) {
-                if (type === ArrowType.SchemaOneWay) {
-                    linePath = [
-                        "M", start.x, start.y,
-                        "L", start.x + this.itemArrowOffset, start.y,
-                        "L", start.x + this.itemArrowOffset, start.y + ((end.y - start.y) / 2),
-                        "L", end.x - this.itemArrowOffset, start.y + ((end.y - start.y) / 2),
-                        "L", end.x - this.itemArrowOffset, end.y,
-                        "L", end.x, end.y
-                    ];
-                }else if (type === ArrowType.SchemaTwoWay) {
-                    linePath = [
-                        "M", start.x, start.y - this.axisOffset,
-                        "L", start.x + this.itemArrowOffset + this.axisOffset, start.y - this.axisOffset,
-                        "L", start.x + this.itemArrowOffset + this.axisOffset, start.y + ((end.y - start.y) / 2) + this.axisOffset,
-                        "L", end.x - this.itemArrowOffset + this.axisOffset, start.y + ((end.y - start.y) / 2) + this.axisOffset,
-                        "L", end.x - this.itemArrowOffset + this.axisOffset, end.y - this.axisOffset,
-                        "L", end.x, end.y - this.axisOffset,
-                        "M", start.x, start.y + this.axisOffset,
-                        "L", start.x + this.itemArrowOffset - this.axisOffset, start.y + this.axisOffset,
-                        "L", start.x + this.itemArrowOffset - this.axisOffset, start.y + ((end.y - start.y) / 2) - this.axisOffset,
-                        "L", end.x - this.itemArrowOffset - this.axisOffset, start.y + ((end.y - start.y) / 2) - this.axisOffset,
-                        "L", end.x - this.itemArrowOffset - this.axisOffset, end.y + this.axisOffset,
-                        "L", end.x, end.y + this.axisOffset
-                    ];
+            var arrowPaths = this.getArrowhead(start, endForArrow);
+            if (type === ArrowType.SchemaTwoWay || type === ArrowType.DirectTwoWay) {
+                var arrowPath = this.getArrowhead(end, startForOppositeArrow);
+                for (var i = 0; i < arrowPath.length; i++) {
+                    arrowPaths.push(arrowPath[i]);
                 }
             }
 
             return [
                 {
                     data: {
-                        path: linePath,
+                        path: (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay)
+                            ? this.getSchemaLine(start, end)
+                            : this.getDirectLine(start, end),
                         stroke: "#000000",
                         strokeWidth: 2
                     }
                 }, {
                     data: {
-                        path: arrowPath,
+                        path: arrowPaths,
                         stroke: "#000000",
                         strokeWidth: 2,
                         lineJoin: "miter"
@@ -96,39 +96,5 @@ module JirglStructures {
                 }
             ];
         }
-
-        drawLine(start: Position, end: Position, type: ArrowType): any {
-            if (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay) {
-                return this.drawSchemaLine(start, end, type);
-            }
-
-            var linePath = ["M", start.x, start.y, "L", end.x, end.y];
-            return [
-                {
-                    data: {
-                        path: linePath,
-                        stroke: "#000000",
-                        strokeWidth: 2
-                    }
-                }/*, {
-                    data: {
-                        path: arrowPath,
-                        stroke: "#000000",
-                        strokeWidth: 2,
-                        lineJoin: "miter"
-                    }
-                }*/
-            ];
-        }
-    }
-
-    export function arrow(arrowPostion: ArrowPosition, type: ArrowType): any {
-        if (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay) {
-            return new Arrow().drawSchemaLine(arrowPostion.start, arrowPostion.end, type);
-        } else if (type === ArrowType.DirectOneWay || type === ArrowType.DirectTwoWay) {
-            return new Arrow().drawLine(arrowPostion.start, arrowPostion.end, type);
-        }
-
-        return undefined;
     }
 }
