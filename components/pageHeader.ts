@@ -4,6 +4,8 @@
 module JirglStructures {
     export interface IPageHeaderData {
         content: string;
+        leftPosition: number;
+        topPosition: number;
     }
 
     interface IPageHeaderCtx {
@@ -17,8 +19,16 @@ module JirglStructures {
                 b.style({ tag: "div" }, b.sprite("assets/metal.jpg")),
                 {
                     tag: "div",
-                    style: { position: "relative", top: -200, left: 200 },
-                    children: header({ content: ctx.data.content, size: HeaderSize.H1 })
+                    style: {
+                        position: "relative",
+                        left: ctx.data.leftPosition,
+                        top: ctx.data.topPosition
+                    },
+                    children: header({
+                        content: ctx.data.content,
+                        size: HeaderSize.H1,
+                        effect: HeaderEffect.Dented
+                    })
                 }
             ];
         }

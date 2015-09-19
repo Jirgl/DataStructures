@@ -16,7 +16,7 @@ module JirglStructures {
                 {
                     tag: "div",
                     style: { position: "absolute", width: "100%", height: 300, top: 0, left: 0, overflow: "hidden" },
-                    children: pageHeader({ content: "Data structures" })
+                    children: pageHeader({ content: "Data structures", leftPosition: 100, topPosition: -280 })
                 },
                 {
                     tag: "div",
@@ -25,9 +25,30 @@ module JirglStructures {
                     {
                         tag: "nav",
                         children: [
-                            b.link({ tag: "a", children: "Lists" }, "lists"),
-                            b.link({ tag: "a", children: "Trees" }, "trees"),
-                            b.link({ tag: "a", children: "Heaps" }, "heaps")
+                            navItem({
+                                content: "Lists",
+                                routeParamName: "lists",
+                                topPosition: 0,
+                                leftPosition: 100,
+                                isActive: b.isRouteActive("lists"),
+                                backgroundUrl: "assets/listsTab.jpg"
+                            }),
+                            navItem({
+                                content: "Trees",
+                                routeParamName: "trees",
+                                topPosition: 0,
+                                leftPosition: 300,
+                                isActive: b.isRouteActive("trees"),
+                                backgroundUrl: "assets/treesTab.jpg"
+                            }),
+                            navItem({
+                                content: "Heaps",
+                                routeParamName: "heaps",
+                                topPosition: 0,
+                                leftPosition: 500,
+                                isActive: b.isRouteActive("heaps"),
+                                backgroundUrl: "assets/heapsTab.jpg"
+                            })
                         ]
                     }
                 },

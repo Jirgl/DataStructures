@@ -9,8 +9,16 @@ var JirglStructures;
                 b.style({ tag: "div" }, b.sprite("assets/metal.jpg")),
                 {
                     tag: "div",
-                    style: { position: "relative", top: -200, left: 200 },
-                    children: JirglStructures.header({ content: ctx.data.content, size: JirglStructures.HeaderSize.H1 })
+                    style: {
+                        position: "relative",
+                        left: ctx.data.leftPosition,
+                        top: ctx.data.topPosition
+                    },
+                    children: JirglStructures.header({
+                        content: ctx.data.content,
+                        size: JirglStructures.HeaderSize.H1,
+                        effect: JirglStructures.HeaderEffect.Dented
+                    })
                 }
             ];
         }

@@ -10,18 +10,12 @@ module JirglStructures {
         H6
     }
 
-    export interface IHeaderData {
-        content: string;
-        size: HeaderSize;
+    export enum HeaderEffect {
+        Dented
     }
 
-    interface IHeaderCtx {
-        data: IHeaderData;
-    }
-
-    var headerComponent: IBobrilComponent = {
-        toTag(size: HeaderSize): string {
-            switch (size) {
+    function toTag(size: HeaderSize): string {
+        switch (size) {
             case HeaderSize.H1:
                 return "h1";
             case HeaderSize.H2:
@@ -36,10 +30,37 @@ module JirglStructures {
                 return "h6";
             default:
                 return "h2";
+        }
+    }
+
+    function toStyle(effect: HeaderEffect): any {
+        switch (effect) {
+        case HeaderEffect.Dented:
+            return {
+                color: "#EEE",
+                fontSize: 80,
+                fontFamily: "Segoe UI semibold",
+                textShadow: "0 1px 1px #666, -1px -2px 1px #000"
             }
-        },
+        default:
+            return {};
+        }
+    }
+
+    export interface IHeaderData {
+        content: string;
+        size: HeaderSize;
+        effect?: HeaderEffect;
+    }
+
+    interface IHeaderCtx {
+        data: IHeaderData;
+    }
+
+    var headerComponent: IBobrilComponent = {
         render(ctx: IHeaderCtx, me: IBobrilNode) {
-            me.tag = this.toTag(ctx.data.size);
+            me.tag = toTag(ctx.data.size);
+            me.style = toStyle(ctx.data.effect);
             me.children = ctx.data.content;
         }
     }
