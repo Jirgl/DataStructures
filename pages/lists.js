@@ -7,12 +7,12 @@ var JirglStructures;
             render: function (ctx, me) {
                 me.tag = "div";
                 me.children = [
-                    JirglStructures.header({ content: "Lists", size: JirglStructures.HeaderSize.H2 }),
-                    JirglStructures.header({ content: "Doubly linked list", size: JirglStructures.HeaderSize.H3 }),
+                    JirglStructures.header({ content: "Lists", type: JirglStructures.HeaderType.PageHeader }),
+                    JirglStructures.header({ content: "Doubly linked list", type: JirglStructures.HeaderType.TopicHeader }),
                     JirglStructures.View.doublyList({}),
-                    JirglStructures.header({ content: "Queue", size: JirglStructures.HeaderSize.H3 }),
+                    JirglStructures.header({ content: "Queue", type: JirglStructures.HeaderType.TopicHeader }),
                     JirglStructures.View.queue({}),
-                    JirglStructures.header({ content: "Stack", size: JirglStructures.HeaderSize.H3 }),
+                    JirglStructures.header({ content: "Stack", type: JirglStructures.HeaderType.TopicHeader }),
                     JirglStructures.View.stack({})
                 ];
             }

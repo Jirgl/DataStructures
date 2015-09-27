@@ -1,4 +1,3 @@
-/// <reference path="../bobril/bobril.d.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     function getItem(ctx) {
@@ -7,6 +6,10 @@ var JirglStructures;
             children: b.link({
                 tag: "a",
                 style: {
+                    fontFamily: JirglStructures.Font.baseFontFamily,
+                    color: JirglStructures.Color.navItemForeground,
+                    textDecoration: "none",
+                    fontSize: 28,
                     position: "absolute",
                     left: 70,
                     top: -15

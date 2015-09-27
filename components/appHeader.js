@@ -2,7 +2,7 @@
 /// <reference path="../bobril/bobril.style.d.ts"/>
 var JirglStructures;
 (function (JirglStructures) {
-    var pageHeaderComponent = {
+    var appHeaderComponent = {
         render: function (ctx, me) {
             me.tag = "div";
             me.children = [
@@ -16,16 +16,16 @@ var JirglStructures;
                     },
                     children: JirglStructures.header({
                         content: ctx.data.content,
-                        size: JirglStructures.HeaderSize.H1,
+                        type: JirglStructures.HeaderType.AppHeader,
                         effect: JirglStructures.HeaderEffect.Dented
                     })
                 }
             ];
         }
     };
-    function pageHeader(data) {
-        return { component: pageHeaderComponent, data: data };
+    function appHeader(data) {
+        return { component: appHeaderComponent, data: data };
     }
-    JirglStructures.pageHeader = pageHeader;
+    JirglStructures.appHeader = appHeader;
 })(JirglStructures || (JirglStructures = {}));
-//# sourceMappingURL=pageHeader.js.map
+//# sourceMappingURL=appHeader.js.map

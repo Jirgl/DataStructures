@@ -1,6 +1,4 @@
-﻿/// <reference path="../bobril/bobril.d.ts" />
-
-module JirglStructures {
+﻿module JirglStructures {
     export interface INavData {
         content: string;
         leftPosition: number;
@@ -20,6 +18,10 @@ module JirglStructures {
             children: b.link({
                 tag: "a",
                 style: {
+                    fontFamily: Font.baseFontFamily,
+                    color: Color.navItemForeground,
+                    textDecoration: "none",
+                    fontSize: 28,
                     position: "absolute",
                     left: 70,
                     top: -15

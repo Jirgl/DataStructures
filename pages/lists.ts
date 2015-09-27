@@ -4,12 +4,12 @@
         render(ctx: any, me: IBobrilNode) {
             me.tag = "div";
             me.children = [
-                header({ content: "Lists", size: HeaderSize.H2 }),
-                header({ content: "Doubly linked list", size: HeaderSize.H3 }),
+                header({ content: "Lists", type: HeaderType.PageHeader }),
+                header({ content: "Doubly linked list", type: HeaderType.TopicHeader }),
                 View.doublyList({}),
-                header({ content: "Queue", size: HeaderSize.H3 }),
+                header({ content: "Queue", type: HeaderType.TopicHeader }),
                 View.queue({}),
-                header({ content: "Stack", size: HeaderSize.H3 }),
+                header({ content: "Stack", type: HeaderType.TopicHeader }),
                 View.stack({})
             ];
         }

@@ -9,11 +9,11 @@ var JirglStructures;
                 {
                     tag: "div",
                     style: { position: "absolute", width: "100%", height: 300, top: 0, left: 0, overflow: "hidden" },
-                    children: JirglStructures.pageHeader({ content: "Data structures", leftPosition: 100, topPosition: -280 })
+                    children: JirglStructures.appHeader({ content: "Data structures", leftPosition: 150, topPosition: -120 })
                 },
                 {
                     tag: "div",
-                    style: { position: "absolute", height: 100, top: 300, left: 0 },
+                    style: { position: "absolute", height: 100, top: 150, left: 0 },
                     children: {
                         tag: "nav",
                         children: [
@@ -22,7 +22,7 @@ var JirglStructures;
                                 routeParamName: "lists",
                                 topPosition: 0,
                                 leftPosition: 100,
-                                isActive: b.isRouteActive("lists"),
+                                isActive: b.isRouteActive("lists") || (!b.isRouteActive("trees") && !b.isRouteActive("heaps")),
                                 backgroundUrl: "assets/listsTab.jpg"
                             }),
                             JirglStructures.navItem({
@@ -46,16 +46,17 @@ var JirglStructures;
                 },
                 {
                     tag: "div",
-                    style: { position: "absolute", top: 400, left: 0 },
+                    style: { position: "absolute", top: 250, left: 0 },
                     children: me.data.activeRouteHandler()
                 }
             ];
         }
     };
     b.routes(b.route({ handler: pageLayoutComponent }, [
-        b.route({ name: "lists", handler: JirglStructures.Page.listsPageComponent }),
-        b.route({ name: "trees", handler: JirglStructures.Page.treesPageComponent }),
-        b.route({ name: "heaps", handler: JirglStructures.Page.heapsPageComponent })
+        b.route({ name: "lists", url: "lists", handler: JirglStructures.Page.listsPageComponent }),
+        b.route({ name: "trees", url: "trees", handler: JirglStructures.Page.treesPageComponent }),
+        b.route({ name: "heaps", url: "heaps", handler: JirglStructures.Page.heapsPageComponent }),
+        b.routeDefault({ handler: JirglStructures.Page.listsPageComponent })
     ]));
     function pageLayout(data) {
         return { component: pageLayoutComponent, data: data };

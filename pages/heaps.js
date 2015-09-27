@@ -7,7 +7,7 @@ var JirglStructures;
             render: function (ctx, me) {
                 me.tag = "div";
                 me.children = [
-                    JirglStructures.header({ content: "Heaps", size: JirglStructures.HeaderSize.H2 })
+                    JirglStructures.header({ content: "Heaps", type: JirglStructures.HeaderType.PageHeader })
                 ];
             }
         };

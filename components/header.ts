@@ -1,55 +1,45 @@
 ﻿/// <reference path="../bobril/bobril.d.ts" />
 
 module JirglStructures {
-    export enum HeaderSize {
-        H1,
-        H2,
-        H3,
-        H4,
-        H5,
-        H6
+    export enum HeaderType {
+        AppHeader,
+        PageHeader,
+        TopicHeader
     }
 
     export enum HeaderEffect {
         Dented
     }
 
-    function toTag(size: HeaderSize): string {
-        switch (size) {
-            case HeaderSize.H1:
-                return "h1";
-            case HeaderSize.H2:
-                return "h2";
-            case HeaderSize.H3:
-                return "h3";
-            case HeaderSize.H4:
-                return "h4";
-            case HeaderSize.H5:
-                return "h5";
-            case HeaderSize.H6:
-                return "h6";
-            default:
-                return "h2";
-        }
-    }
+    function toStyle(size: number, effect: HeaderEffect): any {
+        var style = {
+            fontSize: size,
+            fontFamily: Font.baseFontFamily
+        };
 
-    function toStyle(effect: HeaderEffect): any {
         switch (effect) {
         case HeaderEffect.Dented:
-            return {
-                color: "#EEE",
-                fontSize: 80,
-                fontFamily: "Segoe UI semibold",
-                textShadow: "0 1px 1px #666, -1px -2px 1px #000"
-            }
+            style["color"] = Color.appHeaderForeground;
+            style["fontFamily"] = Font.semiboldFontFamily;
+            style["textShadow"] = "0 1px 1px #666, -1px -2px 1px #000";
+            break;
+        }
+
+        return style;
+    }
+
+    function toSize(type: HeaderType): number {
+        switch (type) {
+        case HeaderType.AppHeader:
+            return 50;
         default:
-            return {};
+            return 24;
         }
     }
 
     export interface IHeaderData {
         content: string;
-        size: HeaderSize;
+        type: HeaderType;
         effect?: HeaderEffect;
     }
 
@@ -59,8 +49,8 @@ module JirglStructures {
 
     var headerComponent: IBobrilComponent = {
         render(ctx: IHeaderCtx, me: IBobrilNode) {
-            me.tag = toTag(ctx.data.size);
-            me.style = toStyle(ctx.data.effect);
+            me.tag = "div";
+            me.style = toStyle(toSize(ctx.data.type), ctx.data.effect);
             me.children = ctx.data.content;
         }
     }

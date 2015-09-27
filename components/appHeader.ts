@@ -2,18 +2,18 @@
 /// <reference path="../bobril/bobril.style.d.ts"/>
 
 module JirglStructures {
-    export interface IPageHeaderData {
+    export interface IAppHeaderData {
         content: string;
         leftPosition: number;
         topPosition: number;
     }
 
-    interface IPageHeaderCtx {
-        data: IPageHeaderData;
+    interface IAppHeaderCtx {
+        data: IAppHeaderData;
     }
 
-    var pageHeaderComponent: IBobrilComponent = {
-        render(ctx: IPageHeaderCtx, me: IBobrilNode) {
+    var appHeaderComponent: IBobrilComponent = {
+        render(ctx: IAppHeaderCtx, me: IBobrilNode) {
             me.tag = "div";
             me.children = [
                 b.style({ tag: "div" }, b.sprite("assets/metal.jpg")),
@@ -26,7 +26,7 @@ module JirglStructures {
                     },
                     children: header({
                         content: ctx.data.content,
-                        size: HeaderSize.H1,
+                        type: HeaderType.AppHeader,
                         effect: HeaderEffect.Dented
                     })
                 }
@@ -34,7 +34,7 @@ module JirglStructures {
         }
     }
 
-    export function pageHeader(data: IPageHeaderData): IBobrilNode {
-        return { component: pageHeaderComponent, data: data };
+    export function appHeader(data: IAppHeaderData): IBobrilNode {
+        return { component: appHeaderComponent, data: data };
     }
 }

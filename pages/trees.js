@@ -7,10 +7,10 @@ var JirglStructures;
             render: function (ctx, me) {
                 me.tag = "div";
                 me.children = [
-                    JirglStructures.header({ content: "Trees", size: JirglStructures.HeaderSize.H2 }),
-                    JirglStructures.header({ content: "Binary tree", size: JirglStructures.HeaderSize.H3 }),
+                    JirglStructures.header({ content: "Trees", type: JirglStructures.HeaderType.PageHeader }),
+                    JirglStructures.header({ content: "Binary tree", type: JirglStructures.HeaderType.TopicHeader }),
                     JirglStructures.View.binaryTree({}),
-                    JirglStructures.header({ content: "Binary search tree", size: JirglStructures.HeaderSize.H3 })
+                    JirglStructures.header({ content: "Binary search tree", type: JirglStructures.HeaderType.TopicHeader })
                 ];
             }
         };
