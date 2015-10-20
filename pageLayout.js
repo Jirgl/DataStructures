@@ -2,6 +2,41 @@
 /// <reference path="bobril/bobril.router.d.ts"/>
 var JirglStructures;
 (function (JirglStructures) {
+    var createNavigation = function () {
+        return {
+            tag: "div",
+            style: { position: "absolute", height: 100, top: 150, left: 0 },
+            children: {
+                tag: "nav",
+                children: [
+                    JirglStructures.navItem({
+                        content: "Lists",
+                        routeParamName: "lists",
+                        topPosition: 0,
+                        leftPosition: 100,
+                        isActive: b.isRouteActive("lists") || (!b.isRouteActive("trees") && !b.isRouteActive("heaps")),
+                        backgroundUrl: "assets/listsTab.jpg"
+                    }),
+                    JirglStructures.navItem({
+                        content: "Trees",
+                        routeParamName: "trees",
+                        topPosition: 0,
+                        leftPosition: 300,
+                        isActive: b.isRouteActive("trees"),
+                        backgroundUrl: "assets/treesTab.jpg"
+                    }),
+                    JirglStructures.navItem({
+                        content: "Heaps",
+                        routeParamName: "heaps",
+                        topPosition: 0,
+                        leftPosition: 500,
+                        isActive: b.isRouteActive("heaps"),
+                        backgroundUrl: "assets/heapsTab.jpg"
+                    })
+                ]
+            }
+        };
+    };
     var pageLayoutComponent = {
         render: function (ctx, me) {
             me.tag = "div";
@@ -11,42 +46,10 @@ var JirglStructures;
                     style: { position: "absolute", width: "100%", height: 300, top: 0, left: 0, overflow: "hidden" },
                     children: JirglStructures.appHeader({ content: "Data structures", leftPosition: 150, topPosition: -120 })
                 },
+                createNavigation(),
                 {
                     tag: "div",
-                    style: { position: "absolute", height: 100, top: 150, left: 0 },
-                    children: {
-                        tag: "nav",
-                        children: [
-                            JirglStructures.navItem({
-                                content: "Lists",
-                                routeParamName: "lists",
-                                topPosition: 0,
-                                leftPosition: 100,
-                                isActive: b.isRouteActive("lists") || (!b.isRouteActive("trees") && !b.isRouteActive("heaps")),
-                                backgroundUrl: "assets/listsTab.jpg"
-                            }),
-                            JirglStructures.navItem({
-                                content: "Trees",
-                                routeParamName: "trees",
-                                topPosition: 0,
-                                leftPosition: 300,
-                                isActive: b.isRouteActive("trees"),
-                                backgroundUrl: "assets/treesTab.jpg"
-                            }),
-                            JirglStructures.navItem({
-                                content: "Heaps",
-                                routeParamName: "heaps",
-                                topPosition: 0,
-                                leftPosition: 500,
-                                isActive: b.isRouteActive("heaps"),
-                                backgroundUrl: "assets/heapsTab.jpg"
-                            })
-                        ]
-                    }
-                },
-                {
-                    tag: "div",
-                    style: { position: "absolute", top: 250, left: 0 },
+                    style: { position: "absolute", top: 250, left: 100 },
                     children: me.data.activeRouteHandler()
                 }
             ];
