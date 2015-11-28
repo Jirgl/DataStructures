@@ -21,8 +21,8 @@
         }
 
         if (isActive) {
-            style.background = Color.navItemActiveBackground;
-            style.borderColor = Color.navItemActiveBorderBackground;
+            style.background = Color.darkBackground;
+            style.borderColor = Color.darkBackgroundBorder;
             style.borderStyle = "solid";
             style.borderWidth = 1;
             style.borderRadius = 3;

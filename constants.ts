@@ -6,7 +6,7 @@
 
     export module Color {
         export var baseForeground = "#444";
-        export var navItemActiveBackground = "#BFBFBF";
-        export var navItemActiveBorderBackground = "#AFAFAF";
+        export var darkBackground = "#BFBFBF";
+        export var darkBackgroundBorder = "#9F9F9F";
     }
 }

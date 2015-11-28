@@ -1,12 +1,6 @@
-﻿/// <reference path="../../bobril/bobril.d.ts" />
-/// <reference path="../../bobril/bobril.mouse.d.ts" />
-/// <reference path="../../components/button.ts" />
-/// <reference path="../../components/canvas.ts" />
-/// <reference path="../../structureComponents/grid.ts" />
-
-module JirglStructures.View {
+﻿module JirglStructures.View {
     export interface IDoublyListData {
-        
+
     }
 
     export interface IDoublyListCtx {
@@ -25,8 +19,8 @@ module JirglStructures.View {
             ctx.action = "add";
         },
         render(ctx: IDoublyListCtx, me: IBobrilNode): void {
-            var iterator = ctx.doublyLinkedList.getIterator();
-            var options = ["first", "predecessor", "successor", "last"];
+            const iterator = ctx.doublyLinkedList.getIterator();
+            const options = ["first", "predecessor", "successor", "last"];
             if (ctx.action === "remove") {
                 options.push("current");
             }

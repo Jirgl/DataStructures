@@ -8,8 +8,8 @@ var JirglStructures;
     var Color;
     (function (Color) {
         Color.baseForeground = "#444";
-        Color.navItemActiveBackground = "#BFBFBF";
-        Color.navItemActiveBorderBackground = "#AFAFAF";
+        Color.darkBackground = "#BFBFBF";
+        Color.darkBackgroundBorder = "#9F9F9F";
     })(Color = JirglStructures.Color || (JirglStructures.Color = {}));
 })(JirglStructures || (JirglStructures = {}));
 //# sourceMappingURL=constants.js.map

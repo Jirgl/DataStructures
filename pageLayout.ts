@@ -25,7 +25,7 @@
 
     var createNavigation = (): IBobrilNode => {
         return {
-            tag: "div",
+            tag: "nav",
             style: { position: "absolute", top: 100, left: 0 },
             children: [
                 createNavItem(100, 0, b.t(1), "lists", () => {
@@ -41,13 +41,17 @@
         };
     }
 
-    var createLanguage = (top: number, right: number, data: ILangTileData): IBobrilNode => {
+    var createLanguage = (top: number, right: number, leftRadius: number,
+        rightRadius: number, data: ILangTileData): IBobrilNode => {
         return {
             tag: "div",
             style: {
                 position: "absolute",
                 top: top,
-                left: b.getMedia().width - right
+                left: b.getMedia().width - right,
+                overflow: "hidden",
+                borderBottomLeftRadius: leftRadius,
+                borderBottomRightRadius: rightRadius
             },
             children: langTile(data)
         }
@@ -66,7 +70,7 @@
                     children: header({ content: b.t(0), type: HeaderType.AppHeader })
                 },
                 createNavigation(),
-                createLanguage(0, 200, {
+                createLanguage(0, 200, 10, 0, {
                     isActive: ctx.activeLang === Language.English,
                     activeImageUrl: "assets/en.png",
                     hoverImageUrl: "assets/en_hover.png",
@@ -77,7 +81,7 @@
                         b.invalidate();
                     }
                 }),
-                createLanguage(0, 150, {
+                createLanguage(0, 150, 0, 10, {
                     isActive: ctx.activeLang === Language.Czech,
                     activeImageUrl: "assets/cs.png",
                     hoverImageUrl: "assets/cs_hover.png",

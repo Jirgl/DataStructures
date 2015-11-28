@@ -18,7 +18,7 @@ var JirglStructures;
     };
     var createNavigation = function () {
         return {
-            tag: "div",
+            tag: "nav",
             style: { position: "absolute", top: 100, left: 0 },
             children: [
                 createNavItem(100, 0, b.t(1), "lists", function () {
@@ -33,13 +33,16 @@ var JirglStructures;
             ]
         };
     };
-    var createLanguage = function (top, right, data) {
+    var createLanguage = function (top, right, leftRadius, rightRadius, data) {
         return {
             tag: "div",
             style: {
                 position: "absolute",
                 top: top,
-                left: b.getMedia().width - right
+                left: b.getMedia().width - right,
+                overflow: "hidden",
+                borderBottomLeftRadius: leftRadius,
+                borderBottomRightRadius: rightRadius
             },
             children: JirglStructures.langTile(data)
         };
@@ -57,7 +60,7 @@ var JirglStructures;
                     children: JirglStructures.header({ content: b.t(0), type: JirglStructures.HeaderType.AppHeader })
                 },
                 createNavigation(),
-                createLanguage(0, 200, {
+                createLanguage(0, 200, 10, 0, {
                     isActive: ctx.activeLang === Language.English,
                     activeImageUrl: "assets/en.png",
                     hoverImageUrl: "assets/en_hover.png",
@@ -68,7 +71,7 @@ var JirglStructures;
                         b.invalidate();
                     }
                 }),
-                createLanguage(0, 150, {
+                createLanguage(0, 150, 0, 10, {
                     isActive: ctx.activeLang === Language.Czech,
                     activeImageUrl: "assets/cs.png",
                     hoverImageUrl: "assets/cs_hover.png",

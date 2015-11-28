@@ -1,9 +1,4 @@
-﻿/// <reference path="../bobril/bobril.d.ts" />
-/// <reference path="../models/iterator.ts" />
-/// <reference path="item.ts" />
-/// <reference path="arrow.ts" />
-
-module JirglStructures {
+﻿module JirglStructures {
     export interface IGuiContent {
         getContent(): string;
         isCurrent;
@@ -24,15 +19,15 @@ module JirglStructures {
             ctx.arrow = new Arrow();
         },
         render<T>(ctx: ICanvasCtx<T>, me: IBobrilNode) {
-            var iterator = ctx.data.contentIterator;
-            var children: IBobrilNode[] = [];
-            var arrows: IBobrilNode[] = [];
-            var maxHeight = Item.itemHeight + (2 * Item.itemMargin);
+            const iterator = ctx.data.contentIterator;
+            const children: IBobrilNode[] = [];
+            const arrows: IBobrilNode[] = [];
+            let maxHeight = Item.itemHeight + (2 * Item.itemMargin);
 
             while (iterator.hasNext()) {
-                var guiItem = iterator.next();
-                var position = ctx.data.grid.getPosition();
-                var previousPosition = ctx.data.grid.getPositionOfPreviousItem();
+                const guiItem = iterator.next();
+                const position = ctx.data.grid.getPosition();
+                const previousPosition = ctx.data.grid.getPositionOfPreviousItem();
                 children.push(item({
                     content: guiItem.getContent(),
                     x: position.x,
@@ -41,13 +36,13 @@ module JirglStructures {
                 }));
 
                 if (previousPosition !== undefined) {
-                    var itemArrows = ctx.data.grid.getArrowsPositions(previousPosition, position);
-                    for (var index = 0; index < itemArrows.length; index++) {
+                    const itemArrows = ctx.data.grid.getArrowsPositions(previousPosition, position);
+                    for (let index = 0; index < itemArrows.length; index++) {
                         arrows.push(ctx.arrow.getArrowPath(itemArrows[index].start, itemArrows[index].end, ctx.data.grid.getArrowType()));
                     }
                 }
 
-                var currentHeight = position.y + Item.itemHeight + (2 * Item.itemMargin);
+                const currentHeight = position.y + Item.itemHeight + (2 * Item.itemMargin);
                 if (currentHeight > maxHeight) {
                     maxHeight = currentHeight;
                 }
@@ -61,7 +56,11 @@ module JirglStructures {
             me.style = {
                 width: ctx.data.grid.getWidth(),
                 height: maxHeight,
-                background: "#CCC",
+                background: Color.darkBackground,
+                borderColor: Color.darkBackgroundBorder,
+                borderStyle: "solid",
+                borderWidth: 1,
+                borderRadius: 5,
                 position: "relative"
             };
             me.children = children;

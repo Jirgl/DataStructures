@@ -19,7 +19,7 @@
             case HeaderType.AppHeader:
                 return 40;
             default:
-                return 24;
+                return 26;
         }
     }
 

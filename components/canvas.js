@@ -1,7 +1,3 @@
-/// <reference path="../bobril/bobril.d.ts" />
-/// <reference path="../models/iterator.ts" />
-/// <reference path="item.ts" />
-/// <reference path="arrow.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var canvasComponent = {
@@ -43,7 +39,11 @@ var JirglStructures;
             me.style = {
                 width: ctx.data.grid.getWidth(),
                 height: maxHeight,
-                background: "#CCC",
+                background: JirglStructures.Color.darkBackground,
+                borderColor: JirglStructures.Color.darkBackgroundBorder,
+                borderStyle: "solid",
+                borderWidth: 1,
+                borderRadius: 5,
                 position: "relative"
             };
             me.children = children;

@@ -11,8 +11,8 @@ var JirglStructures;
             height: 41
         };
         if (isActive) {
-            style.background = JirglStructures.Color.navItemActiveBackground;
-            style.borderColor = JirglStructures.Color.navItemActiveBorderBackground;
+            style.background = JirglStructures.Color.darkBackground;
+            style.borderColor = JirglStructures.Color.darkBackgroundBorder;
             style.borderStyle = "solid";
             style.borderWidth = 1;
             style.borderRadius = 3;
