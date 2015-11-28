@@ -4,21 +4,17 @@
         activeImageUrl: string;
         hoverImageUrl: string;
         inactiveImageUrl: string;
-        changeState?: (isActive: boolean) => {};
-    }
-
-    enum TileState {
-        Active, Inactive, Hover
+        setLang: () => void;
     }
 
     interface ILangTileCtx {
         data: ILangTileData;
-        state: TileState;
+        hover: boolean;
     }
 
     var langTileComponent: IBobrilComponent = {
-        init(ctx: ILangTileCtx) {
-            ctx.state = ctx.data.isActive ? TileState.Active : TileState.Inactive;
+        init(ctx: ILangTileCtx, me: IBobrilNode) {
+            b.style(me, b.sprite(ctx.data.inactiveImageUrl));
         },
         render(ctx: ILangTileCtx, me: IBobrilNode) {
             me.tag = "div";
@@ -28,29 +24,23 @@
                 height: 33
             }
 
-            switch (ctx.state) {
-                case TileState.Active:
-                    b.style(me, b.sprite(ctx.data.activeImageUrl));
-                    break;
-                case TileState.Hover:
-                    b.style(me, b.sprite(ctx.data.hoverImageUrl));
-                    break;
-                default:
-                    b.style(me, b.sprite(ctx.data.inactiveImageUrl));
-                    break;
-            }
-        },
-        onClick(ctx: ILangTileCtx, event: IBobrilMouseEvent): boolean {
-            //ctx.data.changeState()
+            b.style(me, b.sprite(ctx.data.inactiveImageUrl));
 
+            if (ctx.data.isActive)
+                b.style(me, b.sprite(ctx.data.activeImageUrl));
+            else if (ctx.hover)
+                b.style(me, b.sprite(ctx.data.hoverImageUrl));
+        },
+        onClick(ctx: ILangTileCtx): boolean {
+            ctx.data.setLang();
             return false;
         },
         onMouseEnter(ctx: ILangTileCtx): void {
-            ctx.state = ctx.data.isActive ? TileState.Active : TileState.Hover;
+            ctx.hover = true;
             b.invalidate();
         },
         onMouseLeave(ctx: ILangTileCtx): void {
-            ctx.state = ctx.data.isActive ? TileState.Active : TileState.Inactive;
+            ctx.hover = false;
             b.invalidate();
         }
     }

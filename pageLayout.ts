@@ -2,8 +2,13 @@
     export interface IPageLayoutData {
     }
 
+    enum Language {
+        English, Czech
+    }
+
     interface IPageLayoutCtx {
         data: IPageLayoutData;
+        activeLang: Language;
     }
 
     var createNavItem = (left: number, top: number, content: string, routeName: string, isACtive: () => boolean): IBobrilNode => {
@@ -23,13 +28,13 @@
             tag: "div",
             style: { position: "absolute", top: 100, left: 0 },
             children: [
-                createNavItem(100, 0, "Lists", "lists", () => {
+                createNavItem(100, 0, b.t(1), "lists", () => {
                     return b.isRouteActive("lists") || (!b.isRouteActive("trees") && !b.isRouteActive("heaps"));
                 }),
-                createNavItem(300, 0, "Trees", "trees", () => {
+                createNavItem(300, 0, b.t(2), "trees", () => {
                     return b.isRouteActive("trees");
                 }),
-                createNavItem(500, 0, "Heaps", "heaps", () => {
+                createNavItem(500, 0, b.t(3), "heaps", () => {
                     return b.isRouteActive("heaps");
                 })
             ]
@@ -49,17 +54,40 @@
     }
 
     var pageLayoutComponent: IBobrilComponent = {
+        init(ctx: IPageLayoutCtx) {
+            ctx.activeLang = Language.English;
+        },
         render(ctx: IPageLayoutCtx, me: IBobrilNode) {
             me.tag = "div";
             me.children = [
                 {
                     tag: "div",
                     style: { position: "absolute", top: 10, left: 100 },
-                    children: header({ content: "Data structures", type: HeaderType.AppHeader })
+                    children: header({ content: b.t(0), type: HeaderType.AppHeader })
                 },
                 createNavigation(),
-                createLanguage(0, 200, { isActive: false, activeImageUrl: "assets/en.png", hoverImageUrl: "assets/en_hover.png", inactiveImageUrl: "assets/en_inactive.png" }),
-                createLanguage(0, 150, { isActive: true, activeImageUrl: "assets/cs.png", hoverImageUrl: "assets/cs_hover.png", inactiveImageUrl: "assets/cs_inactive.png" }),
+                createLanguage(0, 200, {
+                    isActive: ctx.activeLang === Language.English,
+                    activeImageUrl: "assets/en.png",
+                    hoverImageUrl: "assets/en_hover.png",
+                    inactiveImageUrl: "assets/en_inactive.png",
+                    setLang: () => {
+                        ctx.activeLang = Language.English;
+                        b.setLocale("en-US");
+                        b.invalidate();
+                    }
+                }),
+                createLanguage(0, 150, {
+                    isActive: ctx.activeLang === Language.Czech,
+                    activeImageUrl: "assets/cs.png",
+                    hoverImageUrl: "assets/cs_hover.png",
+                    inactiveImageUrl: "assets/cs_inactive.png",
+                    setLang: () => {
+                        ctx.activeLang = Language.Czech;
+                        b.setLocale("cs-CZ");
+                        b.invalidate();
+                    }
+                }),
                 {
                     tag: "div",
                     style: { position: "absolute", top: 250, left: 100 },

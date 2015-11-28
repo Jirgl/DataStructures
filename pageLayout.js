@@ -1,5 +1,10 @@
 var JirglStructures;
 (function (JirglStructures) {
+    var Language;
+    (function (Language) {
+        Language[Language["English"] = 0] = "English";
+        Language[Language["Czech"] = 1] = "Czech";
+    })(Language || (Language = {}));
     var createNavItem = function (left, top, content, routeName, isACtive) {
         return {
             tag: "div",
@@ -16,13 +21,13 @@ var JirglStructures;
             tag: "div",
             style: { position: "absolute", top: 100, left: 0 },
             children: [
-                createNavItem(100, 0, "Lists", "lists", function () {
+                createNavItem(100, 0, b.t(1), "lists", function () {
                     return b.isRouteActive("lists") || (!b.isRouteActive("trees") && !b.isRouteActive("heaps"));
                 }),
-                createNavItem(300, 0, "Trees", "trees", function () {
+                createNavItem(300, 0, b.t(2), "trees", function () {
                     return b.isRouteActive("trees");
                 }),
-                createNavItem(500, 0, "Heaps", "heaps", function () {
+                createNavItem(500, 0, b.t(3), "heaps", function () {
                     return b.isRouteActive("heaps");
                 })
             ]
@@ -40,17 +45,40 @@ var JirglStructures;
         };
     };
     var pageLayoutComponent = {
+        init: function (ctx) {
+            ctx.activeLang = Language.English;
+        },
         render: function (ctx, me) {
             me.tag = "div";
             me.children = [
                 {
                     tag: "div",
                     style: { position: "absolute", top: 10, left: 100 },
-                    children: JirglStructures.header({ content: "Data structures", type: JirglStructures.HeaderType.AppHeader })
+                    children: JirglStructures.header({ content: b.t(0), type: JirglStructures.HeaderType.AppHeader })
                 },
                 createNavigation(),
-                createLanguage(0, 200, { isActive: false, activeImageUrl: "assets/en.png", hoverImageUrl: "assets/en_hover.png", inactiveImageUrl: "assets/en_inactive.png" }),
-                createLanguage(0, 150, { isActive: true, activeImageUrl: "assets/cs.png", hoverImageUrl: "assets/cs_hover.png", inactiveImageUrl: "assets/cs_inactive.png" }),
+                createLanguage(0, 200, {
+                    isActive: ctx.activeLang === Language.English,
+                    activeImageUrl: "assets/en.png",
+                    hoverImageUrl: "assets/en_hover.png",
+                    inactiveImageUrl: "assets/en_inactive.png",
+                    setLang: function () {
+                        ctx.activeLang = Language.English;
+                        b.setLocale("en-US");
+                        b.invalidate();
+                    }
+                }),
+                createLanguage(0, 150, {
+                    isActive: ctx.activeLang === Language.Czech,
+                    activeImageUrl: "assets/cs.png",
+                    hoverImageUrl: "assets/cs_hover.png",
+                    inactiveImageUrl: "assets/cs_inactive.png",
+                    setLang: function () {
+                        ctx.activeLang = Language.Czech;
+                        b.setLocale("cs-CZ");
+                        b.invalidate();
+                    }
+                }),
                 {
                     tag: "div",
                     style: { position: "absolute", top: 250, left: 100 },

@@ -1,14 +1,8 @@
 var JirglStructures;
 (function (JirglStructures) {
-    var TileState;
-    (function (TileState) {
-        TileState[TileState["Active"] = 0] = "Active";
-        TileState[TileState["Inactive"] = 1] = "Inactive";
-        TileState[TileState["Hover"] = 2] = "Hover";
-    })(TileState || (TileState = {}));
     var langTileComponent = {
-        init: function (ctx) {
-            ctx.state = ctx.data.isActive ? TileState.Active : TileState.Inactive;
+        init: function (ctx, me) {
+            b.style(me, b.sprite(ctx.data.inactiveImageUrl));
         },
         render: function (ctx, me) {
             me.tag = "div";
@@ -17,28 +11,22 @@ var JirglStructures;
                 width: 50,
                 height: 33
             };
-            switch (ctx.state) {
-                case TileState.Active:
-                    b.style(me, b.sprite(ctx.data.activeImageUrl));
-                    break;
-                case TileState.Hover:
-                    b.style(me, b.sprite(ctx.data.hoverImageUrl));
-                    break;
-                default:
-                    b.style(me, b.sprite(ctx.data.inactiveImageUrl));
-                    break;
-            }
+            b.style(me, b.sprite(ctx.data.inactiveImageUrl));
+            if (ctx.data.isActive)
+                b.style(me, b.sprite(ctx.data.activeImageUrl));
+            else if (ctx.hover)
+                b.style(me, b.sprite(ctx.data.hoverImageUrl));
         },
-        onClick: function (ctx, event) {
-            //ctx.data.changeState()
+        onClick: function (ctx) {
+            ctx.data.setLang();
             return false;
         },
         onMouseEnter: function (ctx) {
-            ctx.state = ctx.data.isActive ? TileState.Active : TileState.Hover;
+            ctx.hover = true;
             b.invalidate();
         },
         onMouseLeave: function (ctx) {
-            ctx.state = ctx.data.isActive ? TileState.Active : TileState.Inactive;
+            ctx.hover = false;
             b.invalidate();
         }
     };
