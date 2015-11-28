@@ -36,6 +36,18 @@
         };
     }
 
+    var createLanguage = (top: number, right: number, data: ILangTileData): IBobrilNode => {
+        return {
+            tag: "div",
+            style: {
+                position: "absolute",
+                top: top,
+                left: b.getMedia().width - right
+            },
+            children: langTile(data)
+        }
+    }
+
     var pageLayoutComponent: IBobrilComponent = {
         render(ctx: IPageLayoutCtx, me: IBobrilNode) {
             me.tag = "div";
@@ -46,6 +58,8 @@
                     children: header({ content: "Data structures", type: HeaderType.AppHeader })
                 },
                 createNavigation(),
+                createLanguage(0, 200, { isActive: false, activeImageUrl: "assets/en.png", hoverImageUrl: "assets/en_hover.png", inactiveImageUrl: "assets/en_inactive.png" }),
+                createLanguage(0, 150, { isActive: true, activeImageUrl: "assets/cs.png", hoverImageUrl: "assets/cs_hover.png", inactiveImageUrl: "assets/cs_inactive.png" }),
                 {
                     tag: "div",
                     style: { position: "absolute", top: 250, left: 100 },

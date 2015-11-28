@@ -13,17 +13,17 @@
         const style: any = {
             fontFamily: Font.baseFontFamily,
             color: Color.baseForeground,
+            textAlign: "center",
+            cursor: "pointer",
             fontSize: 28,
             width: 150,
-            textAlign: "center",
             height: 41
         }
 
         if (isActive) {
-            //style.color = Color.navItemActiveForeground;
             style.background = Color.navItemActiveBackground;
-            style.borderStyle = "solid";
             style.borderColor = Color.navItemActiveBorderBackground;
+            style.borderStyle = "solid";
             style.borderWidth = 1;
             style.borderRadius = 3;
         }

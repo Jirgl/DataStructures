@@ -4,16 +4,16 @@ var JirglStructures;
         var style = {
             fontFamily: JirglStructures.Font.baseFontFamily,
             color: JirglStructures.Color.baseForeground,
+            textAlign: "center",
+            cursor: "pointer",
             fontSize: 28,
             width: 150,
-            textAlign: "center",
             height: 41
         };
         if (isActive) {
-            //style.color = Color.navItemActiveForeground;
             style.background = JirglStructures.Color.navItemActiveBackground;
-            style.borderStyle = "solid";
             style.borderColor = JirglStructures.Color.navItemActiveBorderBackground;
+            style.borderStyle = "solid";
             style.borderWidth = 1;
             style.borderRadius = 3;
         }

@@ -28,6 +28,17 @@ var JirglStructures;
             ]
         };
     };
+    var createLanguage = function (top, right, data) {
+        return {
+            tag: "div",
+            style: {
+                position: "absolute",
+                top: top,
+                left: b.getMedia().width - right
+            },
+            children: JirglStructures.langTile(data)
+        };
+    };
     var pageLayoutComponent = {
         render: function (ctx, me) {
             me.tag = "div";
@@ -38,6 +49,8 @@ var JirglStructures;
                     children: JirglStructures.header({ content: "Data structures", type: JirglStructures.HeaderType.AppHeader })
                 },
                 createNavigation(),
+                createLanguage(0, 200, { isActive: false, activeImageUrl: "assets/en.png", hoverImageUrl: "assets/en_hover.png", inactiveImageUrl: "assets/en_inactive.png" }),
+                createLanguage(0, 150, { isActive: true, activeImageUrl: "assets/cs.png", hoverImageUrl: "assets/cs_hover.png", inactiveImageUrl: "assets/cs_inactive.png" }),
                 {
                     tag: "div",
                     style: { position: "absolute", top: 250, left: 100 },
