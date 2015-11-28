@@ -30,9 +30,9 @@
             l.replace(path);
         }
     }
-    function pop() {
-        myAppHistoryDeepness--;
-        window.history.back();
+    function pop(distance) {
+        myAppHistoryDeepness -= distance;
+        window.history.go(-distance);
     }
     var rootRoutes;
     var nameRouteMap = {};
@@ -212,13 +212,17 @@
             }
         }
         if (currentTransition && currentTransition.type === 2 /* Pop */ && transitionState < 0) {
+            programPath = browserPath;
             currentTransition.inApp = true;
             if (currentTransition.name == null && matches.length > 0) {
                 currentTransition.name = matches[0].name;
                 currentTransition.params = out.p;
                 nextIteration();
+                if (currentTransition != null)
+                    return null;
             }
-            return null;
+            else
+                return null;
         }
         if (currentTransition == null) {
             activeRoutes = matches;
@@ -327,6 +331,12 @@
     function urlOfRoute(name, params) {
         if (isInApp(name)) {
             var r = nameRouteMap[name];
+            if (DEBUG) {
+                if (rootRoutes == null)
+                    throw Error('Cannot use urlOfRoute before defining routes');
+                if (r == null)
+                    throw Error('Route with name ' + name + ' if not defined in urlOfRoute');
+            }
             return "#" + injectParams(r.url, params);
         }
         return name;
@@ -371,12 +381,14 @@
             params: params || {}
         };
     }
-    function createBackTransition() {
+    function createBackTransition(distance) {
+        distance = distance || 1;
         return {
-            inApp: myAppHistoryDeepness > 0,
+            inApp: myAppHistoryDeepness >= distance,
             type: 2 /* Pop */,
             name: null,
-            params: {}
+            params: {},
+            distance: distance
         };
     }
     var currentTransition = null;
@@ -391,7 +403,7 @@
                 replace(urlOfRoute(transition.name, transition.params), transition.inApp);
                 break;
             case 2 /* Pop */:
-                pop();
+                pop(transition.distance);
                 break;
         }
         b.invalidate();
@@ -421,7 +433,8 @@
                         nextTransition = resp;
                     }
                     nextIteration();
-                }).catch(console.log.bind(console));
+                }).catch(function (err) { if (typeof console !== "undefined" && console.log)
+                    console.log(err); });
                 return;
             }
             else if (transitionState == activeRoutes.length) {
@@ -434,7 +447,10 @@
                 }
                 transitionState = -1;
                 if (!currentTransition.inApp || currentTransition.type === 2 /* Pop */) {
-                    doAction(currentTransition);
+                    var tr = currentTransition;
+                    if (!currentTransition.inApp)
+                        currentTransition = null;
+                    doAction(tr);
                     return;
                 }
             }
@@ -454,7 +470,9 @@
                     continue;
                 }
                 if (currentTransition.type !== 2 /* Pop */) {
-                    doAction(currentTransition);
+                    var tr = currentTransition;
+                    currentTransition = null;
+                    doAction(tr);
                 }
                 else {
                     b.invalidate();
@@ -486,6 +504,8 @@
                 if (!fn)
                     continue;
                 var res = fn.call(comp, currentTransition);
+                if (res === true)
+                    continue;
                 Promise.resolve(res).then(function (resp) {
                     if (resp === true) { }
                     else if (resp === false) {
@@ -497,7 +517,8 @@
                         nextTransition = resp;
                     }
                     nextIteration();
-                }).catch(console.log.bind(console));
+                }).catch(function (err) { if (typeof console !== "undefined" && console.log)
+                    console.log(err); });
                 return;
             }
         }
@@ -523,4 +544,7 @@
     b.createBackTransition = createBackTransition;
     b.runTransition = runTransition;
     b.link = link;
+    b.getRoutes = function () { return rootRoutes; };
+    b.getActiveRoutes = function () { return activeRoutes; };
+    b.getActiveParams = function () { return activeParams; };
 })(b, window);
