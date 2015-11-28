@@ -1,68 +1,44 @@
 ﻿module JirglStructures {
     export interface INavData {
         content: string;
-        leftPosition: number;
-        topPosition: number;
         isActive: boolean;
         routeParamName: string;
-        backgroundUrl: string;
     }
 
     interface INavItemCtx {
         data: INavData;
     }
 
-    function getItem(ctx: INavItemCtx): IBobrilNode {
-        var item = {
-            tag: "div",
-            children: b.link({
-                tag: "a",
-                style: {
-                    fontFamily: Font.baseFontFamily,
-                    color: Color.navItemForeground,
-                    textDecoration: "none",
-                    fontSize: 28,
-                    position: "absolute",
-                    left: 70,
-                    top: -15
-                },
-                children: ctx.data.content
-            }, ctx.data.routeParamName)
-        };
+    var toStyle = (isActive: boolean): any => {
+        const style: any = {
+            fontFamily: Font.baseFontFamily,
+            color: Color.baseForeground,
+            fontSize: 28,
+            width: 150,
+            textAlign: "center",
+            height: 41
+        }
 
-        b.style(item, b.sprite(ctx.data.backgroundUrl), {
-            position: "absolute",
-            left: ctx.data.leftPosition,
-            top: ctx.data.topPosition,
-            textAlign: "center"
-        });
+        if (isActive) {
+            //style.color = Color.navItemActiveForeground;
+            style.background = Color.navItemActiveBackground;
+            style.borderStyle = "solid";
+            style.borderColor = Color.navItemActiveBorderBackground;
+            style.borderWidth = 1;
+            style.borderRadius = 3;
+        }
 
-        return item;
-    }
-
-    function getHighlightedBar(ctx: INavItemCtx): IBobrilNode {
-        return {
-            tag: "div",
-            style: {
-                position: "absolute",
-                left: ctx.data.leftPosition,
-                top: ctx.data.topPosition + 30,
-                textAlign: "center",
-                backgroundColor: ctx.data.isActive ? "#080" : "#CCC",
-                width: 200,
-                height: 3
-            }
-        };
+        return style;
     }
 
     var navItemComponent: IBobrilComponent = {
         render(ctx: INavItemCtx, me: IBobrilNode) {
             me.tag = "div";
-            me.children =
-            [
-                getItem(ctx),
-                getHighlightedBar(ctx)
-            ];
+            me.children = b.link({
+                tag: "div",
+                style: toStyle(ctx.data.isActive),
+                children: ctx.data.content
+            }, ctx.data.routeParamName);
         }
     }
 

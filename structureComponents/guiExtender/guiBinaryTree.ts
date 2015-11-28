@@ -18,7 +18,7 @@
         }
 
         addLeftChild(node: GuiNode): void {
-            var isAvailableToAdd = this.currentNode !== undefined && this.currentNode.leftChild === undefined;
+            const isAvailableToAdd = this.currentNode !== undefined && this.currentNode.leftChild === undefined;
             node.indexOfNode = this.currentNode.data.indexOfNode * 2 + 1;
             super.addLeftChild(node);
             if (isAvailableToAdd && this.currentNode.rightChild === undefined &&
@@ -28,7 +28,7 @@
         }
 
         addRightChild(node: GuiNode): void {
-            var isAvailableToAdd = this.currentNode !== undefined && this.currentNode.rightChild === undefined;
+            const isAvailableToAdd = this.currentNode !== undefined && this.currentNode.rightChild === undefined;
             node.indexOfNode = this.currentNode.data.indexOfNode * 2 + 2;
             super.addRightChild(node);
             if (isAvailableToAdd && this.currentNode.leftChild === undefined &&
@@ -38,8 +38,8 @@
         }
 
         static calculateDepth(indexOfNode: number): number {
-            var depth = 0;
-            var currentIndex = indexOfNode;
+            let depth = 0;
+            let currentIndex = indexOfNode;
 
             while (currentIndex > 0) {
                 currentIndex = Math.floor((currentIndex - 1) / 2);

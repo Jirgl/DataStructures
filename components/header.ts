@@ -1,56 +1,48 @@
-﻿/// <reference path="../bobril/bobril.d.ts" />
-
-module JirglStructures {
+﻿module JirglStructures {
     export enum HeaderType {
         AppHeader,
         PageHeader,
         TopicHeader
     }
 
-    export enum HeaderEffect {
-        Dented
-    }
-
-    function toStyle(size: number, effect: HeaderEffect): any {
-        var style = {
-            fontSize: size,
-            fontFamily: Font.baseFontFamily
-        };
-
-        switch (effect) {
-        case HeaderEffect.Dented:
-            style["color"] = Color.appHeaderForeground;
-            style["fontFamily"] = Font.semiboldFontFamily;
-            style["textShadow"] = "0 1px 1px #666, -1px -2px 1px #000";
-            break;
-        }
-
-        return style;
-    }
-
-    function toSize(type: HeaderType): number {
-        switch (type) {
-        case HeaderType.AppHeader:
-            return 50;
-        default:
-            return 24;
-        }
-    }
-
     export interface IHeaderData {
         content: string;
         type: HeaderType;
-        effect?: HeaderEffect;
     }
 
     interface IHeaderCtx {
         data: IHeaderData;
     }
 
+    function toSize(type: HeaderType): number {
+        switch (type) {
+            case HeaderType.AppHeader:
+                return 40;
+            default:
+                return 24;
+        }
+    }
+
+    function toStyle(type: HeaderType): any {
+        const style: any = {};
+        switch (type) {
+            case HeaderType.AppHeader:
+                style.fontSize = toSize(type);
+                style.fontFamily = Font.baseFontFamily;
+                style.fontWeight = "bold";
+                style.color = Color.baseForeground;
+            default:
+                style.fontSize = toSize(type);
+                style.fontFamily = Font.baseFontFamily;
+        }
+
+        return style;
+    }
+
     var headerComponent: IBobrilComponent = {
         render(ctx: IHeaderCtx, me: IBobrilNode) {
             me.tag = "div";
-            me.style = toStyle(toSize(ctx.data.type), ctx.data.effect);
+            me.style = toStyle(ctx.data.type);
             me.children = ctx.data.content;
         }
     }

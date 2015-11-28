@@ -7,8 +7,9 @@ var JirglStructures;
     })(Font = JirglStructures.Font || (JirglStructures.Font = {}));
     var Color;
     (function (Color) {
-        Color.appHeaderForeground = "#EEE";
-        Color.navItemForeground = "#FFF";
+        Color.baseForeground = "#444";
+        Color.navItemActiveBackground = "#BFBFBF";
+        Color.navItemActiveBorderBackground = "#AFAFAF";
     })(Color = JirglStructures.Color || (JirglStructures.Color = {}));
 })(JirglStructures || (JirglStructures = {}));
 //# sourceMappingURL=constants.js.map

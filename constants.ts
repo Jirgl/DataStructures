@@ -5,7 +5,8 @@
     }
 
     export module Color {
-        export var appHeaderForeground = "#EEE";
-        export var navItemForeground = "#FFF";
+        export var baseForeground = "#444";
+        export var navItemActiveBackground = "#BFBFBF";
+        export var navItemActiveBorderBackground = "#AFAFAF";
     }
 }

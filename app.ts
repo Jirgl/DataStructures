@@ -1,6 +1,4 @@
-﻿/// <reference path="bobril/bobril.d.ts" />
-
-module JirglStructures {
+﻿module JirglStructures {
     var app: IBobrilComponent = {
         render(ctx: any, me: IBobrilNode) {
             me.tag = "div";

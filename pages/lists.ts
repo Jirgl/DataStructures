@@ -4,7 +4,10 @@
         render(ctx: any, me: IBobrilNode) {
             me.tag = "div";
             me.children = [
-                header({ content: "Lists", type: HeaderType.PageHeader }),
+                paragraph({ content: Resources.listOverview }),
+                header({ content: "Arrays", type: HeaderType.PageHeader }),
+                header({ content: "Linked lists", type: HeaderType.PageHeader }),
+                paragraph({ content: Resources.linkedListOverview }),
                 header({ content: "Doubly linked list", type: HeaderType.TopicHeader }),
                 View.doublyList({}),
                 header({ content: "Queue", type: HeaderType.TopicHeader }),

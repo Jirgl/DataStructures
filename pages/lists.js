@@ -7,7 +7,10 @@ var JirglStructures;
             render: function (ctx, me) {
                 me.tag = "div";
                 me.children = [
-                    JirglStructures.header({ content: "Lists", type: JirglStructures.HeaderType.PageHeader }),
+                    JirglStructures.paragraph({ content: JirglStructures.Resources.listOverview }),
+                    JirglStructures.header({ content: "Arrays", type: JirglStructures.HeaderType.PageHeader }),
+                    JirglStructures.header({ content: "Linked lists", type: JirglStructures.HeaderType.PageHeader }),
+                    JirglStructures.paragraph({ content: JirglStructures.Resources.linkedListOverview }),
                     JirglStructures.header({ content: "Doubly linked list", type: JirglStructures.HeaderType.TopicHeader }),
                     JirglStructures.View.doublyList({}),
                     JirglStructures.header({ content: "Queue", type: JirglStructures.HeaderType.TopicHeader }),

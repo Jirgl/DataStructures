@@ -1,14 +1,9 @@
-/// <reference path="../../bobril/bobril.d.ts" />
-/// <reference path="../../bobril/bobril.mouse.d.ts" />
-/// <reference path="../../components/button.ts" />
-/// <reference path="../../components/canvas.ts" />
-/// <reference path="../../structureComponents/grid.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var View;
     (function (View) {
         var binaryTreeComponent = {
-            init: function (ctx, me) {
+            init: function (ctx) {
                 ctx.binaryTree = new JirglStructures.GuiExtender.GuiBinaryTree();
                 ctx.binaryTree.addRoot(new JirglStructures.GuiExtender.GuiNode("root node"));
                 ctx.binaryTree.addLeftChild(new JirglStructures.GuiExtender.GuiNode("left node"));

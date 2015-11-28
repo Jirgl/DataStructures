@@ -1,4 +1,3 @@
-/// <reference path="bobril/bobril.d.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var app = {

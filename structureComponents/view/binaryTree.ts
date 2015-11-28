@@ -1,10 +1,4 @@
-﻿/// <reference path="../../bobril/bobril.d.ts" />
-/// <reference path="../../bobril/bobril.mouse.d.ts" />
-/// <reference path="../../components/button.ts" />
-/// <reference path="../../components/canvas.ts" />
-/// <reference path="../../structureComponents/grid.ts" />
-
-module JirglStructures.View {
+﻿module JirglStructures.View {
     export interface IBinaryTreeData {
 
     }
@@ -18,7 +12,7 @@ module JirglStructures.View {
     }
 
     var binaryTreeComponent: IBobrilComponent = {
-        init(ctx: IBinaryTreeCtx, me: IBobrilNode): void {
+        init(ctx: IBinaryTreeCtx): void {
             ctx.binaryTree = new GuiExtender.GuiBinaryTree();
             ctx.binaryTree.addRoot(new GuiExtender.GuiNode("root node"));
             ctx.binaryTree.addLeftChild(new GuiExtender.GuiNode("left node"));
@@ -34,8 +28,8 @@ module JirglStructures.View {
             ctx.option = "left child";
         },
         render(ctx: IBinaryTreeCtx, me: IBobrilNode): void {
-            var iterator = ctx.binaryTree.getIterator();
-            var options = ["root", "left child", "right child"];
+            const iterator = ctx.binaryTree.getIterator();
+            const options = ["root", "left child", "right child"];
 
             if (ctx.action === "get") {
                 options.push("parent");

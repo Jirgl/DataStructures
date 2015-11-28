@@ -1,7 +1,4 @@
-﻿/// <reference path="bobril/bobril.d.ts" />
-/// <reference path="bobril/bobril.router.d.ts"/>
-
-module JirglStructures {
+﻿module JirglStructures {
     export interface IPageLayoutData {
     }
 
@@ -9,40 +6,33 @@ module JirglStructures {
         data: IPageLayoutData;
     }
 
+    var createNavItem = (left: number, top: number, content: string, routeName: string, isACtive: () => boolean): IBobrilNode => {
+        return {
+            tag: "div",
+            style: { position: "absolute", left: left, top: top },
+            children: navItem({
+                content: content,
+                routeParamName: routeName,
+                isActive: isACtive()
+            })
+        };
+    }
+
     var createNavigation = (): IBobrilNode => {
         return {
             tag: "div",
-            style: { position: "absolute", height: 100, top: 150, left: 0 },
-            children:
-            {
-                tag: "nav",
-                children: [
-                    navItem({
-                        content: "Lists",
-                        routeParamName: "lists",
-                        topPosition: 0,
-                        leftPosition: 100,
-                        isActive: b.isRouteActive("lists") || (!b.isRouteActive("trees") && !b.isRouteActive("heaps")),
-                        backgroundUrl: "assets/listsTab.jpg"
-                    }),
-                    navItem({
-                        content: "Trees",
-                        routeParamName: "trees",
-                        topPosition: 0,
-                        leftPosition: 300,
-                        isActive: b.isRouteActive("trees"),
-                        backgroundUrl: "assets/treesTab.jpg"
-                    }),
-                    navItem({
-                        content: "Heaps",
-                        routeParamName: "heaps",
-                        topPosition: 0,
-                        leftPosition: 500,
-                        isActive: b.isRouteActive("heaps"),
-                        backgroundUrl: "assets/heapsTab.jpg"
-                    })
-                ]
-            }
+            style: { position: "absolute", top: 100, left: 0 },
+            children: [
+                createNavItem(100, 0, "Lists", "lists", () => {
+                    return b.isRouteActive("lists") || (!b.isRouteActive("trees") && !b.isRouteActive("heaps"));
+                }),
+                createNavItem(300, 0, "Trees", "trees", () => {
+                    return b.isRouteActive("trees");
+                }),
+                createNavItem(500, 0, "Heaps", "heaps", () => {
+                    return b.isRouteActive("heaps");
+                })
+            ]
         };
     }
 
@@ -52,8 +42,8 @@ module JirglStructures {
             me.children = [
                 {
                     tag: "div",
-                    style: { position: "absolute", width: "100%", height: 300, top: 0, left: 0, overflow: "hidden" },
-                    children: appHeader({ content: "Data structures", leftPosition: 150, topPosition: -120 })
+                    style: { position: "absolute", top: 10, left: 100 },
+                    children: header({ content: "Data structures", type: HeaderType.AppHeader })
                 },
                 createNavigation(),
                 {
