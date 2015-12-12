@@ -1,6 +1,4 @@
-﻿/// <reference path="iterator.ts" />
-
-module JirglStructures.Trees {
+﻿module JirglStructures.Trees {
     export class Node<T> {
         data: T;
         parent: Node<T>;
