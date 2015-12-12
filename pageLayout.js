@@ -84,7 +84,12 @@ var JirglStructures;
                 }),
                 {
                     tag: "div",
-                    style: { position: "absolute", top: 250, left: 100 },
+                    style: {
+                        position: "absolute",
+                        marginBottom: 100,
+                        top: 180,
+                        left: 100
+                    },
                     children: me.data.activeRouteHandler()
                 }
             ];

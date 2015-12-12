@@ -3,19 +3,18 @@ var JirglStructures;
     var Page;
     (function (Page) {
         Page.listsPageComponent = {
-            id: "Lists",
             render: function (ctx, me) {
                 me.tag = "div";
                 me.children = [
-                    //paragraph({ content: Resources.listOverview }),
-                    JirglStructures.header({ content: "Arrays", type: JirglStructures.HeaderType.PageHeader }),
-                    JirglStructures.header({ content: "Linked lists", type: JirglStructures.HeaderType.PageHeader }),
-                    //paragraph({ content: Resources.linkedListOverview }),
-                    JirglStructures.header({ content: "Doubly linked list", type: JirglStructures.HeaderType.TopicHeader }),
+                    JirglStructures.paragraph({ content: b.t(9) }),
+                    JirglStructures.header({ content: b.t(4), type: JirglStructures.HeaderType.PageHeader }),
+                    JirglStructures.header({ content: b.t(5), type: JirglStructures.HeaderType.PageHeader }),
+                    JirglStructures.paragraph({ content: b.t(10) }),
+                    JirglStructures.header({ content: b.t(6), type: JirglStructures.HeaderType.TopicHeader }),
                     JirglStructures.View.doublyList({}),
-                    JirglStructures.header({ content: "Queue", type: JirglStructures.HeaderType.TopicHeader }),
+                    JirglStructures.header({ content: b.t(7), type: JirglStructures.HeaderType.TopicHeader }),
                     JirglStructures.View.queue({}),
-                    JirglStructures.header({ content: "Stack", type: JirglStructures.HeaderType.TopicHeader }),
+                    JirglStructures.header({ content: b.t(8), type: JirglStructures.HeaderType.TopicHeader }),
                     JirglStructures.View.stack({})
                 ];
             }

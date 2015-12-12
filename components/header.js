@@ -25,6 +25,7 @@ var JirglStructures;
             default:
                 style.fontSize = toSize(type);
                 style.fontFamily = JirglStructures.Font.baseFontFamily;
+                style.color = JirglStructures.Color.baseForeground;
         }
         return style;
     }

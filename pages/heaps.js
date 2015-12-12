@@ -3,7 +3,6 @@ var JirglStructures;
     var Page;
     (function (Page) {
         Page.heapsPageComponent = {
-            id: "Heaps",
             render: function (ctx, me) {
                 me.tag = "div";
                 me.children = [

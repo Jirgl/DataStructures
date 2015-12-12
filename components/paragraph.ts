@@ -1,6 +1,4 @@
-﻿/// <reference path="../bobril/bobril.d.ts" />
-
-module JirglStructures {
+﻿module JirglStructures {
     export interface IParagraphData {
         content: string;
     }
@@ -12,6 +10,11 @@ module JirglStructures {
     var paragraphComponent: IBobrilComponent = {
         render(ctx: IParagraphCtx, me: IBobrilNode) {
             me.tag = "div";
+            me.style = {
+                fontSize: 16,
+                fontFamily: Font.baseFontFamily,
+                color: Color.baseForeground
+            };
             me.children = ctx.data.content;
         }
     }

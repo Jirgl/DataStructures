@@ -34,6 +34,7 @@
             default:
                 style.fontSize = toSize(type);
                 style.fontFamily = Font.baseFontFamily;
+                style.color = Color.baseForeground;
         }
 
         return style;
