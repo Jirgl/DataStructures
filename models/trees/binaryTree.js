@@ -9,11 +9,11 @@ var JirglStructures;
             return Node;
         })();
         Trees.Node = Node;
-        (function (BaseTreeTraversal) {
-            BaseTreeTraversal[BaseTreeTraversal["DepthFirst"] = 0] = "DepthFirst";
-            BaseTreeTraversal[BaseTreeTraversal["BreadthFirst"] = 1] = "BreadthFirst";
-        })(Trees.BaseTreeTraversal || (Trees.BaseTreeTraversal = {}));
-        var BaseTreeTraversal = Trees.BaseTreeTraversal;
+        (function (TreeTraversal) {
+            TreeTraversal[TreeTraversal["DepthFirst"] = 0] = "DepthFirst";
+            TreeTraversal[TreeTraversal["BreadthFirst"] = 1] = "BreadthFirst";
+        })(Trees.TreeTraversal || (Trees.TreeTraversal = {}));
+        var TreeTraversal = Trees.TreeTraversal;
         var BinaryTree = (function () {
             function BinaryTree() {
             }
@@ -126,27 +126,27 @@ var JirglStructures;
             function BinaryTreeIterator(rootNode, traversal) {
                 this.rootNode = rootNode;
                 this.traversal = traversal;
-                if (traversal === BaseTreeTraversal.BreadthFirst) {
+                if (traversal === TreeTraversal.BreadthFirst) {
                     this.que = new JirglStructures.Lists.Queue();
                     this.que.enqueue(rootNode);
                 }
-                else if (traversal === BaseTreeTraversal.DepthFirst) {
+                else if (traversal === TreeTraversal.DepthFirst) {
                     this.stack = new JirglStructures.Lists.Stack();
                     this.stack.push(rootNode);
                 }
             }
             BinaryTreeIterator.prototype.hasNext = function () {
-                if (this.traversal === BaseTreeTraversal.BreadthFirst) {
+                if (this.traversal === TreeTraversal.BreadthFirst) {
                     return !this.que.isEmpty();
                 }
-                else if (this.traversal === BaseTreeTraversal.DepthFirst) {
+                else if (this.traversal === TreeTraversal.DepthFirst) {
                     return !this.stack.isEmpty();
                 }
                 return false;
             };
             BinaryTreeIterator.prototype.next = function () {
                 var node;
-                if (this.traversal === BaseTreeTraversal.BreadthFirst) {
+                if (this.traversal === TreeTraversal.BreadthFirst) {
                     node = this.que.dequeue();
                     if (node.leftChild !== undefined) {
                         this.que.enqueue(node.leftChild);
@@ -156,7 +156,7 @@ var JirglStructures;
                     }
                     return node.data;
                 }
-                else if (this.traversal === BaseTreeTraversal.DepthFirst) {
+                else if (this.traversal === TreeTraversal.DepthFirst) {
                     node = this.stack.pop();
                     if (node.rightChild !== undefined) {
                         this.stack.push(node.rightChild);
@@ -169,11 +169,11 @@ var JirglStructures;
                 return undefined;
             };
             BinaryTreeIterator.prototype.reset = function () {
-                if (this.traversal === BaseTreeTraversal.BreadthFirst) {
+                if (this.traversal === TreeTraversal.BreadthFirst) {
                     this.que.clear();
                     this.que.enqueue(this.rootNode);
                 }
-                else if (this.traversal === BaseTreeTraversal.DepthFirst) {
+                else if (this.traversal === TreeTraversal.DepthFirst) {
                     this.stack.clear();
                     this.stack.push(this.rootNode);
                 }

@@ -10,7 +10,7 @@
         }
     }
 
-    export enum BaseTreeTraversal {
+    export enum TreeTraversal {
         DepthFirst,
         BreadthFirst
     }
@@ -139,34 +139,34 @@
             return undefined;
         }
 
-        getIterator(traversal: BaseTreeTraversal): IIterator<T> {
+        getIterator(traversal: TreeTraversal): IIterator<T> {
             return new BinaryTreeIterator<T>(this.rootNode, traversal);
         }
     }
 
     export class BinaryTreeIterator<T> implements IIterator<T> {
         protected rootNode: Node<T>;
-        private traversal: BaseTreeTraversal;
+        private traversal: TreeTraversal;
         private que: Lists.Queue<Node<T>>;
         private stack: Lists.Stack<Node<T>>;
 
-        constructor(rootNode: Node<T>, traversal: BaseTreeTraversal) {
+        constructor(rootNode: Node<T>, traversal: TreeTraversal) {
             this.rootNode = rootNode;
             this.traversal = traversal;
 
-            if (traversal === BaseTreeTraversal.BreadthFirst) {
+            if (traversal === TreeTraversal.BreadthFirst) {
                 this.que = new Lists.Queue<Node<T>>();
                 this.que.enqueue(rootNode);
-            } else if (traversal === BaseTreeTraversal.DepthFirst) {
+            } else if (traversal === TreeTraversal.DepthFirst) {
                 this.stack = new Lists.Stack<Node<T>>();
                 this.stack.push(rootNode);
             }
         }
 
         hasNext(): boolean {
-            if (this.traversal === BaseTreeTraversal.BreadthFirst) {
+            if (this.traversal === TreeTraversal.BreadthFirst) {
                 return !this.que.isEmpty();
-            } else if (this.traversal === BaseTreeTraversal.DepthFirst) {
+            } else if (this.traversal === TreeTraversal.DepthFirst) {
                 return !this.stack.isEmpty();
             }
 
@@ -175,7 +175,7 @@
 
         next(): T {
             var node: Node<T>;
-            if (this.traversal === BaseTreeTraversal.BreadthFirst) {
+            if (this.traversal === TreeTraversal.BreadthFirst) {
                 node = this.que.dequeue();
 
                 if (node.leftChild !== undefined) {
@@ -187,7 +187,7 @@
                 }
 
                 return node.data;
-            } else if (this.traversal === BaseTreeTraversal.DepthFirst) {
+            } else if (this.traversal === TreeTraversal.DepthFirst) {
                 node = this.stack.pop();
 
                 if (node.rightChild !== undefined) {
@@ -205,10 +205,10 @@
         }
 
         reset(): void {
-            if (this.traversal === BaseTreeTraversal.BreadthFirst) {
+            if (this.traversal === TreeTraversal.BreadthFirst) {
                 this.que.clear();
                 this.que.enqueue(this.rootNode);
-            } else if (this.traversal === BaseTreeTraversal.DepthFirst) {
+            } else if (this.traversal === TreeTraversal.DepthFirst) {
                 this.stack.clear();
                 this.stack.push(this.rootNode);
             }
