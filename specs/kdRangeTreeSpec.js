@@ -1,7 +1,7 @@
 ﻿///<reference path="../jasmine/jasmine.js"/>
 ///<reference path="../models/trees/kdRangeTree.js"/>
 
-describe("Range tree - build", function () {
+describe("Range tree", function () {
     var rangeTree;
 
     var z = { data: "Z", ranges: [5, 5] };
@@ -245,75 +245,134 @@ describe("Range tree - build", function () {
         rangeTree = new JirglStructures.Trees.KdRangeTree();
     });
 
-    function checkSubtree(outputSubtree, expectedSubtree) {
-        expect(outputSubtree.length).toBe(expectedSubtree.length);
-        for (var i = 0; i < outputSubtree.length; i++) {
-            expect(outputSubtree[i].median).toBe(expectedSubtree[i].median);
-            expect(outputSubtree[i].subtree).toBe(expectedSubtree[i].rawData);
-            expect(outputSubtree[i].rangeData).toBe(expectedSubtree[i].rangeData);
+    describe("Build", function () {
+        function checkSubtree(outputSubtree, expectedSubtree) {
+            expect(outputSubtree.length).toBe(expectedSubtree.length);
+            for (var i = 0; i < outputSubtree.length; i++) {
+                expect(outputSubtree[i].median).toBe(expectedSubtree[i].median);
+                expect(outputSubtree[i].subtree).toBe(expectedSubtree[i].rawData);
+                expect(outputSubtree[i].rangeData).toBe(expectedSubtree[i].rangeData);
+            }
         }
-    }
 
-    it("build tree", function () {
-        rangeTree.build(initData, [
-            function (a, b) { return a.ranges[0] - b.ranges[0]; },
-            function (a, b) { return a.ranges[1] - b.ranges[1]; }
-        ]);
+        it("build tree", function () {
+            rangeTree.build(initData, [
+                function (a, b) { return a.ranges[0] - b.ranges[0]; },
+                function (a, b) { return a.ranges[1] - b.ranges[1]; }
+            ]);
 
-        expect(rangeTree.tree.rawData[0].median).toBe(30.5);
-        expect(rangeTree.tree.rawData[0].rangeData).toBe(undefined);
-        checkSubtree(rangeTree.tree.rawData[0].subtree.rawData, subtree1);
-        expect(rangeTree.tree.rawData[1].median).toBe(18.5);
-        expect(rangeTree.tree.rawData[1].rangeData).toBe(undefined);
-        checkSubtree(rangeTree.tree.rawData[1].subtree.rawData, subtree2);
-        expect(rangeTree.tree.rawData[2].median).toBe(40);
-        expect(rangeTree.tree.rawData[2].rangeData).toBe(undefined);
-        checkSubtree(rangeTree.tree.rawData[2].subtree.rawData, subtree3);
-        expect(rangeTree.tree.rawData[3].median).toBe(10);
-        expect(rangeTree.tree.rawData[3].rangeData).toBe(undefined);
-        checkSubtree(rangeTree.tree.rawData[3].subtree.rawData, subtree4);
-        expect(rangeTree.tree.rawData[4].median).toBe(25);
-        expect(rangeTree.tree.rawData[4].rangeData).toBe(undefined);
-        checkSubtree(rangeTree.tree.rawData[4].subtree.rawData, subtree5);
-        expect(rangeTree.tree.rawData[5].median).toBe(35.5);
-        expect(rangeTree.tree.rawData[5].rangeData).toBe(undefined);
-        checkSubtree(rangeTree.tree.rawData[5].subtree.rawData, subtree6);
-        expect(rangeTree.tree.rawData[6].median).toBe(44.5);
-        expect(rangeTree.tree.rawData[6].rangeData).toBe(undefined);
-        checkSubtree(rangeTree.tree.rawData[6].subtree.rawData, subtree7);
-        expect(rangeTree.tree.rawData[7].median).toBe(undefined);
-        expect(rangeTree.tree.rawData[7].rangeData).toBe(z);
-        expect(rangeTree.tree.rawData[7].subtree).toBe(undefined);
-        expect(rangeTree.tree.rawData[8].median).toBe(undefined);
-        expect(rangeTree.tree.rawData[8].rangeData).toBe(c);
-        expect(rangeTree.tree.rawData[8].subtree).toBe(undefined);
-        expect(rangeTree.tree.rawData[9].median).toBe(undefined);
-        expect(rangeTree.tree.rawData[9].rangeData).toBe(w);
-        expect(rangeTree.tree.rawData[9].subtree).toBe(undefined);
-        expect(rangeTree.tree.rawData[10].median).toBe(undefined);
-        expect(rangeTree.tree.rawData[10].rangeData).toBe(r);
-        expect(rangeTree.tree.rawData[10].subtree).toBe(undefined);
-        expect(rangeTree.tree.rawData[11].median).toBe(undefined);
-        expect(rangeTree.tree.rawData[11].rangeData).toBe(y);
-        expect(rangeTree.tree.rawData[11].subtree).toBe(undefined);
-        expect(rangeTree.tree.rawData[12].median).toBe(undefined);
-        expect(rangeTree.tree.rawData[12].rangeData).toBe(f);
-        expect(rangeTree.tree.rawData[12].subtree).toBe(undefined);
-        expect(rangeTree.tree.rawData[13].median).toBe(undefined);
-        expect(rangeTree.tree.rawData[13].rangeData).toBe(k);
-        expect(rangeTree.tree.rawData[13].subtree).toBe(undefined);
-        expect(rangeTree.tree.rawData[14].median).toBe(undefined);
-        expect(rangeTree.tree.rawData[14].rangeData).toBe(m);
-        expect(rangeTree.tree.rawData[14].subtree).toBe(undefined);
+            expect(rangeTree.tree.rawData[0].median).toBe(30.5);
+            expect(rangeTree.tree.rawData[0].rangeData).toBe(undefined);
+            checkSubtree(rangeTree.tree.rawData[0].subtree.rawData, subtree1);
+            expect(rangeTree.tree.rawData[1].median).toBe(18.5);
+            expect(rangeTree.tree.rawData[1].rangeData).toBe(undefined);
+            checkSubtree(rangeTree.tree.rawData[1].subtree.rawData, subtree2);
+            expect(rangeTree.tree.rawData[2].median).toBe(40);
+            expect(rangeTree.tree.rawData[2].rangeData).toBe(undefined);
+            checkSubtree(rangeTree.tree.rawData[2].subtree.rawData, subtree3);
+            expect(rangeTree.tree.rawData[3].median).toBe(10);
+            expect(rangeTree.tree.rawData[3].rangeData).toBe(undefined);
+            checkSubtree(rangeTree.tree.rawData[3].subtree.rawData, subtree4);
+            expect(rangeTree.tree.rawData[4].median).toBe(25);
+            expect(rangeTree.tree.rawData[4].rangeData).toBe(undefined);
+            checkSubtree(rangeTree.tree.rawData[4].subtree.rawData, subtree5);
+            expect(rangeTree.tree.rawData[5].median).toBe(35.5);
+            expect(rangeTree.tree.rawData[5].rangeData).toBe(undefined);
+            checkSubtree(rangeTree.tree.rawData[5].subtree.rawData, subtree6);
+            expect(rangeTree.tree.rawData[6].median).toBe(44.5);
+            expect(rangeTree.tree.rawData[6].rangeData).toBe(undefined);
+            checkSubtree(rangeTree.tree.rawData[6].subtree.rawData, subtree7);
+            expect(rangeTree.tree.rawData[7].median).toBe(undefined);
+            expect(rangeTree.tree.rawData[7].rangeData).toBe(z);
+            expect(rangeTree.tree.rawData[7].subtree).toBe(undefined);
+            expect(rangeTree.tree.rawData[8].median).toBe(undefined);
+            expect(rangeTree.tree.rawData[8].rangeData).toBe(c);
+            expect(rangeTree.tree.rawData[8].subtree).toBe(undefined);
+            expect(rangeTree.tree.rawData[9].median).toBe(undefined);
+            expect(rangeTree.tree.rawData[9].rangeData).toBe(w);
+            expect(rangeTree.tree.rawData[9].subtree).toBe(undefined);
+            expect(rangeTree.tree.rawData[10].median).toBe(undefined);
+            expect(rangeTree.tree.rawData[10].rangeData).toBe(r);
+            expect(rangeTree.tree.rawData[10].subtree).toBe(undefined);
+            expect(rangeTree.tree.rawData[11].median).toBe(undefined);
+            expect(rangeTree.tree.rawData[11].rangeData).toBe(y);
+            expect(rangeTree.tree.rawData[11].subtree).toBe(undefined);
+            expect(rangeTree.tree.rawData[12].median).toBe(undefined);
+            expect(rangeTree.tree.rawData[12].rangeData).toBe(f);
+            expect(rangeTree.tree.rawData[12].subtree).toBe(undefined);
+            expect(rangeTree.tree.rawData[13].median).toBe(undefined);
+            expect(rangeTree.tree.rawData[13].rangeData).toBe(k);
+            expect(rangeTree.tree.rawData[13].subtree).toBe(undefined);
+            expect(rangeTree.tree.rawData[14].median).toBe(undefined);
+            expect(rangeTree.tree.rawData[14].rangeData).toBe(m);
+            expect(rangeTree.tree.rawData[14].subtree).toBe(undefined);
+        });
     });
 
-    it("find data", function() {
-        rangeTree.build(initData, [
-            function(a, b) { return a.range1 - b.range1; },
-            function(a, b) { return a.range2 - b.range2; }
-        ]);
+    describe("Find", function () {
+        beforeEach(function () {
+            rangeTree.build(initData, [
+                function (a, b) { return a.ranges[0] - b.ranges[0]; },
+                function (a, b) { return a.ranges[1] - b.ranges[1]; }
+            ]);
+        });
 
-        var result = rangeTree.findInRange(5, 15, 30, 70);
-        expect(result.length).toBe(0);
+        it("find data - I", function () {
+            var result = rangeTree.findInRange([5, 30], [15, 70]);
+            expect(result.length).toBe(1);
+            expect(result[0]).toBe(c.data);
+        });
+
+        it("find data - II", function () {
+            var result = rangeTree.findInRange([0, 0], [4, 20]);
+            expect(result.length).toBe(0);
+        });
+
+        it("find data - III", function () {
+            var result = rangeTree.findInRange([5, 5], [5, 5]);
+            expect(result.length).toBe(1);
+            expect(result[0]).toBe(z.data);
+        });
+
+        it("find data - IV", function () {
+            var result = rangeTree.findInRange([5, 5], [100, 100]);
+            expect(result.length).toBe(8);
+            expect(result[0]).toBe(z.data);
+            expect(result[1]).toBe(m.data);
+            expect(result[2]).toBe(c.data);
+            expect(result[3]).toBe(r.data);
+            expect(result[4]).toBe(f.data);
+            expect(result[5]).toBe(w.data);
+            expect(result[6]).toBe(y.data);
+            expect(result[7]).toBe(k.data);
+        });
+
+        it("find data - V", function () {
+            var result = rangeTree.findInRange([33, 52], [47, 63]);
+            expect(result.length).toBe(2);
+            expect(result[0]).toBe(f.data);
+            expect(result[1]).toBe(y.data);
+        });
+
+        it("find data - VI", function () {
+            var result = rangeTree.findInRange([27, 50], [34, 63]);
+            expect(result.length).toBe(2);
+            expect(result[0]).toBe(r.data);
+            expect(result[1]).toBe(y.data);
+        });
+
+        it("find data - VII", function () {
+            var result = rangeTree.findInRange([33, 35], [47, 65]);
+            expect(result.length).toBe(4);
+            expect(result[0]).toBe(m.data);
+            expect(result[1]).toBe(f.data);
+            expect(result[2]).toBe(y.data);
+            expect(result[3]).toBe(k.data);
+        });
+
+        it("find data - VIII", function () {
+            var result = rangeTree.findInRange([29, 50], [30, 63]);
+            expect(result.length).toBe(0);
+        });
     });
 });

@@ -120,16 +120,16 @@
             var index = 1;
 
             while (true) {
-                var range1 = rangesFrom[currentRange];
-                var range2 = rangesTo[currentRange];
+                var rangeFrom = rangesFrom[currentRange];
+                var rangeTo = rangesTo[currentRange];
 
                 if (tree.rawData[index - 1].rangeData === undefined) {
-                    if (range2 < tree.rawData[index - 1].median) {
+                    if (rangeTo < tree.rawData[index - 1].median) {
                         index *= 2;
-                    } else if (range1 > tree.rawData[index - 1].median) {
+                    } else if (rangeFrom > tree.rawData[index - 1].median) {
                         index *= 2;
                         index++;
-                    } else if (range1 <= tree.rawData[index - 1].median && range2 >= tree.rawData[index - 1].median) {
+                    } else if (rangeFrom <= tree.rawData[index - 1].median && rangeTo >= tree.rawData[index - 1].median) {
                         if (tree.rawData[index - 1].subtree !== undefined) {
                             return this.findInDimension(rangesFrom, rangesTo, ++currentRange, tree.rawData[index - 1].subtree);
                         } else {
@@ -137,14 +137,15 @@
                         }
                     }
                 } else {
-                    return [tree.rawData[index - 1].rangeData.data];
+                    return this.isInRange(tree.rawData[index - 1].rangeData, rangesFrom, rangesTo)
+                        ? [tree.rawData[index - 1].rangeData.data]
+                        : [];
                 }
             }
         }
 
         private findInTree(rangesFrom: number[], rangesTo: number[],
             currentIndex: number, tree: Tree<T>): T[] {
-
 
             var depth = 0;
             while (true) {
@@ -154,9 +155,9 @@
                 } else {
                     var count = Math.pow(2, depth);
                     var result = [];
-                    for (var i = currentIndex - 1; i < count; i++) {
-                        if (this.isInRange(tree.rawData[currentIndex - 1].rangeData, rangesFrom, rangesTo))//TODO mel jsem jen index bez -1
-                            result.push(tree.rawData[currentIndex - 1].rangeData.data);
+                    for (var i = currentIndex - 1; i < currentIndex - 1 + count; i++) {
+                        if (this.isInRange(tree.rawData[i].rangeData, rangesFrom, rangesTo))
+                            result.push(tree.rawData[i].rangeData.data);
                     }
 
                     return result;//TODO distinct
