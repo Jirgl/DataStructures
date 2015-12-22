@@ -62,10 +62,23 @@ var JirglStructures;
             };
             KdRangeTree.prototype.normalizeArrayLength = function (array) {
                 var returnArray = array.slice();
-                var item = returnArray[returnArray.length - 1];
+                var item = this.cloneRangeObject(returnArray[returnArray.length - 1]);
+                item.data = undefined;
                 for (var i = array.length; i < Math.pow(2, this.getClosestPower(array.length)); i++)
                     returnArray.push(item);
                 return returnArray;
+            };
+            KdRangeTree.prototype.cloneRangeObject = function (obj) {
+                if (null == obj || "object" != typeof obj) {
+                    return obj;
+                }
+                var copy = obj.constructor();
+                for (var attr in obj) {
+                    if (obj.hasOwnProperty(attr)) {
+                        copy[attr] = obj[attr];
+                    }
+                }
+                return copy;
             };
             KdRangeTree.prototype.getClosestPower = function (length) {
                 var power = 1;
@@ -127,15 +140,18 @@ var JirglStructures;
                         var count = Math.pow(2, depth);
                         var result = [];
                         for (var i = currentIndex - 1; i < currentIndex - 1 + count; i++) {
-                            if (this.isInRange(tree.rawData[i].rangeData, rangesFrom, rangesTo))
+                            if (tree.rawData[i].rangeData.data &&
+                                this.isInRange(tree.rawData[i].rangeData, rangesFrom, rangesTo)) {
                                 result.push(tree.rawData[i].rangeData.data);
+                            }
                         }
-                        return result; //TODO distinct
+                        return result;
                     }
                 }
             };
             KdRangeTree.prototype.isInRange = function (data, rangesFrom, rangesTo) {
-                if (data.ranges.length !== rangesFrom.length || data.ranges.length !== rangesTo.length) {
+                if (!data.ranges || data.ranges.length !== rangesFrom.length ||
+                    data.ranges.length !== rangesTo.length) {
                     return false;
                 }
                 for (var i = 0; i < data.ranges.length; i++) {

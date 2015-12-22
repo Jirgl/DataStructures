@@ -81,12 +81,28 @@
 
         private normalizeArrayLength(array: IRangeObject<T>[]): IRangeObject<T>[] {
             var returnArray = array.slice();
-            var item = returnArray[returnArray.length - 1];
+            var item = this.cloneRangeObject(returnArray[returnArray.length - 1]);
+            item.data = undefined;
 
             for (let i = array.length; i < Math.pow(2, this.getClosestPower(array.length)); i++)
                 returnArray.push(item);
 
             return returnArray;
+        }
+
+        private cloneRangeObject(obj: IRangeObject<T>): IRangeObject<T> {
+            if (null == obj || "object" != typeof obj) {
+                return obj;
+            }
+
+            var copy = obj.constructor();
+            for (var attr in obj) {
+                if (obj.hasOwnProperty(attr)) {
+                    copy[attr] = obj[attr];
+                }
+            }
+
+            return copy;
         }
 
         private getClosestPower(length: number): number {
@@ -156,17 +172,20 @@
                     var count = Math.pow(2, depth);
                     var result = [];
                     for (var i = currentIndex - 1; i < currentIndex - 1 + count; i++) {
-                        if (this.isInRange(tree.rawData[i].rangeData, rangesFrom, rangesTo))
+                        if (tree.rawData[i].rangeData.data &&
+                            this.isInRange(tree.rawData[i].rangeData, rangesFrom, rangesTo)) {
                             result.push(tree.rawData[i].rangeData.data);
+                        }
                     }
 
-                    return result;//TODO distinct
+                    return result;
                 }
             }
         }
 
         private isInRange(data: IRangeObject<T>, rangesFrom: number[], rangesTo: number[]): boolean {
-            if (data.ranges.length !== rangesFrom.length || data.ranges.length !== rangesTo.length) {
+            if (!data.ranges || data.ranges.length !== rangesFrom.length ||
+                data.ranges.length !== rangesTo.length) {
                 return false;
             }
 
