@@ -1,4 +1,9 @@
-﻿module JirglStructures.GuiExtender {
+﻿/// <reference path="../../bobril/bobril.media.d.ts" />
+/// <reference path="../../components/item.ts" />
+/// <reference path="../grid.ts" />
+/// <reference path="guiTreeIterator.ts" />
+
+module JirglStructures.GuiExtender {
     export class GuiGridTree implements IGrid {
         private depth: number;
         private iterator: GuiTreeIterator;

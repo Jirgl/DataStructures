@@ -1,4 +1,8 @@
-﻿module JirglStructures {
+﻿/// <reference path="bobril/bobril.d.ts" />
+/// <reference path="bobril/bobril.l10n.d.ts" />
+/// <reference path="pageLayout.ts" />
+
+module JirglStructures {
     b.initLocalization({
         pathToIntlJs: "l10n/Intl.min.js",
         pathToIntlLocaleDataJsonp: "l10n/intldata/",

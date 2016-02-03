@@ -1,4 +1,15 @@
-﻿module JirglStructures {
+﻿/// <reference path="bobril/bobril.d.ts" />
+/// <reference path="bobril/bobril.router.d.ts" />
+/// <reference path="bobril/bobril.l10n.d.ts" />
+/// <reference path="bobril/bobril.media.d.ts" />
+/// <reference path="components/navItem.ts" />
+/// <reference path="components/header.ts" />
+/// <reference path="components/languageTile.ts" />
+/// <reference path="pages/lists.ts" />
+/// <reference path="pages/trees.ts" />
+/// <reference path="pages/heaps.ts" />
+
+module JirglStructures {
     export interface IPageLayoutData {
     }
 

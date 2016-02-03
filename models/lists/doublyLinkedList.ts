@@ -1,4 +1,6 @@
-﻿module JirglStructures.Lists {
+﻿/// <reference path="../iterator.ts" />
+
+module JirglStructures.Lists {
     export class Item<T> {
         data: T;
         next: Item<T>;

@@ -1,4 +1,8 @@
-﻿module JirglStructures.Trees {
+﻿/// <reference path="../iterator.ts" />
+/// <reference path="../lists/stack.ts" />
+/// <reference path="../lists/queue.ts" />
+
+module JirglStructures.Trees {
     export class Node<T> {
         data: T;
         parent: Node<T>;

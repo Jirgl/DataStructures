@@ -1,4 +1,6 @@
-﻿module JirglStructures {
+﻿/// <reference path="../components/arrow.ts" />
+
+module JirglStructures {
     export class Position {
         x: number;
         y: number;

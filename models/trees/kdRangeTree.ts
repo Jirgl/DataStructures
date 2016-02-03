@@ -1,4 +1,6 @@
-﻿module JirglStructures.Trees {
+﻿/// <reference path="../lists/queue.ts" />
+
+module JirglStructures.Trees {
     export interface IRangeObject<T> {
         data: T;
         ranges: number[];

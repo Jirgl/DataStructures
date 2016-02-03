@@ -1,4 +1,15 @@
-﻿module JirglStructures.View {
+﻿/// <reference path="../../bobril/bobril.d.ts" />
+/// <reference path="../../components/button.ts" />
+/// <reference path="../../components/canvas.ts" />
+/// <reference path="../../components/combobox.ts" />
+/// <reference path="../../components/controlPanel.ts" />
+/// <reference path="../../components/textbox.ts" />
+/// <reference path="../../models/lists/doublyLinkedList.ts" />
+/// <reference path="../guiExtender/guiItem.ts" />
+/// <reference path="../guiExtender/guiGridList.ts" />
+/// <reference path="../guiExtender/guiDoublyLinkedList.ts" />
+
+module JirglStructures.View {
     export interface IDoublyListData {
 
     }

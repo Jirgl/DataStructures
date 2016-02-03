@@ -1,4 +1,10 @@
-﻿module JirglStructures.GuiExtender {
+﻿/// <reference path="../../models/iterator.ts" />
+/// <reference path="../../models/lists/queue.ts" />
+/// <reference path="../../models/trees/binaryTree.ts" />
+/// <reference path="guiNode.ts" />
+/// <reference path="guiBinaryTree.ts" />
+
+module JirglStructures.GuiExtender {
     export class GuiTreeIterator implements IIterator<GuiNode> {
         private que: Lists.Queue<Trees.Node<GuiNode>>;
         rootNode: Trees.Node<GuiNode>;

@@ -1,4 +1,12 @@
-﻿module JirglStructures.Page {
+﻿/// <reference path="../bobril/bobril.d.ts" />
+/// <reference path="../bobril/bobril.l10n.d.ts" />
+/// <reference path="../components/header.ts" />
+/// <reference path="../components/paragraph.ts" />
+/// <reference path="../structureComponents/view/doublyList.ts" />
+/// <reference path="../structureComponents/view/queue.ts" />
+/// <reference path="../structureComponents/view/stack.ts" />
+
+module JirglStructures.Page {
     export var listsPageComponent: IBobrilComponent = {
         render(ctx: any, me: IBobrilNode) {
             me.tag = "div";

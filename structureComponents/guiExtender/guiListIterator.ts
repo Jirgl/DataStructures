@@ -1,4 +1,9 @@
-﻿module JirglStructures.GuiExtender {
+﻿/// <reference path="../../models/iterator.ts" />
+/// <reference path="../../models/lists/queue.ts" />
+/// <reference path="../../models/lists/doublyLinkedList.ts" />
+/// <reference path="guiItem.ts" />
+
+module JirglStructures.GuiExtender {
     export class GuiListIterator extends Lists.DoublyLinkedListIterator<GuiItem> {
         previousGuiItem: Lists.Item<GuiItem>;
         currentGuiItem: Lists.Item<GuiItem>;

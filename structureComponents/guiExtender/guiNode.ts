@@ -1,4 +1,6 @@
-﻿module JirglStructures.GuiExtender {
+﻿/// <reference path="../../components/canvas.ts" />
+
+module JirglStructures.GuiExtender {
     export class GuiNode extends Trees.Node<string> implements IGuiContent {
         isCurrent: boolean;
         indexOfNode: number;

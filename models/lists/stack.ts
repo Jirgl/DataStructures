@@ -1,4 +1,6 @@
-﻿module JirglStructures.Lists {
+﻿/// <reference path="doublyLinkedList.ts" />
+
+module JirglStructures.Lists {
     export class Stack<T> implements IIterable<T> {
         protected list: DoublyLinkedList<T>;
 

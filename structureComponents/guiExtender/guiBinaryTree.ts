@@ -1,4 +1,6 @@
-﻿module JirglStructures.GuiExtender {
+﻿/// <reference path="guiTreeIterator.ts" />
+
+module JirglStructures.GuiExtender {
     export class GuiBinaryTree extends Trees.BinaryTree<GuiNode> {
         private depth: number;
 

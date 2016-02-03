@@ -1,4 +1,15 @@
-﻿module JirglStructures.View {
+﻿/// <reference path="../../bobril/bobril.d.ts" />
+/// <reference path="../../components/button.ts" />
+/// <reference path="../../components/canvas.ts" />
+/// <reference path="../../components/combobox.ts" />
+/// <reference path="../../components/controlPanel.ts" />
+/// <reference path="../../components/textbox.ts" />
+/// <reference path="../../models/trees/binaryTree.ts" />
+/// <reference path="../guiExtender/guiNode.ts" />
+/// <reference path="../guiExtender/guiGridTree.ts" />
+/// <reference path="../guiExtender/guiBinaryTree.ts" />
+
+module JirglStructures.View {
     export interface IBinaryTreeData {
 
     }
