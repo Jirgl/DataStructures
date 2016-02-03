@@ -8,7 +8,9 @@ bobrilRegisterTranslations("cs-CZ", [
 "Dvousměrně zřetězený seznam",
 "Fronta",
 "Zásobník",
-"Seznam je posloupnost objektů jistého typu. Tyto objekty mohou být nejrůznějšího druhu, avšak musí být jednoznačně označeny klíčem. Z tohoto důvodu každý objekt musí obsahovat minimálně klíč.",
-
-"Položky zřetězených seznamů mohou být uloženy kdekoli v paměti počítače a každá položka obsahuje patřičné reference na následující (případně předcházející) položky. Položky seznamu je tak možné dynamicky přidávat nebo odebírat bez nutnosti jakékoli realokace v paměti."
+"přijde...",
+"Položky zřetězených seznamů mohou být uloženy kdekoli v paměti počítače a každá položka obsahuje data a referenci na následující (případně předcházející) položku. Položky seznamu je tak možné dynamicky přidávat nebo odebírat bez nutnosti jakékoli realokace v paměti.",
+"Položka dvousměrně zřetězeného seznamu obsahuje data a dvě reference na předchozí a následující prvek seznamu.",
+"Fronta je specifická datová struktura, která vkládá prvky na konec seznamu a odebírá je ze svého začátku.",
+"Zásobník je specifická datová struktura, která vkládá prvky na začátek (konec) seznamu a odebírá je opět za svého začátku (konce)."
 ]);
