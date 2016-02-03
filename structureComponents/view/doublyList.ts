@@ -30,8 +30,8 @@ module JirglStructures.View {
             ctx.action = "add";
         },
         render(ctx: IDoublyListCtx, me: IBobrilNode): void {
-            const iterator = ctx.doublyLinkedList.getIterator();
-            const options = ["first", "predecessor", "successor", "last"];
+            var iterator = ctx.doublyLinkedList.getIterator();
+            var options = ["first", "predecessor", "successor", "last"];
             if (ctx.action === "remove") {
                 options.push("current");
             }

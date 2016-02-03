@@ -1,3 +1,5 @@
+/// <reference path="guiDoublyLinkedList.ts" />
+/// <reference path="guiListIterator.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var GuiExtender;

@@ -1,3 +1,6 @@
+/// <reference path="bobril/bobril.d.ts" />
+/// <reference path="bobril/bobril.l10n.d.ts" />
+/// <reference path="pageLayout.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     b.initLocalization({

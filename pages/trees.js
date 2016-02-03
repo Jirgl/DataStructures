@@ -1,3 +1,6 @@
+/// <reference path="../bobril/bobril.d.ts" />
+/// <reference path="../components/header.ts" />
+/// <reference path="../structureComponents/view/binaryTree.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var Page;

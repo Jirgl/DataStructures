@@ -1,3 +1,4 @@
+/// <reference path="../lists/queue.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var Trees;

@@ -1,3 +1,7 @@
+/// <reference path="../../bobril/bobril.media.d.ts" />
+/// <reference path="../../components/item.ts" />
+/// <reference path="../grid.ts" />
+/// <reference path="guiTreeIterator.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var GuiExtender;

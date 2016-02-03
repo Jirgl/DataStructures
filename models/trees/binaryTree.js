@@ -1,3 +1,6 @@
+/// <reference path="../iterator.ts" />
+/// <reference path="../lists/stack.ts" />
+/// <reference path="../lists/queue.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var Trees;

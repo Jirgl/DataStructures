@@ -1,3 +1,8 @@
+/// <reference path="../../models/iterator.ts" />
+/// <reference path="../../models/lists/queue.ts" />
+/// <reference path="../../models/trees/binaryTree.ts" />
+/// <reference path="guiNode.ts" />
+/// <reference path="guiBinaryTree.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var GuiExtender;

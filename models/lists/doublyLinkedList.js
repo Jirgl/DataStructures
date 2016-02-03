@@ -1,3 +1,4 @@
+/// <reference path="../iterator.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var Lists;

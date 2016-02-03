@@ -2,7 +2,13 @@
 /// <reference path="../../bobril/bobril.mouse.d.ts" />
 /// <reference path="../../components/button.ts" />
 /// <reference path="../../components/canvas.ts" />
+/// <reference path="../../components/combobox.ts" />
+/// <reference path="../../components/controlPanel.ts" />
+/// <reference path="../../components/textbox.ts" />
 /// <reference path="../../structureComponents/grid.ts" />
+/// <reference path="../guiExtender/guiStack.ts" />
+/// <reference path="../guiExtender/guiItem.ts" />
+/// <reference path="../guiExtender/guiGridList.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var View;

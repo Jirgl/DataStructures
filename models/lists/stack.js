@@ -1,3 +1,4 @@
+/// <reference path="doublyLinkedList.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var Lists;

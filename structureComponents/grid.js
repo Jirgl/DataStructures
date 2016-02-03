@@ -1,3 +1,4 @@
+/// <reference path="../components/arrow.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var Position = (function () {
