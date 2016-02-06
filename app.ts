@@ -11,8 +11,4 @@ module JirglStructures {
         defaultLocale: "en-US",
         pathToTranslation: (l) => `l10n/translations/${l}.js`
     });
-
-    b.init(() => {
-        return pageLayout({});
-    });
 }

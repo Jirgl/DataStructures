@@ -11,8 +11,5 @@ var JirglStructures;
         defaultLocale: "en-US",
         pathToTranslation: function (l) { return ("l10n/translations/" + l + ".js"); }
     });
-    b.init(function () {
-        return JirglStructures.pageLayout({});
-    });
 })(JirglStructures || (JirglStructures = {}));
 //# sourceMappingURL=app.js.map
