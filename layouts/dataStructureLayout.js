@@ -32,7 +32,7 @@ var JirglStructures;
                                 verticalAlign: "top",
                                 position: "absolute",
                                 right: 0, top: 0,
-                                foreground: JirglStructures.Color.lightForeground,
+                                color: JirglStructures.Color.lightForeground,
                                 background: JirglStructures.Color.darkBackground
                             },
                             children: JirglStructures.paragraph({ content: description })

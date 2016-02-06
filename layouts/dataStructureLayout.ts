@@ -42,7 +42,7 @@ module JirglStructures {
                                 verticalAlign: "top",
                                 position: "absolute",
                                 right: 0, top: 0,
-                                foreground: Color.lightForeground,
+                                color: Color.lightForeground,
                                 background: Color.darkBackground
                             },
                             children: paragraph({ content: description })
