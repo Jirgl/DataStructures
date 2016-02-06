@@ -21,11 +21,12 @@ var JirglStructures;
                 style.fontSize = toSize(type);
                 style.fontFamily = JirglStructures.Font.baseFontFamily;
                 style.fontWeight = "bold";
-                style.color = JirglStructures.Color.baseForeground;
+                style.color = JirglStructures.Color.lightForeground;
+                break;
             default:
                 style.fontSize = toSize(type);
                 style.fontFamily = JirglStructures.Font.baseFontFamily;
-                style.color = JirglStructures.Color.baseForeground;
+                style.color = JirglStructures.Color.darkForeground;
         }
         return style;
     }

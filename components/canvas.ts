@@ -42,11 +42,13 @@
                     }
                 }
 
-                const currentHeight = position.y + Item.itemHeight + (2 * Item.itemMargin);
+                var currentHeight = position.y + Item.itemHeight + (2 * Item.itemMargin);
                 if (currentHeight > maxHeight) {
                     maxHeight = currentHeight;
                 }
-            }children.push({
+            }
+
+            children.push({
                 component: b.vg,
                 data: { width: ctx.data.grid.getWidth(), height: maxHeight, zIndex: 100 },
                 children: arrows
@@ -56,11 +58,6 @@
             me.style = {
                 width: ctx.data.grid.getWidth(),
                 height: maxHeight,
-                background: Color.darkBackground,
-                borderColor: Color.darkBackgroundBorder,
-                borderStyle: "solid",
-                borderWidth: 1,
-                borderRadius: 5,
                 position: "relative"
             };
             me.children = children;

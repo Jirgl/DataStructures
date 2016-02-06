@@ -12,8 +12,10 @@
             me.tag = "div";
             me.style = {
                 fontSize: 16,
-                fontFamily: Font.baseFontFamily,
-                color: Color.baseForeground
+                padding: 20,
+                textAlign: "justify",
+                fontFamily: Font.lightFontFamily,
+                color: Color.lightForeground
             };
             me.children = ctx.data.content;
         }

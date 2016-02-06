@@ -12,7 +12,8 @@ var JirglStructures;
         render: function (ctx, me) {
             me.tag = "div";
             me.style = {
-                background: ctx.data.isCurrent ? "green" : "red",
+                color: JirglStructures.Color.lightForeground,
+                background: ctx.data.isCurrent ? JirglStructures.Color.majorColor : JirglStructures.Color.darkBackground,
                 width: Item.itemWidth,
                 height: Item.itemHeight,
                 position: "absolute",

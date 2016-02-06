@@ -14,7 +14,6 @@ var JirglStructures;
         var GuiListType = GuiExtender.GuiListType;
         var GuiGridList = (function () {
             function GuiGridList(iterator) {
-                this.widthReduction = 500;
                 this.iterator = iterator;
             }
             GuiGridList.prototype.getArrowType = function () {
@@ -33,7 +32,7 @@ var JirglStructures;
             };
             GuiGridList.prototype.getItemPosition = function (orderOfItem) {
                 var itemWidthWithMargin = (JirglStructures.Item.itemWidth + (JirglStructures.Item.itemMargin * 2));
-                var itemsPerLine = Math.floor((b.getMedia().width - this.widthReduction) / itemWidthWithMargin);
+                var itemsPerLine = Math.floor(this.getWidth() / itemWidthWithMargin);
                 return {
                     x: ((orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
                     y: Math.floor((orderOfItem - 1) / itemsPerLine) * itemWidthWithMargin
@@ -54,7 +53,7 @@ var JirglStructures;
                 ];
             };
             GuiGridList.prototype.getWidth = function () {
-                return b.getMedia().width - this.widthReduction;
+                return b.getMedia().width * 0.63 - 25; // -90% -70% -25px
             };
             return GuiGridList;
         })();

@@ -1,13 +1,13 @@
-/// <reference path="bobril/bobril.d.ts" />
-/// <reference path="bobril/bobril.router.d.ts" />
-/// <reference path="bobril/bobril.l10n.d.ts" />
-/// <reference path="bobril/bobril.media.d.ts" />
-/// <reference path="components/navItem.ts" />
-/// <reference path="components/header.ts" />
-/// <reference path="components/languageTile.ts" />
-/// <reference path="pages/lists.ts" />
-/// <reference path="pages/trees.ts" />
-/// <reference path="pages/heaps.ts" />
+/// <reference path="../bobril/bobril.d.ts" />
+/// <reference path="../bobril/bobril.router.d.ts" />
+/// <reference path="../bobril/bobril.l10n.d.ts" />
+/// <reference path="../bobril/bobril.media.d.ts" />
+/// <reference path="../components/navItem.ts" />
+/// <reference path="../components/header.ts" />
+/// <reference path="../components/languageTile.ts" />
+/// <reference path="../pages/lists.ts" />
+/// <reference path="../pages/trees.ts" />
+/// <reference path="../pages/heaps.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var Language;
@@ -80,8 +80,8 @@ var JirglStructures;
                 createLanguage(0, 200, 10, 0, {
                     isActive: ctx.activeLang === Language.English,
                     activeImageUrl: "assets/en.png",
-                    hoverImageUrl: "assets/en_hover.png",
-                    inactiveImageUrl: "assets/en_inactive.png",
+                    hoverImageUrl: "assets/en.png",
+                    inactiveImageUrl: "assets/en.png",
                     setLang: function () {
                         ctx.activeLang = Language.English;
                         b.setLocale("en-US");
@@ -91,8 +91,8 @@ var JirglStructures;
                 createLanguage(0, 150, 0, 10, {
                     isActive: ctx.activeLang === Language.Czech,
                     activeImageUrl: "assets/cs.png",
-                    hoverImageUrl: "assets/cs_hover.png",
-                    inactiveImageUrl: "assets/cs_inactive.png",
+                    hoverImageUrl: "assets/cs.png",
+                    inactiveImageUrl: "assets/cs.png",
                     setLang: function () {
                         ctx.activeLang = Language.Czech;
                         b.setLocale("cs-CZ");
@@ -103,7 +103,7 @@ var JirglStructures;
                     tag: "div",
                     style: {
                         position: "absolute",
-                        marginBottom: 100,
+                        width: b.getMedia().width - 200,
                         top: 180,
                         left: 100
                     },

@@ -5,8 +5,10 @@ var JirglStructures;
             me.tag = "div";
             me.style = {
                 fontSize: 16,
-                fontFamily: JirglStructures.Font.baseFontFamily,
-                color: JirglStructures.Color.baseForeground
+                padding: 20,
+                textAlign: "justify",
+                fontFamily: JirglStructures.Font.lightFontFamily,
+                color: JirglStructures.Color.lightForeground
             };
             me.children = ctx.data.content;
         }

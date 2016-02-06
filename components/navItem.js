@@ -3,7 +3,7 @@ var JirglStructures;
     var toStyle = function (isActive) {
         var style = {
             fontFamily: JirglStructures.Font.baseFontFamily,
-            color: JirglStructures.Color.baseForeground,
+            color: JirglStructures.Color.darkForeground,
             textAlign: "center",
             cursor: "pointer",
             fontSize: 28,
@@ -11,10 +11,8 @@ var JirglStructures;
             height: 41
         };
         if (isActive) {
-            style.background = JirglStructures.Color.darkBackground;
-            style.borderColor = JirglStructures.Color.darkBackgroundBorder;
-            style.borderStyle = "solid";
-            style.borderWidth = 1;
+            style.color = JirglStructures.Color.lightForeground,
+                style.background = JirglStructures.Color.darkBackground;
             style.borderRadius = 3;
         }
         return style;

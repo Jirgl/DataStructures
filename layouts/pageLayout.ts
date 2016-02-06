@@ -1,13 +1,13 @@
-﻿/// <reference path="bobril/bobril.d.ts" />
-/// <reference path="bobril/bobril.router.d.ts" />
-/// <reference path="bobril/bobril.l10n.d.ts" />
-/// <reference path="bobril/bobril.media.d.ts" />
-/// <reference path="components/navItem.ts" />
-/// <reference path="components/header.ts" />
-/// <reference path="components/languageTile.ts" />
-/// <reference path="pages/lists.ts" />
-/// <reference path="pages/trees.ts" />
-/// <reference path="pages/heaps.ts" />
+﻿/// <reference path="../bobril/bobril.d.ts" />
+/// <reference path="../bobril/bobril.router.d.ts" />
+/// <reference path="../bobril/bobril.l10n.d.ts" />
+/// <reference path="../bobril/bobril.media.d.ts" />
+/// <reference path="../components/navItem.ts" />
+/// <reference path="../components/header.ts" />
+/// <reference path="../components/languageTile.ts" />
+/// <reference path="../pages/lists.ts" />
+/// <reference path="../pages/trees.ts" />
+/// <reference path="../pages/heaps.ts" />
 
 module JirglStructures {
     export interface IPageLayoutData {
@@ -22,6 +22,18 @@ module JirglStructures {
         activeLang: Language;
     }
 
+    var createHeader = (): IBobrilNode => {
+        return {
+            tag: "div",
+            style: { width: "100%", height: 50, background: Color.majorColor },
+            children: {
+                tag: "div",
+                style: { position: "absolute", marginTop: -4, left: 100 },
+                children: header({ content: b.t(0), type: HeaderType.AppHeader })
+            }
+        };
+    };
+
     var createNavItem = (left: number, top: number, content: string, routeName: string, isACtive: () => boolean): IBobrilNode => {
         return {
             tag: "div",
@@ -32,7 +44,7 @@ module JirglStructures {
                 isActive: isACtive()
             })
         };
-    }
+    };
 
     var createNavigation = (): IBobrilNode => {
         return {
@@ -50,7 +62,7 @@ module JirglStructures {
                 })
             ]
         };
-    }
+    };
 
     var createLanguage = (top: number, right: number, leftRadius: number,
         rightRadius: number, data: ILangTileData): IBobrilNode => {
@@ -66,7 +78,7 @@ module JirglStructures {
             },
             children: langTile(data)
         }
-    }
+    };
 
     var pageLayoutComponent: IBobrilComponent = {
         init(ctx: IPageLayoutCtx) {
@@ -75,17 +87,13 @@ module JirglStructures {
         render(ctx: IPageLayoutCtx, me: IBobrilNode) {
             me.tag = "div";
             me.children = [
-                {
-                    tag: "div",
-                    style: { position: "absolute", top: 10, left: 100 },
-                    children: header({ content: b.t(0), type: HeaderType.AppHeader })
-                },
+                createHeader(),
                 createNavigation(),
                 createLanguage(0, 200, 10, 0, {
                     isActive: ctx.activeLang === Language.English,
                     activeImageUrl: "assets/en.png",
-                    hoverImageUrl: "assets/en_hover.png",
-                    inactiveImageUrl: "assets/en_inactive.png",
+                    hoverImageUrl: "assets/en.png",
+                    inactiveImageUrl: "assets/en.png",
                     setLang: () => {
                         ctx.activeLang = Language.English;
                         b.setLocale("en-US");
@@ -95,8 +103,8 @@ module JirglStructures {
                 createLanguage(0, 150, 0, 10, {
                     isActive: ctx.activeLang === Language.Czech,
                     activeImageUrl: "assets/cs.png",
-                    hoverImageUrl: "assets/cs_hover.png",
-                    inactiveImageUrl: "assets/cs_inactive.png",
+                    hoverImageUrl: "assets/cs.png",
+                    inactiveImageUrl: "assets/cs.png",
                     setLang: () => {
                         ctx.activeLang = Language.Czech;
                         b.setLocale("cs-CZ");
@@ -107,7 +115,7 @@ module JirglStructures {
                     tag: "div",
                     style: {
                         position: "absolute",
-                        marginBottom: 100,
+                        width: b.getMedia().width - 200,
                         top: 180,
                         left: 100
                     },
@@ -115,7 +123,7 @@ module JirglStructures {
                 }
             ];
         }
-    }
+    };
 
     b.routes(b.route({ handler: pageLayoutComponent }, [
         b.route({ name: "lists", url: "lists", handler: Page.listsPageComponent }),
@@ -126,5 +134,5 @@ module JirglStructures {
 
     export function pageLayout(data: IPageLayoutData): IBobrilNode {
         return { component: pageLayoutComponent, data: data };
-    }
+    };
 }

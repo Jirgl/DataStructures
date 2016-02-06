@@ -23,7 +23,8 @@ module JirglStructures {
         render<T>(ctx: IItemCtx<T>, me: IBobrilNode) {
             me.tag = "div";
             me.style = {
-                background: ctx.data.isCurrent ? "green" : "red",
+                color: Color.lightForeground,
+                background: ctx.data.isCurrent ? Color.majorColor : Color.darkBackground,
                 width: Item.itemWidth,
                 height: Item.itemHeight,
                 position: "absolute",

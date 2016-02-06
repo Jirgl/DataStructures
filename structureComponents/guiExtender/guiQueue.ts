@@ -1,5 +1,4 @@
 ﻿/// <reference path="guiDoublyLinkedList.ts" />
-/// <reference path="guiListIterator.ts" />
 
 module JirglStructures.GuiExtender {
     export class GuiQueue {

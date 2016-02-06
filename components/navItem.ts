@@ -12,7 +12,7 @@
     var toStyle = (isActive: boolean): any => {
         const style: any = {
             fontFamily: Font.baseFontFamily,
-            color: Color.baseForeground,
+            color: Color.darkForeground,
             textAlign: "center",
             cursor: "pointer",
             fontSize: 28,
@@ -21,10 +21,8 @@
         }
 
         if (isActive) {
+            style.color = Color.lightForeground,
             style.background = Color.darkBackground;
-            style.borderColor = Color.darkBackgroundBorder;
-            style.borderStyle = "solid";
-            style.borderWidth = 1;
             style.borderRadius = 3;
         }
 

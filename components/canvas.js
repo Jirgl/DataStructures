@@ -39,11 +39,6 @@ var JirglStructures;
             me.style = {
                 width: ctx.data.grid.getWidth(),
                 height: maxHeight,
-                background: JirglStructures.Color.darkBackground,
-                borderColor: JirglStructures.Color.darkBackgroundBorder,
-                borderStyle: "solid",
-                borderWidth: 1,
-                borderRadius: 5,
                 position: "relative"
             };
             me.children = children;

@@ -7,7 +7,6 @@
 /// <reference path="../../models/trees/binaryTree.ts" />
 /// <reference path="../guiExtender/guiNode.ts" />
 /// <reference path="../guiExtender/guiGridTree.ts" />
-/// <reference path="../guiExtender/guiBinaryTree.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var View;

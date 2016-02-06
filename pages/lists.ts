@@ -1,7 +1,6 @@
 ﻿/// <reference path="../bobril/bobril.d.ts" />
 /// <reference path="../bobril/bobril.l10n.d.ts" />
-/// <reference path="../components/header.ts" />
-/// <reference path="../components/paragraph.ts" />
+/// <reference path="../layouts/dataStructureLayout.ts" />
 /// <reference path="../structureComponents/view/doublyList.ts" />
 /// <reference path="../structureComponents/view/queue.ts" />
 /// <reference path="../structureComponents/view/stack.ts" />
@@ -11,19 +10,31 @@ module JirglStructures.Page {
         render(ctx: any, me: IBobrilNode) {
             me.tag = "div";
             me.children = [
-                header({ content: b.t(4), type: HeaderType.PageHeader }),
-                paragraph({ content: b.t(9) }),
-                header({ content: b.t(5), type: HeaderType.PageHeader }),
-                paragraph({ content: b.t(10) }),
-                header({ content: b.t(6), type: HeaderType.TopicHeader }),
-                paragraph({ content: b.t(11) }),
-                View.doublyList({}),
-                header({ content: b.t(7), type: HeaderType.TopicHeader }),
-                paragraph({ content: b.t(12) }),
-                View.queue({}),
-                header({ content: b.t(8), type: HeaderType.TopicHeader }),
-                paragraph({ content: b.t(13) }),
-                View.stack({})
+                dataStructureLayout({
+                    title: b.t(4),
+                    description: b.t(9),
+                    content: b.t(9)
+                }),
+                dataStructureLayout({
+                    title: b.t(5),
+                    description: b.t(10),
+                    content: b.t(9)
+                }),
+                dataStructureLayout({
+                    title: b.t(6),
+                    description: b.t(11),
+                    content: View.doublyList({})
+                }),
+                dataStructureLayout({
+                    title: b.t(7),
+                    description: b.t(12),
+                    content: View.queue({})
+                }),
+                dataStructureLayout({
+                    title: b.t(8),
+                    description: b.t(13),
+                    content: View.stack({})
+                })
             ];
         }
     }

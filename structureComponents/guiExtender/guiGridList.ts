@@ -12,7 +12,6 @@ module JirglStructures.GuiExtender {
 
     export class GuiGridList implements IGrid {
         private iterator: GuiListIterator;
-        private widthReduction = 500;
 
         constructor(iterator: GuiListIterator) {
             this.iterator = iterator;
@@ -35,8 +34,8 @@ module JirglStructures.GuiExtender {
         }
 
         private getItemPosition(orderOfItem: number): Position {
-            var itemWidthWithMargin = (Item.itemWidth + (Item.itemMargin * 2));
-            var itemsPerLine = Math.floor((b.getMedia().width - this.widthReduction) / itemWidthWithMargin);
+            const itemWidthWithMargin = (Item.itemWidth + (Item.itemMargin * 2));
+            const itemsPerLine = Math.floor(this.getWidth() / itemWidthWithMargin);
 
             return {
                 x: ((orderOfItem - 1) % itemsPerLine) * itemWidthWithMargin,
@@ -60,7 +59,7 @@ module JirglStructures.GuiExtender {
         }
 
         getWidth(): number {
-            return b.getMedia().width - this.widthReduction;
+            return b.getMedia().width * 0.63 - 25;// -90% -70% -25px
         }
     }
 }

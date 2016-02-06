@@ -24,17 +24,18 @@
     }
 
     function toStyle(type: HeaderType): any {
-        const style: any = {};
+        var style: any = {};
         switch (type) {
             case HeaderType.AppHeader:
                 style.fontSize = toSize(type);
                 style.fontFamily = Font.baseFontFamily;
                 style.fontWeight = "bold";
-                style.color = Color.baseForeground;
+                style.color = Color.lightForeground;
+                break;
             default:
                 style.fontSize = toSize(type);
                 style.fontFamily = Font.baseFontFamily;
-                style.color = Color.baseForeground;
+                style.color = Color.darkForeground;
         }
 
         return style;

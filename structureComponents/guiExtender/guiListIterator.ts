@@ -1,6 +1,5 @@
 ﻿/// <reference path="../../models/iterator.ts" />
 /// <reference path="../../models/lists/queue.ts" />
-/// <reference path="../../models/lists/doublyLinkedList.ts" />
 /// <reference path="guiItem.ts" />
 
 module JirglStructures.GuiExtender {
