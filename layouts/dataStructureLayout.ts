@@ -24,23 +24,29 @@ module JirglStructures {
                 },
                 {
                     tag: "div",
-                    style: { overflow: "hidden", position: "relative", width: "100%" },
+                    style: {
+                        overflow: "hidden",
+                        position: "relative",
+                        width: "100%",
+                        display: "table"
+                    },
                     children: [
                         {
                             tag: "div",
-                            style: { width: "70%" },
-                            children: {
-                                tag: "div",
-                                style: { marginRight: 25, background: Color.grayBackground },
-                                children: content
-                            }
+                            style: {
+                                width: "70%",
+                                display: "table-cell",
+                                background: Color.grayBackground,
+                                borderRight: `solid 20px ${Color.lightForeground}`
+                            },
+                            children: content
                         },
                         {
                             tag: "div",
                             style: {
-                                height: "100%", width: "30%",
+                                width: "30%",
+                                display: "table-cell",
                                 verticalAlign: "top",
-                                position: "absolute",
                                 right: 0, top: 0,
                                 color: Color.lightForeground,
                                 background: Color.darkBackground

@@ -14,23 +14,29 @@ var JirglStructures;
                 },
                 {
                     tag: "div",
-                    style: { overflow: "hidden", position: "relative", width: "100%" },
+                    style: {
+                        overflow: "hidden",
+                        position: "relative",
+                        width: "100%",
+                        display: "table"
+                    },
                     children: [
                         {
                             tag: "div",
-                            style: { width: "70%" },
-                            children: {
-                                tag: "div",
-                                style: { marginRight: 25, background: JirglStructures.Color.grayBackground },
-                                children: content
-                            }
+                            style: {
+                                width: "70%",
+                                display: "table-cell",
+                                background: JirglStructures.Color.grayBackground,
+                                borderRight: "solid 20px " + JirglStructures.Color.lightForeground
+                            },
+                            children: content
                         },
                         {
                             tag: "div",
                             style: {
-                                height: "100%", width: "30%",
+                                width: "30%",
+                                display: "table-cell",
                                 verticalAlign: "top",
-                                position: "absolute",
                                 right: 0, top: 0,
                                 color: JirglStructures.Color.lightForeground,
                                 background: JirglStructures.Color.darkBackground

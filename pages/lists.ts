@@ -13,12 +13,12 @@ module JirglStructures.Page {
                 dataStructureLayout({
                     title: b.t(4),
                     description: b.t(9),
-                    content: b.t(9)
+                    content: undefined
                 }),
                 dataStructureLayout({
                     title: b.t(5),
                     description: b.t(10),
-                    content: b.t(9)
+                    content: undefined
                 }),
                 dataStructureLayout({
                     title: b.t(6),
