@@ -1,5 +1,6 @@
 ﻿/// <reference path="../../bobril/bobril.media.d.ts" />
 /// <reference path="../../components/item.ts" />
+/// <reference path="../../constants.ts" />
 /// <reference path="../grid.ts" />
 /// <reference path="guiListIterator.ts" />
 
@@ -59,7 +60,11 @@ module JirglStructures.GuiExtender {
         }
 
         getWidth(): number {
-            return b.getMedia().width * 0.63 - 25;// -90% -70% -25px
+            const contentWidth = b.getMedia().width - (PageLayout.sidePadding * 2);
+            const percentOfLeftContent = DataStructureLayout.leftContentWidth / 100;
+            const percentOfRightContent = DataStructureLayout.rightContentWidth / 100;
+            const widthOfLeftContent = percentOfLeftContent * percentOfRightContent;
+            return contentWidth * widthOfLeftContent - 25;
         }
     }
 }

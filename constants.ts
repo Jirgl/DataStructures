@@ -13,4 +13,13 @@
         export var darkBackground = "#444";
         export var grayBackground = "#E1E1E1";
     }
+
+    export module PageLayout {
+        export var sidePadding = 100;
+    }
+
+    export module DataStructureLayout {
+        export var leftContentWidth = 70;
+        export var rightContentWidth = 30;
+    }
 }

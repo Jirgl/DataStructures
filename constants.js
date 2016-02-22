@@ -15,5 +15,14 @@ var JirglStructures;
         Color.darkBackground = "#444";
         Color.grayBackground = "#E1E1E1";
     })(Color = JirglStructures.Color || (JirglStructures.Color = {}));
+    var PageLayout;
+    (function (PageLayout) {
+        PageLayout.sidePadding = 100;
+    })(PageLayout = JirglStructures.PageLayout || (JirglStructures.PageLayout = {}));
+    var DataStructureLayout;
+    (function (DataStructureLayout) {
+        DataStructureLayout.leftContentWidth = 70;
+        DataStructureLayout.rightContentWidth = 30;
+    })(DataStructureLayout = JirglStructures.DataStructureLayout || (JirglStructures.DataStructureLayout = {}));
 })(JirglStructures || (JirglStructures = {}));
 //# sourceMappingURL=constants.js.map

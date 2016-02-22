@@ -1,5 +1,6 @@
 /// <reference path="../components/header.ts" />
 /// <reference path="../components/paragraph.ts" />
+/// <reference path="../constants.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var createLayout = function (content, title, description) {
@@ -24,7 +25,7 @@ var JirglStructures;
                         {
                             tag: "div",
                             style: {
-                                width: "70%",
+                                width: JirglStructures.DataStructureLayout.leftContentWidth + "%",
                                 display: "table-cell",
                                 background: JirglStructures.Color.grayBackground,
                                 borderRight: "solid 20px " + JirglStructures.Color.lightForeground
@@ -34,7 +35,7 @@ var JirglStructures;
                         {
                             tag: "div",
                             style: {
-                                width: "30%",
+                                width: JirglStructures.DataStructureLayout.rightContentWidth + "%",
                                 display: "table-cell",
                                 verticalAlign: "top",
                                 right: 0, top: 0,

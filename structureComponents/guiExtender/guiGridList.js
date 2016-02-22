@@ -1,5 +1,6 @@
 /// <reference path="../../bobril/bobril.media.d.ts" />
 /// <reference path="../../components/item.ts" />
+/// <reference path="../../constants.ts" />
 /// <reference path="../grid.ts" />
 /// <reference path="guiListIterator.ts" />
 var JirglStructures;
@@ -53,7 +54,11 @@ var JirglStructures;
                 ];
             };
             GuiGridList.prototype.getWidth = function () {
-                return b.getMedia().width * 0.63 - 25; // -90% -70% -25px
+                var contentWidth = b.getMedia().width - (JirglStructures.PageLayout.sidePadding * 2);
+                var percentOfLeftContent = JirglStructures.DataStructureLayout.leftContentWidth / 100;
+                var percentOfRightContent = JirglStructures.DataStructureLayout.rightContentWidth / 100;
+                var widthOfLeftContent = percentOfLeftContent * percentOfRightContent;
+                return contentWidth * widthOfLeftContent - 25;
             };
             return GuiGridList;
         })();

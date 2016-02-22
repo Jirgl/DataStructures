@@ -1,5 +1,6 @@
 ﻿/// <reference path="../components/header.ts" />
 /// <reference path="../components/paragraph.ts" />
+/// <reference path="../constants.ts" />
 
 module JirglStructures {
     export interface IDataStructureLayoutData {
@@ -34,7 +35,7 @@ module JirglStructures {
                         {
                             tag: "div",
                             style: {
-                                width: "70%",
+                                width: DataStructureLayout.leftContentWidth + "%",
                                 display: "table-cell",
                                 background: Color.grayBackground,
                                 borderRight: `solid 20px ${Color.lightForeground}`
@@ -44,7 +45,7 @@ module JirglStructures {
                         {
                             tag: "div",
                             style: {
-                                width: "30%",
+                                width: DataStructureLayout.rightContentWidth + "%",
                                 display: "table-cell",
                                 verticalAlign: "top",
                                 right: 0, top: 0,

@@ -5,6 +5,7 @@
 /// <reference path="../components/navItem.ts" />
 /// <reference path="../components/header.ts" />
 /// <reference path="../components/languageTile.ts" />
+/// <reference path="../constants.ts" />
 /// <reference path="../pages/lists.ts" />
 /// <reference path="../pages/trees.ts" />
 /// <reference path="../pages/heaps.ts" />
@@ -115,9 +116,9 @@ module JirglStructures {
                     tag: "div",
                     style: {
                         position: "absolute",
-                        width: b.getMedia().width - 200,
+                        width: b.getMedia().width - (PageLayout.sidePadding * 2),
                         top: 180,
-                        left: 100
+                        left: PageLayout.sidePadding
                     },
                     children: me.data.activeRouteHandler()
                 }
