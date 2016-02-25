@@ -23,7 +23,7 @@ var JirglStructures;
                 return new GuiExtender.GuiListIterator(this.firstItem, this.currentItem);
             };
             return GuiDoublyLinkedList;
-        })(JirglStructures.Lists.DoublyLinkedList);
+        })(JirglStructures.Lists.DoublyLinkedList.Structure);
         GuiExtender.GuiDoublyLinkedList = GuiDoublyLinkedList;
     })(GuiExtender = JirglStructures.GuiExtender || (JirglStructures.GuiExtender = {}));
 })(JirglStructures || (JirglStructures = {}));

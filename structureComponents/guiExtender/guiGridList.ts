@@ -45,26 +45,22 @@ module JirglStructures.GuiExtender {
         }
 
         getArrowsPositions(previousPosition: Position, position: Position): ArrowPosition[] {
-            return [
-                {
-                    start: {
-                        x: previousPosition.x + Item.itemWidth + Item.itemMargin + Item.arrowMargin,
-                        y: previousPosition.y + Item.itemHeight / 2 + Item.itemMargin
-                    },
-                    end: {
-                        x: position.x + Item.itemMargin - Item.arrowMargin,
-                        y: position.y + Item.itemHeight / 2 + Item.itemMargin
-                    }
+            return [{
+                start: {
+                    x: previousPosition.x + Item.itemWidth + Item.itemMargin + Item.arrowMargin,
+                    y: previousPosition.y + Item.itemHeight / 2 + Item.itemMargin
+                },
+                end: {
+                    x: position.x + Item.itemMargin - Item.arrowMargin,
+                    y: position.y + Item.itemHeight / 2 + Item.itemMargin
                 }
-            ];
+            }];
         }
 
         getWidth(): number {
             const contentWidth = b.getMedia().width - (PageLayout.sidePadding * 2);
-            const percentOfLeftContent = DataStructureLayout.leftContentWidth / 100;
-            const percentOfRightContent = DataStructureLayout.rightContentWidth / 100;
-            const widthOfLeftContent = percentOfLeftContent * percentOfRightContent;
-            return contentWidth * widthOfLeftContent - 25;
+            const sizeOfLeftContent = DataStructureLayout.leftContentWidth / 100;
+            return contentWidth * sizeOfLeftContent - 25;
         }
     }
 }

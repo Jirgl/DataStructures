@@ -1,6 +1,6 @@
 ﻿/// <reference path="../lists/queue.ts" />
 
-module JirglStructures.Trees {
+module JirglStructures.Trees.KdRangeTree {
     export interface IRangeObject<T> {
         data: T;
         ranges: number[];
@@ -16,7 +16,7 @@ module JirglStructures.Trees {
         subtree: Tree<T>;
     }
 
-    export class KdRangeTree<T> {
+    export class Structure<T> {
         private dimensions: number;
         tree: Tree<T>;//TODO add "private"
 
@@ -38,24 +38,24 @@ module JirglStructures.Trees {
             if (comparisons.length === 0)
                 return undefined;
 
-            var sortedArray = array.sort(comparisons[0]);
-            var normalizedArray = this.normalizeArrayLength(sortedArray);
-            var data = [];
+            const sortedArray = array.sort(comparisons[0]);
+            const normalizedArray = this.normalizeArrayLength(sortedArray);
+            const data = [];
             comparisons = comparisons.splice(1, comparisons.length - 1);
             currentDimension++;
 
-            var que = new Lists.Queue<IRangeObject<T>[]>();
+            const que = new Lists.Queue.Structure<IRangeObject<T>[]>();
             que.enqueue(normalizedArray);
 
             while (!que.isEmpty()) {
-                var subtree = que.dequeue();
+                const subtree = que.dequeue();
                 if (subtree.length > 1) {
-                    var splittedArray = this.splitArray(subtree.slice());
+                    const splittedArray = this.splitArray(subtree.slice());
                     que.enqueue(splittedArray[0]);
                     que.enqueue(splittedArray[1]);
 
-                    var item1 = splittedArray[0][splittedArray[0].length - 1];
-                    var item2 = splittedArray[1][0];
+                    const item1 = splittedArray[0][splittedArray[0].length - 1];
+                    const item2 = splittedArray[1][0];
 
                     data.push(this.createRangeNode(undefined,
                         (item1.ranges[currentDimension - 1] + item2.ranges[currentDimension - 1]) / 2,
@@ -66,14 +66,14 @@ module JirglStructures.Trees {
                 }
             }
 
-            var tree = new Tree<T>();
+            const tree = new Tree<T>();
             tree.rawData = data;
 
             return tree;
         }
 
         private createRangeNode(data: IRangeObject<T>, median: number, subtree: Tree<T>): RangeNode<T> {
-            var node = new RangeNode<T>();
+            const node = new RangeNode<T>();
             node.rangeData = data;
             node.median = median;
             node.subtree = subtree;
@@ -82,8 +82,8 @@ module JirglStructures.Trees {
         }
 
         private normalizeArrayLength(array: IRangeObject<T>[]): IRangeObject<T>[] {
-            var returnArray = array.slice();
-            var item = this.cloneRangeObject(returnArray[returnArray.length - 1]);
+            const returnArray = array.slice();
+            const item = this.cloneRangeObject(returnArray[returnArray.length - 1]);
             item.data = undefined;
 
             for (let i = array.length; i < Math.pow(2, this.getClosestPower(array.length)); i++)
@@ -97,8 +97,8 @@ module JirglStructures.Trees {
                 return obj;
             }
 
-            var copy = obj.constructor();
-            for (var attr in obj) {
+            const copy = obj.constructor();
+            for (const attr in obj) {
                 if (obj.hasOwnProperty(attr)) {
                     copy[attr] = obj[attr];
                 }
@@ -108,7 +108,7 @@ module JirglStructures.Trees {
         }
 
         private getClosestPower(length: number): number {
-            var power = 1;
+            let power = 1;
             while (length > Math.pow(2, power))
                 power++;
 
@@ -116,7 +116,7 @@ module JirglStructures.Trees {
         }
 
         private splitArray(array: IRangeObject<T>[]): IRangeObject<T>[][] {
-            var sliceIndex = array.length % 2 === 0
+            const sliceIndex = array.length % 2 === 0
                 ? array.length / 2
                 : array.length / 2 + 1;
 
@@ -135,11 +135,11 @@ module JirglStructures.Trees {
 
         private findInDimension(rangesFrom: number[], rangesTo: number[],
             currentRange: number, tree: Tree<T>): T[] {
-            var index = 1;
+            let index = 1;
 
             while (true) {
-                var rangeFrom = rangesFrom[currentRange];
-                var rangeTo = rangesTo[currentRange];
+                const rangeFrom = rangesFrom[currentRange];
+                const rangeTo = rangesTo[currentRange];
 
                 if (tree.rawData[index - 1].rangeData === undefined) {
                     if (rangeTo < tree.rawData[index - 1].median) {
@@ -165,15 +165,15 @@ module JirglStructures.Trees {
         private findInTree(rangesFrom: number[], rangesTo: number[],
             currentIndex: number, tree: Tree<T>): T[] {
 
-            var depth = 0;
+            let depth = 0;
             while (true) {
                 if (tree.rawData[currentIndex - 1].rangeData === undefined) {
                     depth++;
                     currentIndex *= 2;
                 } else {
-                    var count = Math.pow(2, depth);
-                    var result = [];
-                    for (var i = currentIndex - 1; i < currentIndex - 1 + count; i++) {
+                    const count = Math.pow(2, depth);
+                    const result = [];
+                    for (let i = currentIndex - 1; i < currentIndex - 1 + count; i++) {
                         if (tree.rawData[i].rangeData.data &&
                             this.isInRange(tree.rawData[i].rangeData, rangesFrom, rangesTo)) {
                             result.push(tree.rawData[i].rangeData.data);
@@ -191,7 +191,7 @@ module JirglStructures.Trees {
                 return false;
             }
 
-            for (var i = 0; i < data.ranges.length; i++) {
+            for (let i = 0; i < data.ranges.length; i++) {
                 if (data.ranges[i] < rangesFrom[i] || data.ranges[i] > rangesTo[i])
                     return false;
             }

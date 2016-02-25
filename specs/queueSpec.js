@@ -6,7 +6,7 @@ describe("Queue", function () {
         var que;
 
         beforeEach(function () {
-            que = new JirglStructures.Lists.Queue();
+            que = new JirglStructures.Lists.Queue.Structure();
         });
 
         it("enqueue", function () {
@@ -25,7 +25,7 @@ describe("Queue", function () {
         var que;
 
         beforeEach(function () {
-            que = new JirglStructures.Lists.Queue();
+            que = new JirglStructures.Lists.Queue.Structure();
             que.enqueue("first");
             que.enqueue("second");
             que.enqueue("third");
@@ -42,7 +42,7 @@ describe("Queue", function () {
         var que;
 
         beforeEach(function () {
-            que = new JirglStructures.Lists.Queue();
+            que = new JirglStructures.Lists.Queue.Structure();
         });
 
         it("clear queue", function () {

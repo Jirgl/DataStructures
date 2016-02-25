@@ -35,7 +35,7 @@ var JirglStructures;
                 this.orderOfItem = 0;
             };
             return GuiListIterator;
-        })(JirglStructures.Lists.DoublyLinkedListIterator);
+        })(JirglStructures.Lists.DoublyLinkedList.Iterator);
         GuiExtender.GuiListIterator = GuiListIterator;
     })(GuiExtender = JirglStructures.GuiExtender || (JirglStructures.GuiExtender = {}));
 })(JirglStructures || (JirglStructures = {}));

@@ -3,12 +3,12 @@
 /// <reference path="guiItem.ts" />
 
 module JirglStructures.GuiExtender {
-    export class GuiListIterator extends Lists.DoublyLinkedListIterator<GuiItem> {
-        previousGuiItem: Lists.Item<GuiItem>;
-        currentGuiItem: Lists.Item<GuiItem>;
+    export class GuiListIterator extends Lists.DoublyLinkedList.Iterator<GuiItem> {
+        previousGuiItem: Lists.DoublyLinkedList.Item<GuiItem>;
+        currentGuiItem: Lists.DoublyLinkedList.Item<GuiItem>;
         orderOfItem: number;
 
-        constructor(firstItem: Lists.Item<GuiItem>, currentItem?: Lists.Item<GuiItem>) {
+        constructor(firstItem: Lists.DoublyLinkedList.Item<GuiItem>, currentItem?: Lists.DoublyLinkedList.Item<GuiItem>) {
             super(firstItem);
             this.previousGuiItem = undefined;
             this.currentGuiItem = currentItem;

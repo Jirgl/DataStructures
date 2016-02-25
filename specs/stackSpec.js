@@ -6,7 +6,7 @@ describe("Stack", function () {
         var stack;
 
         beforeEach(function () {
-            stack = new JirglStructures.Lists.Stack();
+            stack = new JirglStructures.Lists.Stack.Structure();
         });
 
         it("push", function () {
@@ -25,7 +25,7 @@ describe("Stack", function () {
         var stack;
 
         beforeEach(function () {
-            stack = new JirglStructures.Lists.Stack();
+            stack = new JirglStructures.Lists.Stack.Structure();
             stack.push("first");
             stack.push("second");
             stack.push("third");
@@ -42,7 +42,7 @@ describe("Stack", function () {
         var stack;
 
         beforeEach(function () {
-            stack = new JirglStructures.Lists.Stack();
+            stack = new JirglStructures.Lists.Stack.Structure();
         });
 
         it("clear stack", function () {

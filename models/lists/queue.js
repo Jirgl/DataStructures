@@ -3,28 +3,31 @@ var JirglStructures;
 (function (JirglStructures) {
     var Lists;
     (function (Lists) {
-        var Queue = (function () {
-            function Queue() {
-                this.list = new Lists.DoublyLinkedList();
-            }
-            Queue.prototype.clear = function () {
-                this.list.clear();
-            };
-            Queue.prototype.isEmpty = function () {
-                return this.list.isEmpty();
-            };
-            Queue.prototype.enqueue = function (t) {
-                this.list.addLastItem(t);
-            };
-            Queue.prototype.dequeue = function () {
-                return this.list.removeFirstItem();
-            };
-            Queue.prototype.getIterator = function () {
-                return this.list.getIterator();
-            };
-            return Queue;
-        })();
-        Lists.Queue = Queue;
+        var Queue;
+        (function (Queue) {
+            var Structure = (function () {
+                function Structure() {
+                    this.list = new Lists.DoublyLinkedList.Structure();
+                }
+                Structure.prototype.clear = function () {
+                    this.list.clear();
+                };
+                Structure.prototype.isEmpty = function () {
+                    return this.list.isEmpty();
+                };
+                Structure.prototype.enqueue = function (t) {
+                    this.list.addLastItem(t);
+                };
+                Structure.prototype.dequeue = function () {
+                    return this.list.removeFirstItem();
+                };
+                Structure.prototype.getIterator = function () {
+                    return this.list.getIterator();
+                };
+                return Structure;
+            })();
+            Queue.Structure = Structure;
+        })(Queue = Lists.Queue || (Lists.Queue = {}));
     })(Lists = JirglStructures.Lists || (JirglStructures.Lists = {}));
 })(JirglStructures || (JirglStructures = {}));
 //# sourceMappingURL=queue.js.map

@@ -6,7 +6,7 @@ describe("Doubly Linked list", function () {
         var doublyLinkedlist;
 
         beforeEach(function () {
-            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList();
+            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList.Structure();
         });
 
         it("add first item", function () {
@@ -102,7 +102,7 @@ describe("Doubly Linked list", function () {
         var doublyLinkedlist;
 
         beforeEach(function () {
-            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList();
+            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList.Structure();
             doublyLinkedlist.addLastItem("one");
             doublyLinkedlist.addLastItem("two");
             doublyLinkedlist.addLastItem("three");
@@ -199,7 +199,7 @@ describe("Doubly Linked list", function () {
         var doublyLinkedlist;
 
         beforeEach(function () {
-            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList();
+            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList.Structure();
         });
 
         it("clear doubly linked list", function () {
@@ -222,7 +222,7 @@ describe("Doubly Linked list", function () {
         var doublyLinkedlist;
 
         beforeEach(function () {
-            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList();
+            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList.Structure();
         });
 
         it("iterate by iterator", function () {

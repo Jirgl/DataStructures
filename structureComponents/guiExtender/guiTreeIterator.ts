@@ -6,7 +6,7 @@
 
 module JirglStructures.GuiExtender {
     export class GuiTreeIterator implements IIterator<GuiNode> {
-        private que: Lists.Queue<Trees.Node<GuiNode>>;
+        private que: Lists.Queue.Structure<Trees.Node<GuiNode>>;
         rootNode: Trees.Node<GuiNode>;
         currentGuiNode: Trees.Node<GuiNode>;
         indexOfCurrentNode: number;
@@ -18,7 +18,7 @@ module JirglStructures.GuiExtender {
             this.currentGuiNode = currentNode;
             this.rootNode.data.indexOfNode = this.orderInLevel = this.depth = 0;
 
-            this.que = new Lists.Queue<Trees.Node<GuiNode>>();
+            this.que = new Lists.Queue.Structure<Trees.Node<GuiNode>>();
             this.que.enqueue(this.rootNode);
         }
 

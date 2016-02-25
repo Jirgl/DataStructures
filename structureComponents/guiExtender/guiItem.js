@@ -17,7 +17,7 @@ var JirglStructures;
                 return this.data;
             };
             return GuiItem;
-        })(JirglStructures.Lists.Item);
+        })(JirglStructures.Lists.DoublyLinkedList.Item);
         GuiExtender.GuiItem = GuiItem;
     })(GuiExtender = JirglStructures.GuiExtender || (JirglStructures.GuiExtender = {}));
 })(JirglStructures || (JirglStructures = {}));

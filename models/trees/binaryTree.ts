@@ -2,7 +2,7 @@
 /// <reference path="../lists/stack.ts" />
 /// <reference path="../lists/queue.ts" />
 
-module JirglStructures.Trees {
+module JirglStructures.Trees.BinaryTree {
     export class Node<T> {
         data: T;
         parent: Node<T>;
@@ -19,7 +19,7 @@ module JirglStructures.Trees {
         BreadthFirst
     }
 
-    export class BinaryTree<T> {
+    export class Structure<T> {
         protected rootNode: Node<T>;
         protected currentNode: Node<T>;
 
@@ -39,7 +39,7 @@ module JirglStructures.Trees {
 
         addLeftChild(t: T): void {
             if (this.currentNode !== undefined && this.currentNode.leftChild === undefined) {
-                var node = new Node<T>(t);
+                const node = new Node<T>(t);
                 this.currentNode.leftChild = node;
                 node.parent = this.currentNode;
             }
@@ -47,7 +47,7 @@ module JirglStructures.Trees {
 
         addRightChild(t: T): void {
             if (this.currentNode !== undefined && this.currentNode.rightChild === undefined) {
-                var node = new Node<T>(t);
+                const node = new Node<T>(t);
                 this.currentNode.rightChild = node;
                 node.parent = this.currentNode;
             }
@@ -104,7 +104,7 @@ module JirglStructures.Trees {
                 return undefined;
             } else if (this.rootNode.leftChild === undefined
                 && this.rootNode.rightChild === undefined) {
-                var nodeData = this.currentNode.data;
+                const nodeData = this.currentNode.data;
                 this.rootNode = this.currentNode = undefined;
 
                 return nodeData;
@@ -118,7 +118,7 @@ module JirglStructures.Trees {
                 return undefined;
             } else if (this.currentNode.leftChild.leftChild === undefined
                 && this.currentNode.leftChild.rightChild === undefined) {
-                var nodeData = this.currentNode.leftChild.data;
+                const nodeData = this.currentNode.leftChild.data;
                 this.currentNode.leftChild.parent = undefined;
                 this.currentNode.leftChild = undefined;
 
@@ -133,7 +133,7 @@ module JirglStructures.Trees {
                 return undefined;
             } else if (this.currentNode.rightChild.leftChild === undefined
                 && this.currentNode.rightChild.rightChild === undefined) {
-                var nodeData = this.currentNode.rightChild.data;
+                const nodeData = this.currentNode.rightChild.data;
                 this.currentNode.rightChild.parent = undefined;
                 this.currentNode.rightChild = undefined;
 
@@ -144,25 +144,25 @@ module JirglStructures.Trees {
         }
 
         getIterator(traversal: TreeTraversal): IIterator<T> {
-            return new BinaryTreeIterator<T>(this.rootNode, traversal);
+            return new Iterator<T>(this.rootNode, traversal);
         }
     }
 
-    export class BinaryTreeIterator<T> implements IIterator<T> {
+    export class Iterator<T> implements IIterator<T> {
         protected rootNode: Node<T>;
         private traversal: TreeTraversal;
-        private que: Lists.Queue<Node<T>>;
-        private stack: Lists.Stack<Node<T>>;
+        private que: Lists.Queue.Structure<Node<T>>;
+        private stack: Lists.Stack.Structure<Node<T>>;
 
         constructor(rootNode: Node<T>, traversal: TreeTraversal) {
             this.rootNode = rootNode;
             this.traversal = traversal;
 
             if (traversal === TreeTraversal.BreadthFirst) {
-                this.que = new Lists.Queue<Node<T>>();
+                this.que = new Lists.Queue.Structure<Node<T>>();
                 this.que.enqueue(rootNode);
             } else if (traversal === TreeTraversal.DepthFirst) {
-                this.stack = new Lists.Stack<Node<T>>();
+                this.stack = new Lists.Stack.Structure<Node<T>>();
                 this.stack.push(rootNode);
             }
         }
@@ -178,7 +178,7 @@ module JirglStructures.Trees {
         }
 
         next(): T {
-            var node: Node<T>;
+            let node: Node<T>;
             if (this.traversal === TreeTraversal.BreadthFirst) {
                 node = this.que.dequeue();
 

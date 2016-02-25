@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../components/canvas.ts" />
 
 module JirglStructures.GuiExtender {
-    export class GuiItem extends Lists.Item<string> implements IGuiContent {
+    export class GuiItem extends Lists.DoublyLinkedList.Item<string> implements IGuiContent {
         isCurrent: boolean;
 
         constructor(content: string) {

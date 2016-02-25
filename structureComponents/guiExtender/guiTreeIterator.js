@@ -12,7 +12,7 @@ var JirglStructures;
                 this.rootNode = rootNode;
                 this.currentGuiNode = currentNode;
                 this.rootNode.data.indexOfNode = this.orderInLevel = this.depth = 0;
-                this.que = new JirglStructures.Lists.Queue();
+                this.que = new JirglStructures.Lists.Queue.Structure();
                 this.que.enqueue(this.rootNode);
             }
             GuiTreeIterator.prototype.hasNext = function () {

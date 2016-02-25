@@ -1,11 +1,11 @@
 ﻿/// <reference path="doublyLinkedList.ts" />
 
-module JirglStructures.Lists {
-    export class Stack<T> implements IIterable<T> {
-        protected list: DoublyLinkedList<T>;
+module JirglStructures.Lists.Stack {
+    export class Structure<T> implements IIterable<T> {
+        protected list: DoublyLinkedList.Structure<T>;
 
         constructor() {
-            this.list = new DoublyLinkedList<T>();
+            this.list = new DoublyLinkedList.Structure<T>();
         }
 
         clear(): void {

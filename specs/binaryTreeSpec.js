@@ -6,13 +6,13 @@ describe("Binary tree", function () {
         var binaryTree;
 
         beforeEach(function () {
-            binaryTree = new JirglStructures.Trees.BinaryTree();
+            binaryTree = new JirglStructures.Trees.BinaryTree.Structure();
         });
 
         it("add root node", function () {
             binaryTree.addRoot("root");
 
-            var iterator = binaryTree.getIterator(JirglStructures.Trees.TreeTraversal.BreadthFirst);
+            var iterator = binaryTree.getIterator(JirglStructures.Trees.BinaryTree.TreeTraversal.BreadthFirst);
             expect(iterator.next()).toBe("root");
             expect(binaryTree.currentNode).toBe(binaryTree.rootNode);
 
@@ -27,7 +27,7 @@ describe("Binary tree", function () {
             expect(binaryTree.currentNode).toBe(binaryTree.rootNode);
             expect(binaryTree.currentNode.leftChild.parent).toBe(binaryTree.rootNode);
 
-            var iterator = binaryTree.getIterator(JirglStructures.Trees.TreeTraversal.BreadthFirst);
+            var iterator = binaryTree.getIterator(JirglStructures.Trees.BinaryTree.TreeTraversal.BreadthFirst);
             expect(iterator.next()).toBe("root");
             expect(iterator.next()).toBe("leftChild");
 
@@ -43,7 +43,7 @@ describe("Binary tree", function () {
             expect(binaryTree.currentNode).toBe(binaryTree.rootNode);
             expect(binaryTree.currentNode.rightChild.parent).toBe(binaryTree.rootNode);
 
-            var iterator = binaryTree.getIterator(JirglStructures.Trees.TreeTraversal.BreadthFirst);
+            var iterator = binaryTree.getIterator(JirglStructures.Trees.BinaryTree.TreeTraversal.BreadthFirst);
             expect(iterator.next()).toBe("root");
             expect(iterator.next()).toBe("rightChild");
 
@@ -58,7 +58,7 @@ describe("Binary tree", function () {
         var binaryTree;
 
         beforeEach(function () {
-            binaryTree = new JirglStructures.Trees.BinaryTree();
+            binaryTree = new JirglStructures.Trees.BinaryTree.Structure();
             binaryTree.addRoot("root");
         });
 
@@ -109,7 +109,7 @@ describe("Binary tree", function () {
         var binaryTree;
 
         beforeEach(function () {
-            binaryTree = new JirglStructures.Trees.BinaryTree();
+            binaryTree = new JirglStructures.Trees.BinaryTree.Structure();
         });
 
         it("clear binary tree", function () {
@@ -132,7 +132,7 @@ describe("Binary tree", function () {
         var binaryTree;
 
         beforeEach(function () {
-            binaryTree = new JirglStructures.Trees.BinaryTree();
+            binaryTree = new JirglStructures.Trees.BinaryTree.Structure();
         });
 
         it("iterate by iterator", function () {
@@ -147,7 +147,7 @@ describe("Binary tree", function () {
             binaryTree.addLeftChild("3");
             binaryTree.addRightChild("4");
 
-            var iterator = binaryTree.getIterator(JirglStructures.Trees.TreeTraversal.BreadthFirst);
+            var iterator = binaryTree.getIterator(JirglStructures.Trees.BinaryTree.TreeTraversal.BreadthFirst);
             expect(iterator.next()).toBe("root");
             expect(iterator.next()).toBe("leftChild");
             expect(iterator.next()).toBe("rightChild");
@@ -156,7 +156,7 @@ describe("Binary tree", function () {
             expect(iterator.next()).toBe("3");
             expect(iterator.next()).toBe("4");
 
-            iterator = binaryTree.getIterator(JirglStructures.Trees.TreeTraversal.DepthFirst);
+            iterator = binaryTree.getIterator(JirglStructures.Trees.BinaryTree.TreeTraversal.DepthFirst);
             expect(iterator.next()).toBe("root");
             expect(iterator.next()).toBe("leftChild");
             expect(iterator.next()).toBe("1");

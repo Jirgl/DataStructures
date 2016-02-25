@@ -1,12 +1,12 @@
 ﻿/// <reference path="guiListIterator.ts" />
 
 module JirglStructures.GuiExtender {
-    export class GuiDoublyLinkedList extends Lists.DoublyLinkedList<GuiItem> {
-        getCurrentGuiItem(): Lists.Item<GuiItem> {
+    export class GuiDoublyLinkedList extends Lists.DoublyLinkedList.Structure<GuiItem> {
+        getCurrentGuiItem(): Lists.DoublyLinkedList.Item<GuiItem> {
             return this.currentItem;
         }
 
-        getFirstGuiItem(): Lists.Item<GuiItem> {
+        getFirstGuiItem(): Lists.DoublyLinkedList.Item<GuiItem> {
             return this.firstItem;
         }
 

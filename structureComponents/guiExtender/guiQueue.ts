@@ -16,7 +16,7 @@ module JirglStructures.GuiExtender {
             return this.guiList.isEmpty();
         }
 
-        getFirstGuiItem(): Lists.Item<GuiItem> {
+        getFirstGuiItem(): Lists.DoublyLinkedList.Item<GuiItem> {
             return this.guiList.getFirstGuiItem();
         }
 

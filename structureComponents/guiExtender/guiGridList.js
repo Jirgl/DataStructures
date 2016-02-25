@@ -40,8 +40,7 @@ var JirglStructures;
                 };
             };
             GuiGridList.prototype.getArrowsPositions = function (previousPosition, position) {
-                return [
-                    {
+                return [{
                         start: {
                             x: previousPosition.x + JirglStructures.Item.itemWidth + JirglStructures.Item.itemMargin + JirglStructures.Item.arrowMargin,
                             y: previousPosition.y + JirglStructures.Item.itemHeight / 2 + JirglStructures.Item.itemMargin
@@ -50,15 +49,12 @@ var JirglStructures;
                             x: position.x + JirglStructures.Item.itemMargin - JirglStructures.Item.arrowMargin,
                             y: position.y + JirglStructures.Item.itemHeight / 2 + JirglStructures.Item.itemMargin
                         }
-                    }
-                ];
+                    }];
             };
             GuiGridList.prototype.getWidth = function () {
                 var contentWidth = b.getMedia().width - (JirglStructures.PageLayout.sidePadding * 2);
-                var percentOfLeftContent = JirglStructures.DataStructureLayout.leftContentWidth / 100;
-                var percentOfRightContent = JirglStructures.DataStructureLayout.rightContentWidth / 100;
-                var widthOfLeftContent = percentOfLeftContent * percentOfRightContent;
-                return contentWidth * widthOfLeftContent - 25;
+                var sizeOfLeftContent = JirglStructures.DataStructureLayout.leftContentWidth / 100;
+                return contentWidth * sizeOfLeftContent - 25;
             };
             return GuiGridList;
         })();

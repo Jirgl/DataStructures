@@ -14,7 +14,7 @@ describe("Range tree", function () {
     var f = { data: "F", ranges: [38, 52] };
 
     beforeEach(function () {
-        rangeTree = new JirglStructures.Trees.KdRangeTree();
+        rangeTree = new JirglStructures.Trees.KdRangeTree.Structure();
     });
 
     function checkSubtree(outputSubtree, expectedSubtree) {
