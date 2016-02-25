@@ -25,13 +25,13 @@ module JirglStructures.View {
     var doublyListComponent: IBobrilComponent = {
         init(ctx: IDoublyListCtx, me: IBobrilNode): void {
             ctx.doublyLinkedList = new GuiExtender.GuiDoublyLinkedList();
-            ctx.doublyLinkedList.addFirstItem(new GuiExtender.GuiItem("init item"));
+            ctx.doublyLinkedList.addFirstItem("init item", new GuiExtender.GuiItem("init item"));
             ctx.option = "first";
             ctx.action = "add";
         },
         render(ctx: IDoublyListCtx, me: IBobrilNode): void {
-            var iterator = ctx.doublyLinkedList.getIterator();
-            var options = ["first", "predecessor", "successor", "last"];
+            const iterator = ctx.doublyLinkedList.getIterator();
+            const options = ["first", "predecessor", "successor", "last"];
             if (ctx.action === "remove") {
                 options.push("current");
             }
@@ -61,13 +61,13 @@ module JirglStructures.View {
                         onClick: () => {
                             if (ctx.action === "add") {
                                 if (ctx.option === "first") {
-                                    ctx.doublyLinkedList.addFirstItem(new GuiExtender.GuiItem(ctx.value));
+                                    ctx.doublyLinkedList.addFirstItem(ctx.value, new GuiExtender.GuiItem(ctx.value));
                                 } else if (ctx.option === "predecessor") {
-                                    ctx.doublyLinkedList.addPreviousItem(new GuiExtender.GuiItem(ctx.value));
+                                    ctx.doublyLinkedList.addPreviousItem(ctx.value, new GuiExtender.GuiItem(ctx.value));
                                 } else if (ctx.option === "successor") {
-                                    ctx.doublyLinkedList.addNextItem(new GuiExtender.GuiItem(ctx.value));
+                                    ctx.doublyLinkedList.addNextItem(ctx.value, new GuiExtender.GuiItem(ctx.value));
                                 } else if (ctx.option === "last") {
-                                    ctx.doublyLinkedList.addLastItem(new GuiExtender.GuiItem(ctx.value));
+                                    ctx.doublyLinkedList.addLastItem(ctx.value, new GuiExtender.GuiItem(ctx.value));
                                 }
                             } else if (ctx.action === "remove") {
                                 if (ctx.option === "first") {

@@ -17,7 +17,7 @@ var JirglStructures;
                 return this.guiList.getFirstGuiItem();
             };
             GuiQueue.prototype.enqueue = function (item) {
-                this.guiList.addLastItem(item);
+                this.guiList.addLastItem(item.data, item);
             };
             GuiQueue.prototype.dequeue = function () {
                 return this.guiList.removeFirstItem();

@@ -16,12 +16,12 @@ module JirglStructures.GuiExtender {
             return this.guiList.isEmpty();
         }
 
-        getFirstGuiItem(): Lists.DoublyLinkedList.Item<GuiItem> {
+        getFirstGuiItem(): Lists.DoublyLinkedList.Item<string, GuiItem> {
             return this.guiList.getFirstGuiItem();
         }
 
         enqueue(item: GuiItem): void {
-            this.guiList.addLastItem(item);
+            this.guiList.addLastItem(item.data, item);
         }
 
         dequeue(): GuiItem {

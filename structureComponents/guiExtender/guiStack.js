@@ -11,7 +11,7 @@ var JirglStructures;
                 return this.guiList.getFirstGuiItem();
             };
             GuiStack.prototype.push = function (item) {
-                this.guiList.addFirstItem(item);
+                this.guiList.addFirstItem(item.data, item);
             };
             GuiStack.prototype.pop = function () {
                 return this.guiList.removeFirstItem();

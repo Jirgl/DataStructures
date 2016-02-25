@@ -1,15 +1,17 @@
-﻿/// <reference path="../../components/canvas.ts" />
+﻿module JirglStructures.GuiExtender {
+    //this type is returning from next() function of iterator and contains information about key
+    export interface IGuiItem {
+        key: string;
+        data: string;
+        isCurrent: boolean;
+    }
 
-module JirglStructures.GuiExtender {
-    export class GuiItem extends Lists.DoublyLinkedList.Item<string> implements IGuiContent {
+    export class GuiItem {
+        data: string;
         isCurrent: boolean;
 
-        constructor(content: string) {
-            super(content);
-        }
-
-        getContent(): string {
-            return this.data;
+        constructor(data: string) {
+            this.data = data;
         }
     }
 }

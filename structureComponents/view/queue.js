@@ -7,14 +7,13 @@
 /// <reference path="../../components/textbox.ts" />
 /// <reference path="../../structureComponents/grid.ts" />
 /// <reference path="../guiExtender/guiQueue.ts" />
-/// <reference path="../guiExtender/guiItem.ts" />
 /// <reference path="../guiExtender/guiGridList.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var View;
     (function (View) {
         var queueComponent = {
-            init: function (ctx, me) {
+            init: function (ctx) {
                 ctx.que = new JirglStructures.GuiExtender.GuiQueue();
                 ctx.que.enqueue(new JirglStructures.GuiExtender.GuiItem("init item"));
                 ctx.action = "enqueue";
