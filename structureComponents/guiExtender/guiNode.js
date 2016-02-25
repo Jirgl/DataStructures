@@ -17,7 +17,7 @@ var JirglStructures;
                 return this.data;
             };
             return GuiNode;
-        })(JirglStructures.Trees.Node);
+        })(JirglStructures.Trees.BinaryTree.Node);
         GuiExtender.GuiNode = GuiNode;
     })(GuiExtender = JirglStructures.GuiExtender || (JirglStructures.GuiExtender = {}));
 })(JirglStructures || (JirglStructures = {}));

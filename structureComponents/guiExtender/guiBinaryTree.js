@@ -56,7 +56,7 @@ var JirglStructures;
                 return new GuiExtender.GuiTreeIterator(this.rootNode, this.currentNode);
             };
             return GuiBinaryTree;
-        })(JirglStructures.Trees.BinaryTree);
+        })(JirglStructures.Trees.BinaryTree.Structure);
         GuiExtender.GuiBinaryTree = GuiBinaryTree;
     })(GuiExtender = JirglStructures.GuiExtender || (JirglStructures.GuiExtender = {}));
 })(JirglStructures || (JirglStructures = {}));
