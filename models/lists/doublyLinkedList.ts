@@ -1,20 +1,22 @@
 ﻿/// <reference path="../iterator.ts" />
 
 module JirglStructures.Lists.DoublyLinkedList {
-    export class Item<T> {
-        data: T;
-        next: Item<T>;
-        previous: Item<T>;
+    export class Item<TKey, TData> {
+        key: TKey;
+        data: TData;
+        next: Item<TKey, TData>;
+        previous: Item<TKey, TData>;
 
-        constructor(data: T) {
+        constructor(key: TKey, data: TData) {
+            this.key = key;
             this.data = data;
         }
     }
 
-    export class Structure<T> implements IIterable<T> {
-        protected currentItem: Item<T>;
-        protected firstItem: Item<T>;
-        protected lastItem: Item<T>;
+    export class Structure<TKey, TData> implements IIterable<TData> {
+        protected currentItem: Item<TKey, TData>;
+        protected firstItem: Item<TKey, TData>;
+        protected lastItem: Item<TKey, TData>;
 
         clear(): void {
             this.currentItem = this.firstItem = this.lastItem = undefined;
@@ -24,39 +26,39 @@ module JirglStructures.Lists.DoublyLinkedList {
             return this.firstItem === undefined;
         }
 
-        addFirstItem(t: T): void {
-            const item = new Item<T>(t);
+        addFirstItem(key: TKey, data: TData): void {
+            const item = new Item<TKey, TData>(key, data);
 
-            if (this.firstItem === undefined) {
-                this.firstItem = this.lastItem = this.currentItem = item;
-            } else {
+            if (this.firstItem) {
                 item.next = this.firstItem;
                 this.firstItem.previous = item;
                 this.firstItem = item;
                 this.currentItem = this.firstItem;
+            } else {
+                this.firstItem = this.lastItem = this.currentItem = item;
             }
         }
 
-        addLastItem(t: T): void {
-            const item = new Item<T>(t);
+        addLastItem(key: TKey, data: TData): void {
+            const item = new Item<TKey, TData>(key, data);
 
-            if (this.lastItem === undefined) {
-                this.firstItem = this.lastItem = this.currentItem = item;
-            } else {
+            if (this.lastItem) {
                 item.previous = this.lastItem;
                 this.lastItem.next = item;
                 this.lastItem = item;
                 this.currentItem = this.lastItem;
+            } else {
+                this.firstItem = this.lastItem = this.currentItem = item;
             }
         }
 
-        addNextItem(t: T): void {
-            const item = new Item<T>(t);
+        addNextItem(key: TKey, data: TData): void {
+            const item = new Item<TKey, TData>(key, data);
 
-            if (this.currentItem === undefined) {
+            if (!this.currentItem) {
                 this.firstItem = this.lastItem = this.currentItem = item;
             } else if (this.currentItem === this.lastItem) {
-                this.addLastItem(t);
+                this.addLastItem(key, data);
             } else {
                 item.next = this.currentItem.next;
                 item.previous = this.currentItem;
@@ -66,13 +68,13 @@ module JirglStructures.Lists.DoublyLinkedList {
             }
         }
 
-        addPreviousItem(t: T): void {
-            const item = new Item<T>(t);
+        addPreviousItem(key: TKey, data: TData): void {
+            const item = new Item<TKey, TData>(key, data);
 
-            if (this.currentItem == null) {
+            if (!this.currentItem) {
                 this.firstItem = this.lastItem = this.currentItem = item;
             } else if (this.currentItem === this.firstItem) {
-                this.addFirstItem(t);
+                this.addFirstItem(key, data);
             } else {
                 item.next = this.currentItem;
                 item.previous = this.currentItem.previous;
@@ -82,30 +84,31 @@ module JirglStructures.Lists.DoublyLinkedList {
             }
         }
 
-        getCurrentItem(): T {
+        getCurrentItem(): TData {
             return this.currentItem.data;
         }
 
-        getFirstItem(): T {
+        getFirstItem(): TData {
             return this.firstItem.data;
         }
 
-        getLastItem(): T {
+        getLastItem(): TData {
             return this.lastItem.data;
         }
 
-        getNextItem(): T {
+        getNextItem(): TData {
             return this.currentItem.next.data;
         }
 
-        getPreviousItem(): T {
+        getPreviousItem(): TData {
             return this.currentItem.previous.data;
         }
 
-        removeCurrentItem(): T {
-            if (this.currentItem === undefined) {
+        //TODO remove according by key
+
+        removeCurrentItem(): TData {
+            if (!this.currentItem)
                 return undefined;
-            }
 
             if (this.currentItem === this.firstItem) {
                 return this.removeFirstItem();
@@ -123,10 +126,9 @@ module JirglStructures.Lists.DoublyLinkedList {
             }
         }
 
-        removeFirstItem(): T {
-            if (this.firstItem === undefined) {
+        removeFirstItem(): TData {
+            if (!this.firstItem)
                 return undefined;
-            }
 
             const itemData = this.firstItem.data;
             if (this.firstItem === this.lastItem) {
@@ -146,10 +148,9 @@ module JirglStructures.Lists.DoublyLinkedList {
             return itemData;
         }
 
-        removeLastItem(): T {
-            if (this.lastItem === undefined) {
+        removeLastItem(): TData {
+            if (!this.lastItem)
                 return undefined;
-            }
 
             const itemData = this.lastItem.data;
             if (this.lastItem === this.firstItem) {
@@ -169,8 +170,8 @@ module JirglStructures.Lists.DoublyLinkedList {
             return itemData;
         }
 
-        removeNextItem(): T {
-            if (this.currentItem === undefined || this.currentItem.next === undefined) {
+        removeNextItem(): TData {
+            if (!this.currentItem || !this.currentItem.next) {
                 return undefined;
             } else if (this.currentItem.next === this.lastItem) {
                 return this.removeLastItem();
@@ -186,8 +187,8 @@ module JirglStructures.Lists.DoublyLinkedList {
             }
         }
 
-        removePreviousItem(): T {
-            if (this.currentItem == undefined || this.currentItem.previous === undefined) {
+        removePreviousItem(): TData {
+            if (!this.currentItem || !this.currentItem.previous) {
                 return undefined;
             } else if (this.currentItem.previous === this.firstItem) {
                 return this.removeFirstItem();
@@ -203,24 +204,24 @@ module JirglStructures.Lists.DoublyLinkedList {
             }
         }
 
-        getIterator(): IIterator<T> {
-            return new Iterator<T>(this.firstItem);
+        getIterator(): IIterator<TData> {
+            return new Iterator<TKey, TData>(this.firstItem);
         }
     }
 
-    export class Iterator<T> implements IIterator<T> {
-        protected currentItem: Item<T>;
-        protected firstItem: Item<T>;
+    export class Iterator<TKey, TData> implements IIterator<TData> {
+        protected currentItem: Item<TKey, TData>;
+        protected firstItem: Item<TKey, TData>;
 
-        constructor(firstItem: Item<T>) {
+        constructor(firstItem: Item<TKey, TData>) {
             this.firstItem = this.currentItem = firstItem;
         }
 
         hasNext(): boolean {
-            return this.currentItem != undefined;
+            return this.currentItem !== undefined;
         }
 
-        next(): T {
+        next(): TData {
             const current = this.currentItem;
             this.currentItem = this.currentItem.next;
             return current.data;

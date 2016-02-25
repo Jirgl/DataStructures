@@ -16,7 +16,7 @@ var JirglStructures;
                     return this.list.isEmpty();
                 };
                 Structure.prototype.enqueue = function (t) {
-                    this.list.addLastItem(t);
+                    this.list.addLastItem(undefined, t);
                 };
                 Structure.prototype.dequeue = function () {
                     return this.list.removeFirstItem();
