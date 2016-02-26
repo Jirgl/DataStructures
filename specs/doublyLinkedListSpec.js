@@ -118,6 +118,14 @@ describe("Doubly Linked list", function () {
             doublyLinkedList.addLastItem("three", "dataOfThree");
         });
 
+        it("remove by key", function () {
+            doublyLinkedList.addFirstItem("one", "dataOfOne2");
+
+            expect(doublyLinkedList.removeKey("one")).toBe("dataOfOne2");
+            expect(doublyLinkedList.removeKey("one")).toBe("dataOfOne");
+            expect(doublyLinkedList.removeKey("one")).toBe(undefined);
+        });
+
         it("remove first item", function () {
             expect(doublyLinkedList.removeFirstItem()).toBe("dataOfOne");
             expect(doublyLinkedList.firstItem.key).toBe("two");

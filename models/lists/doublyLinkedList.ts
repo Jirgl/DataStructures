@@ -104,7 +104,36 @@ module JirglStructures.Lists.DoublyLinkedList {
             return this.currentItem.previous.data;
         }
 
-        //TODO remove according by key
+        removeKey(key: TKey): TData {
+            if (!this.firstItem)
+                return undefined;
+
+            let previousItem = undefined;
+            let currentItem = this.firstItem;
+            while (currentItem) {
+                if (currentItem.key === key) {
+                    if (previousItem) {
+                        previousItem.next = currentItem.next;
+                        currentItem.next.previous = previousItem;
+                        currentItem.previous = currentItem.previous = undefined;
+                    } else {
+                        //current item is first item
+                        if (this.currentItem === this.firstItem) {
+                            this.currentItem = this.firstItem = currentItem.next;
+                        } else {
+                            this.firstItem = currentItem.next;
+                        }
+                    }
+
+                    return currentItem.data;
+                }
+
+                previousItem = currentItem;
+                currentItem = currentItem.next;
+            }
+
+            return undefined;
+        }
 
         removeCurrentItem(): TData {
             if (!this.currentItem)

@@ -93,7 +93,34 @@ var JirglStructures;
                 Structure.prototype.getPreviousItem = function () {
                     return this.currentItem.previous.data;
                 };
-                //TODO remove according by key
+                Structure.prototype.removeKey = function (key) {
+                    if (!this.firstItem)
+                        return undefined;
+                    var previousItem = undefined;
+                    var currentItem = this.firstItem;
+                    while (currentItem) {
+                        if (currentItem.key === key) {
+                            if (previousItem) {
+                                previousItem.next = currentItem.next;
+                                currentItem.next.previous = previousItem;
+                                currentItem.previous = currentItem.previous = undefined;
+                            }
+                            else {
+                                //current item is first item
+                                if (this.currentItem === this.firstItem) {
+                                    this.currentItem = this.firstItem = currentItem.next;
+                                }
+                                else {
+                                    this.firstItem = currentItem.next;
+                                }
+                            }
+                            return currentItem.data;
+                        }
+                        previousItem = currentItem;
+                        currentItem = currentItem.next;
+                    }
+                    return undefined;
+                };
                 Structure.prototype.removeCurrentItem = function () {
                     if (!this.currentItem)
                         return undefined;
