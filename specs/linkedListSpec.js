@@ -124,6 +124,43 @@ describe("Linked list", function () {
         });
     });
 
+    describe("Get methods", function() {
+        var linkedList;
+
+        beforeEach(function () {
+            linkedList = new JirglStructures.Lists.LinkedList.Structure();
+            linkedList.addLastItem("one", "dataOfOne");
+            linkedList.addLastItem("two", "dataOfTwo");
+            linkedList.addLastItem("three", "dataOfThree");
+        });
+
+        it("get current item", function() {
+            expect(linkedList.getCurrentItem()).toBe("dataOfThree");
+        });
+
+        it("get first item", function() {
+            expect(linkedList.getFirstItem()).toBe("dataOfOne");
+        });
+
+        it("get last item", function() {
+            expect(linkedList.getLastItem()).toBe("dataOfThree");
+        });
+
+        it("get next item", function() {
+            expect(linkedList.getNextItem()).toBe(undefined);
+
+            linkedList.addFirstItem("zero", "dataOfZero");
+            expect(linkedList.getNextItem()).toBe("dataOfOne");
+        });
+
+        it("get previous item", function() {
+            expect(linkedList.getPreviousItem()).toBe("dataOfTwo");
+
+            linkedList.addFirstItem("zero", "dataOfZero");
+            expect(linkedList.getPreviousItem()).toBe(undefined);
+        });
+    });
+
     describe("Remove methods", function () {
         var linkedList;
 
@@ -197,14 +234,27 @@ describe("Linked list", function () {
         it("remove next item", function () {
             linkedList.addFirstItem("move current item to first");
 
-            var removedItem = linkedList.removeNextItem();
-            expect(removedItem).toBe("dataOfOne");
+            expect(linkedList.removeNextItem()).toBe("dataOfOne");
+            expect(linkedList.removeNextItem()).toBe("dataOfTwo");
+            expect(linkedList.removeNextItem()).toBe("dataOfThree");
+            expect(linkedList.removeNextItem()).toBe(undefined);
+        });
 
-            removedItem = linkedList.removeNextItem();
-            expect(removedItem).toBe("dataOfTwo");
+        it("remove previous item", function () {
+            linkedList.addLastItem("move current item to last", "data");
 
-            removedItem = linkedList.removeNextItem();
-            expect(removedItem).toBe("dataOfThree");
+            expect(linkedList.removePreviousItem()).toBe("dataOfThree");
+            expect(linkedList.removePreviousItem()).toBe("dataOfTwo");
+            expect(linkedList.removePreviousItem()).toBe("dataOfOne");
+            expect(linkedList.removePreviousItem()).toBe(undefined);
+        });
+
+        it("remove by key", function () {
+            linkedList.addFirstItem("one", "dataOfOne2");
+
+            expect(linkedList.removeKey("one")).toBe("dataOfOne2");
+            expect(linkedList.removeKey("one")).toBe("dataOfOne");
+            expect(linkedList.removeKey("one")).toBe(undefined);
         });
     });
 
