@@ -1,0 +1,17 @@
+{
+  "name": "jirgl-structures",
+  "version": "1.0.0",
+  "description": "",
+  "typescript": {
+    "main": "./src/app.ts"
+  },
+  "bobril": {
+    "dir": "./dist",
+    "title": "Jirgl Structures"
+  },
+  "author": "Jakub Jirgl",
+  "license": "",
+  "dependencies": {
+    "bobril": "*"
+  }
+}
