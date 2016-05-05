@@ -28,7 +28,11 @@ var JirglStructures;
                 var item = _super.prototype.next.call(this);
                 item.isCurrent = isCurrent;
                 this.orderOfItem++;
-                return item;
+                return {
+                    key: this.previousGuiItem.key,
+                    data: item.data,
+                    isCurrent: item.isCurrent
+                };
             };
             GuiListIterator.prototype.reset = function () {
                 _super.prototype.reset.call(this);

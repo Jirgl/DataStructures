@@ -7,7 +7,6 @@
 /// <reference path="../../components/textbox.ts" />
 /// <reference path="../../structureComponents/grid.ts" />
 /// <reference path="../guiExtender/guiQueue.ts" />
-/// <reference path="../guiExtender/guiItem.ts" />
 /// <reference path="../guiExtender/guiGridList.ts" />
 
 module JirglStructures.View {
@@ -23,13 +22,13 @@ module JirglStructures.View {
     }
 
     var queueComponent: IBobrilComponent = {
-        init(ctx: IQueueCtx, me: IBobrilNode): void {
+        init(ctx: IQueueCtx): void {
             ctx.que = new GuiExtender.GuiQueue();
             ctx.que.enqueue(new GuiExtender.GuiItem("init item"));
             ctx.action = "enqueue";
         },
         render(ctx: IQueueCtx, me: IBobrilNode): void {
-            var iterator = ctx.que.getIterator();
+            const iterator = ctx.que.getIterator();
             me.children = [
                 controlPanel({
                     actions: combobox({

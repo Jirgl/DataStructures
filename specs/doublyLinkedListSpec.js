@@ -3,240 +3,240 @@
 
 describe("Doubly Linked list", function () {
     describe("Add methods", function () {
-        var doublyLinkedlist;
+        var doublyLinkedList;
 
         beforeEach(function () {
-            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList.Structure();
+            doublyLinkedList = new JirglStructures.Lists.DoublyLinkedList.Structure();
         });
 
         it("add first item", function () {
-            doublyLinkedlist.addFirstItem("first");
-            expect(doublyLinkedlist.currentItem.data).toBe("first");
-            expect(doublyLinkedlist.currentItem.previous).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem.next).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.firstItem);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.lastItem);
+            doublyLinkedList.addFirstItem("first", "dataOfFirst");
+            expect(doublyLinkedList.currentItem.key).toBe("first");
+            expect(doublyLinkedList.currentItem.data).toBe("dataOfFirst");
+            expect(doublyLinkedList.currentItem.previous).toEqual(undefined);
+            expect(doublyLinkedList.currentItem.next).toEqual(undefined);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.firstItem);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.lastItem);
 
-            doublyLinkedlist.addFirstItem("new first");
-            expect(doublyLinkedlist.currentItem.data).toBe("new first");
-            expect(doublyLinkedlist.currentItem.next.data).toBe("first");
-            expect(doublyLinkedlist.currentItem.previous).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem.next.next).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.firstItem);
-            expect(doublyLinkedlist.currentItem.next).toBe(doublyLinkedlist.lastItem);
-            expect(doublyLinkedlist.currentItem.next.previous).toBe(doublyLinkedlist.firstItem);
+            doublyLinkedList.addFirstItem("new first", "dataOfNewFirst");
+            expect(doublyLinkedList.currentItem.key).toBe("new first");
+            expect(doublyLinkedList.currentItem.data).toBe("dataOfNewFirst");
+            expect(doublyLinkedList.currentItem.next.key).toBe("first");
+            expect(doublyLinkedList.currentItem.previous).toEqual(undefined);
+            expect(doublyLinkedList.currentItem.next.next).toEqual(undefined);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.firstItem);
+            expect(doublyLinkedList.currentItem.next).toBe(doublyLinkedList.lastItem);
+            expect(doublyLinkedList.currentItem.next.previous).toBe(doublyLinkedList.firstItem);
         });
 
         it("add last item", function () {
-            doublyLinkedlist.addLastItem("last");
-            expect(doublyLinkedlist.currentItem.data).toBe("last");
-            expect(doublyLinkedlist.currentItem.previous).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem.next).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.firstItem);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.lastItem);
+            doublyLinkedList.addLastItem("last", "dataOfLast");
+            expect(doublyLinkedList.currentItem.key).toBe("last");
+            expect(doublyLinkedList.currentItem.data).toBe("dataOfLast");
+            expect(doublyLinkedList.currentItem.previous).toEqual(undefined);
+            expect(doublyLinkedList.currentItem.next).toEqual(undefined);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.firstItem);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.lastItem);
 
-            doublyLinkedlist.addLastItem("new last");
-            expect(doublyLinkedlist.currentItem.data).toBe("new last");
-            expect(doublyLinkedlist.currentItem.previous.data).toBe("last");
-            expect(doublyLinkedlist.currentItem.next).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem.previous.previous).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.lastItem);
-            expect(doublyLinkedlist.currentItem.previous).toBe(doublyLinkedlist.firstItem);
-            expect(doublyLinkedlist.currentItem.previous.next).toBe(doublyLinkedlist.lastItem);
+            doublyLinkedList.addLastItem("new last", "dataOfNewLast");
+            expect(doublyLinkedList.currentItem.key).toBe("new last");
+            expect(doublyLinkedList.currentItem.data).toBe("dataOfNewLast");
+            expect(doublyLinkedList.currentItem.previous.key).toBe("last");
+            expect(doublyLinkedList.currentItem.next).toEqual(undefined);
+            expect(doublyLinkedList.currentItem.previous.previous).toEqual(undefined);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.lastItem);
+            expect(doublyLinkedList.currentItem.previous).toBe(doublyLinkedList.firstItem);
+            expect(doublyLinkedList.currentItem.previous.next).toBe(doublyLinkedList.lastItem);
         });
 
         it("add next item", function () {
-            doublyLinkedlist.addNextItem("next");
-            expect(doublyLinkedlist.currentItem.data).toBe("next");
-            expect(doublyLinkedlist.currentItem.previous).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem.next).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.firstItem);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.lastItem);
+            doublyLinkedList.addNextItem("next", "dataOfNext");
+            expect(doublyLinkedList.currentItem.key).toBe("next");
+            expect(doublyLinkedList.currentItem.data).toBe("dataOfNext");
+            expect(doublyLinkedList.currentItem.previous).toEqual(undefined);
+            expect(doublyLinkedList.currentItem.next).toEqual(undefined);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.firstItem);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.lastItem);
 
-            doublyLinkedlist.addNextItem("new next");
-            expect(doublyLinkedlist.currentItem.data).toBe("new next");
-            expect(doublyLinkedlist.currentItem.previous.data).toBe("next");
-            expect(doublyLinkedlist.currentItem.next).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem.previous.previous).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.lastItem);
-            expect(doublyLinkedlist.currentItem.previous).toBe(doublyLinkedlist.firstItem);
-            expect(doublyLinkedlist.currentItem.previous.next).toBe(doublyLinkedlist.lastItem);
+            doublyLinkedList.addNextItem("new next", "dataOfNewNext");
+            expect(doublyLinkedList.currentItem.key).toBe("new next");
+            expect(doublyLinkedList.currentItem.data).toBe("dataOfNewNext");
+            expect(doublyLinkedList.currentItem.previous.key).toBe("next");
+            expect(doublyLinkedList.currentItem.next).toEqual(undefined);
+            expect(doublyLinkedList.currentItem.previous.previous).toEqual(undefined);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.lastItem);
+            expect(doublyLinkedList.currentItem.previous).toBe(doublyLinkedList.firstItem);
+            expect(doublyLinkedList.currentItem.previous.next).toBe(doublyLinkedList.lastItem);
 
-            doublyLinkedlist.addFirstItem("first");
-            doublyLinkedlist.addNextItem("next after first");
-            expect(doublyLinkedlist.currentItem.data).toBe("next after first");
-            expect(doublyLinkedlist.currentItem.previous).toBe(doublyLinkedlist.firstItem);
-            expect(doublyLinkedlist.currentItem.previous.next).toBe(doublyLinkedlist.currentItem);
-            expect(doublyLinkedlist.currentItem.next.data).toBe("next");
-            expect(doublyLinkedlist.currentItem.next.previous).toBe(doublyLinkedlist.currentItem);
+            doublyLinkedList.addFirstItem("first", "dataOfFirst");
+            doublyLinkedList.addNextItem("next after first", "dataOfNextAfterFirst");
+            expect(doublyLinkedList.currentItem.key).toBe("next after first");
+            expect(doublyLinkedList.currentItem.data).toBe("dataOfNextAfterFirst");
+            expect(doublyLinkedList.currentItem.previous).toBe(doublyLinkedList.firstItem);
+            expect(doublyLinkedList.currentItem.previous.next).toBe(doublyLinkedList.currentItem);
+            expect(doublyLinkedList.currentItem.next.key).toBe("next");
+            expect(doublyLinkedList.currentItem.next.previous).toBe(doublyLinkedList.currentItem);
         });
 
         it("add previous item", function () {
-            doublyLinkedlist.addPreviousItem("previous");
-            expect(doublyLinkedlist.currentItem.data).toBe("previous");
-            expect(doublyLinkedlist.currentItem.previous).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem.next).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.firstItem);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.lastItem);
+            doublyLinkedList.addPreviousItem("previous", "dataOfPrevious");
+            expect(doublyLinkedList.currentItem.key).toBe("previous");
+            expect(doublyLinkedList.currentItem.data).toBe("dataOfPrevious");
+            expect(doublyLinkedList.currentItem.previous).toEqual(undefined);
+            expect(doublyLinkedList.currentItem.next).toEqual(undefined);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.firstItem);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.lastItem);
 
-            doublyLinkedlist.addPreviousItem("new previous");
-            expect(doublyLinkedlist.currentItem.data).toBe("new previous");
-            expect(doublyLinkedlist.currentItem.next.data).toBe("previous");
-            expect(doublyLinkedlist.currentItem.previous).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem.next.next).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem).toBe(doublyLinkedlist.firstItem);
-            expect(doublyLinkedlist.currentItem.next).toBe(doublyLinkedlist.lastItem);
-            expect(doublyLinkedlist.currentItem.next.previous).toBe(doublyLinkedlist.firstItem);
+            doublyLinkedList.addPreviousItem("new previous", "dataOfNewPrevious");
+            expect(doublyLinkedList.currentItem.key).toBe("new previous");
+            expect(doublyLinkedList.currentItem.data).toBe("dataOfNewPrevious");
+            expect(doublyLinkedList.currentItem.next.key).toBe("previous");
+            expect(doublyLinkedList.currentItem.previous).toEqual(undefined);
+            expect(doublyLinkedList.currentItem.next.next).toEqual(undefined);
+            expect(doublyLinkedList.currentItem).toBe(doublyLinkedList.firstItem);
+            expect(doublyLinkedList.currentItem.next).toBe(doublyLinkedList.lastItem);
+            expect(doublyLinkedList.currentItem.next.previous).toBe(doublyLinkedList.firstItem);
 
-            doublyLinkedlist.addLastItem("last");
-            doublyLinkedlist.addPreviousItem("previous before last");
-            expect(doublyLinkedlist.currentItem.data).toBe("previous before last");
-            expect(doublyLinkedlist.currentItem.next).toBe(doublyLinkedlist.lastItem);
-            expect(doublyLinkedlist.currentItem.next.previous).toBe(doublyLinkedlist.currentItem);
-            expect(doublyLinkedlist.currentItem.previous.data).toBe("previous");
-            expect(doublyLinkedlist.currentItem.previous.next).toBe(doublyLinkedlist.currentItem);
+            doublyLinkedList.addLastItem("last", "dataOfLast");
+            doublyLinkedList.addPreviousItem("previous before last", "dataOfPreviousBeforeLast");
+            expect(doublyLinkedList.currentItem.key).toBe("previous before last");
+            expect(doublyLinkedList.currentItem.data).toBe("dataOfPreviousBeforeLast");
+            expect(doublyLinkedList.currentItem.next).toBe(doublyLinkedList.lastItem);
+            expect(doublyLinkedList.currentItem.next.previous).toBe(doublyLinkedList.currentItem);
+            expect(doublyLinkedList.currentItem.previous.key).toBe("previous");
+            expect(doublyLinkedList.currentItem.previous.next).toBe(doublyLinkedList.currentItem);
         });
     });
 
     describe("Remove methods", function () {
-        var doublyLinkedlist;
+        var doublyLinkedList;
 
         beforeEach(function () {
-            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList.Structure();
-            doublyLinkedlist.addLastItem("one");
-            doublyLinkedlist.addLastItem("two");
-            doublyLinkedlist.addLastItem("three");
+            doublyLinkedList = new JirglStructures.Lists.DoublyLinkedList.Structure();
+            doublyLinkedList.addLastItem("one", "dataOfOne");
+            doublyLinkedList.addLastItem("two", "dataOfTwo");
+            doublyLinkedList.addLastItem("three", "dataOfThree");
+        });
+
+        it("remove by key", function () {
+            doublyLinkedList.addFirstItem("one", "dataOfOne2");
+
+            expect(doublyLinkedList.removeKey("one")).toBe("dataOfOne2");
+            expect(doublyLinkedList.removeKey("one")).toBe("dataOfOne");
+            expect(doublyLinkedList.removeKey("one")).toBe(undefined);
         });
 
         it("remove first item", function () {
-            var removedItem = doublyLinkedlist.removeFirstItem();
-            expect(removedItem).toBe("one");
-            expect(doublyLinkedlist.firstItem.data).toBe("two");
-            expect(doublyLinkedlist.firstItem.previous).toEqual(undefined);
-            expect(doublyLinkedlist.firstItem.next).toBe(doublyLinkedlist.lastItem);
+            expect(doublyLinkedList.removeFirstItem()).toBe("dataOfOne");
+            expect(doublyLinkedList.firstItem.key).toBe("two");
+            expect(doublyLinkedList.firstItem.previous).toEqual(undefined);
+            expect(doublyLinkedList.firstItem.next).toBe(doublyLinkedList.lastItem);
 
-            removedItem = doublyLinkedlist.removeFirstItem();
-            expect(removedItem).toBe("two");
-            expect(doublyLinkedlist.firstItem.data).toBe("three");
-            expect(doublyLinkedlist.firstItem.previous).toEqual(undefined);
-            expect(doublyLinkedlist.firstItem.next).toEqual(undefined);
+            expect(doublyLinkedList.removeFirstItem()).toBe("dataOfTwo");
+            expect(doublyLinkedList.firstItem.key).toBe("three");
+            expect(doublyLinkedList.firstItem.previous).toEqual(undefined);
+            expect(doublyLinkedList.firstItem.next).toEqual(undefined);
 
-            removedItem = doublyLinkedlist.removeFirstItem();
-            expect(removedItem).toBe("three");
-            expect(doublyLinkedlist.firstItem).toEqual(undefined);
-            expect(doublyLinkedlist.lastItem).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem).toEqual(undefined);
+            expect(doublyLinkedList.removeFirstItem()).toBe("dataOfThree");
+            expect(doublyLinkedList.firstItem).toEqual(undefined);
+            expect(doublyLinkedList.lastItem).toEqual(undefined);
+            expect(doublyLinkedList.currentItem).toEqual(undefined);
         });
 
         it("remove last item", function () {
-            var removedItem = doublyLinkedlist.removeLastItem();
-            expect(removedItem).toBe("three");
-            expect(doublyLinkedlist.lastItem.data).toBe("two");
-            expect(doublyLinkedlist.lastItem.previous).toBe(doublyLinkedlist.firstItem);
-            expect(doublyLinkedlist.lastItem.next).toEqual(undefined);
+            expect(doublyLinkedList.removeLastItem()).toBe("dataOfThree");
+            expect(doublyLinkedList.lastItem.key).toBe("two");
+            expect(doublyLinkedList.lastItem.previous).toBe(doublyLinkedList.firstItem);
+            expect(doublyLinkedList.lastItem.next).toEqual(undefined);
 
-            removedItem = doublyLinkedlist.removeLastItem();
-            expect(removedItem).toBe("two");
-            expect(doublyLinkedlist.lastItem.data).toBe("one");
-            expect(doublyLinkedlist.lastItem.previous).toEqual(undefined);
-            expect(doublyLinkedlist.lastItem.next).toEqual(undefined);
+            expect(doublyLinkedList.removeLastItem()).toBe("dataOfTwo");
+            expect(doublyLinkedList.lastItem.key).toBe("one");
+            expect(doublyLinkedList.lastItem.previous).toEqual(undefined);
+            expect(doublyLinkedList.lastItem.next).toEqual(undefined);
 
-            removedItem = doublyLinkedlist.removeLastItem();
-            expect(removedItem).toBe("one");
-            expect(doublyLinkedlist.firstItem).toEqual(undefined);
-            expect(doublyLinkedlist.lastItem).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem).toEqual(undefined);
+            expect(doublyLinkedList.removeLastItem()).toBe("dataOfOne");
+            expect(doublyLinkedList.firstItem).toEqual(undefined);
+            expect(doublyLinkedList.lastItem).toEqual(undefined);
+            expect(doublyLinkedList.currentItem).toEqual(undefined);
         });
 
         it("remove current item", function () {
-            var removedItem = doublyLinkedlist.removeCurrentItem();
-            expect(removedItem).toBe("three");
-            expect(doublyLinkedlist.currentItem.data).toBe("one");
-            expect(doublyLinkedlist.currentItem.previous).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem.next).toBe(doublyLinkedlist.lastItem);
+            expect(doublyLinkedList.removeCurrentItem()).toBe("dataOfThree");
+            expect(doublyLinkedList.currentItem.key).toBe("one");
+            expect(doublyLinkedList.currentItem.previous).toEqual(undefined);
+            expect(doublyLinkedList.currentItem.next).toBe(doublyLinkedList.lastItem);
 
-            removedItem = doublyLinkedlist.removeCurrentItem();
-            expect(removedItem).toBe("one");
-            expect(doublyLinkedlist.currentItem.data).toBe("two");
-            expect(doublyLinkedlist.currentItem.previous).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem.next).toEqual(undefined);
+            expect(doublyLinkedList.removeCurrentItem()).toBe("dataOfOne");
+            expect(doublyLinkedList.currentItem.key).toBe("two");
+            expect(doublyLinkedList.currentItem.previous).toEqual(undefined);
+            expect(doublyLinkedList.currentItem.next).toEqual(undefined);
 
-            removedItem = doublyLinkedlist.removeCurrentItem();
-            expect(removedItem).toBe("two");
-            expect(doublyLinkedlist.firstItem).toEqual(undefined);
-            expect(doublyLinkedlist.lastItem).toEqual(undefined);
-            expect(doublyLinkedlist.currentItem).toEqual(undefined);
+            expect(doublyLinkedList.removeCurrentItem()).toBe("dataOfTwo");
+            expect(doublyLinkedList.firstItem).toEqual(undefined);
+            expect(doublyLinkedList.lastItem).toEqual(undefined);
+            expect(doublyLinkedList.currentItem).toEqual(undefined);
         });
 
         it("remove next item", function () {
-            doublyLinkedlist.addFirstItem("move current item to first");
+            doublyLinkedList.addFirstItem("move current item to first", "data");
 
-            var removedItem = doublyLinkedlist.removeNextItem();
-            expect(removedItem).toBe("one");
-
-            removedItem = doublyLinkedlist.removeNextItem();
-            expect(removedItem).toBe("two");
-
-            removedItem = doublyLinkedlist.removeNextItem();
-            expect(removedItem).toBe("three");
+            expect(doublyLinkedList.removeNextItem()).toBe("dataOfOne");
+            expect(doublyLinkedList.removeNextItem()).toBe("dataOfTwo");
+            expect(doublyLinkedList.removeNextItem()).toBe("dataOfThree");
         });
 
         it("remove previous item", function () {
-            doublyLinkedlist.addLastItem("move current item to last");
+            doublyLinkedList.addLastItem("move current item to last", "data");
 
-            var removedItem = doublyLinkedlist.removePreviousItem();
-            expect(removedItem).toBe("three");
-
-            removedItem = doublyLinkedlist.removePreviousItem();
-            expect(removedItem).toBe("two");
-
-            removedItem = doublyLinkedlist.removePreviousItem();
-            expect(removedItem).toBe("one");
+            expect(doublyLinkedList.removePreviousItem()).toBe("dataOfThree");
+            expect(doublyLinkedList.removePreviousItem()).toBe("dataOfTwo");
+            expect(doublyLinkedList.removePreviousItem()).toBe("dataOfOne");
         });
     });
 
     describe("Other functions", function () {
-        var doublyLinkedlist;
+        var doublyLinkedList;
 
         beforeEach(function () {
-            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList.Structure();
+            doublyLinkedList = new JirglStructures.Lists.DoublyLinkedList.Structure();
         });
 
         it("clear doubly linked list", function () {
-            doublyLinkedlist.addLastItem("last");
-            expect(doublyLinkedlist.firstItem.data).toBe("last");
+            doublyLinkedList.addLastItem("last", "dataOfLast");
+            expect(doublyLinkedList.firstItem.key).toBe("last");
+            expect(doublyLinkedList.firstItem.data).toBe("dataOfLast");
 
-            doublyLinkedlist.clear();
-            expect(doublyLinkedlist.firstItem).toEqual(undefined);
+            doublyLinkedList.clear();
+            expect(doublyLinkedList.firstItem).toEqual(undefined);
         });
 
         it("is doubly linked list empty", function () {
-            expect(doublyLinkedlist.isEmpty()).toBeTruthy();
+            expect(doublyLinkedList.isEmpty()).toBeTruthy();
 
-            doublyLinkedlist.addLastItem("last");
-            expect(doublyLinkedlist.isEmpty()).toBeFalsy();
+            doublyLinkedList.addLastItem("last", "dataOfLast");
+            expect(doublyLinkedList.isEmpty()).toBeFalsy();
         });
     });
 
     describe("Iterator", function () {
-        var doublyLinkedlist;
+        var doublyLinkedList;
 
         beforeEach(function () {
-            doublyLinkedlist = new JirglStructures.Lists.DoublyLinkedList.Structure();
+            doublyLinkedList = new JirglStructures.Lists.DoublyLinkedList.Structure();
         });
 
         it("iterate by iterator", function () {
-            doublyLinkedlist.addFirstItem("1");
-            doublyLinkedlist.addNextItem("2");
-            doublyLinkedlist.addNextItem("3");
+            doublyLinkedList.addFirstItem("1", "data1");
+            doublyLinkedList.addNextItem("2", "data2");
+            doublyLinkedList.addNextItem("3", "data3");
 
-            var iterator = doublyLinkedlist.getIterator();
-            expect(iterator.next()).toBe("1");
-            expect(iterator.next()).toBe("2");
-            expect(iterator.next()).toBe("3");
+            var iterator = doublyLinkedList.getIterator();
+            expect(iterator.next()).toBe("data1");
+            expect(iterator.next()).toBe("data2");
+            expect(iterator.next()).toBe("data3");
 
             iterator.reset();
-            expect(iterator.next()).toBe("1");
+            expect(iterator.next()).toBe("data1");
         });
     });
 });

@@ -6,7 +6,8 @@ var JirglStructures;
         var DoublyLinkedList;
         (function (DoublyLinkedList) {
             var Item = (function () {
-                function Item(data) {
+                function Item(key, data) {
+                    this.key = key;
                     this.data = data;
                 }
                 return Item;
@@ -21,37 +22,37 @@ var JirglStructures;
                 Structure.prototype.isEmpty = function () {
                     return this.firstItem === undefined;
                 };
-                Structure.prototype.addFirstItem = function (t) {
-                    var item = new Item(t);
-                    if (this.firstItem === undefined) {
-                        this.firstItem = this.lastItem = this.currentItem = item;
-                    }
-                    else {
+                Structure.prototype.addFirstItem = function (key, data) {
+                    var item = new Item(key, data);
+                    if (this.firstItem) {
                         item.next = this.firstItem;
                         this.firstItem.previous = item;
                         this.firstItem = item;
                         this.currentItem = this.firstItem;
                     }
-                };
-                Structure.prototype.addLastItem = function (t) {
-                    var item = new Item(t);
-                    if (this.lastItem === undefined) {
+                    else {
                         this.firstItem = this.lastItem = this.currentItem = item;
                     }
-                    else {
+                };
+                Structure.prototype.addLastItem = function (key, data) {
+                    var item = new Item(key, data);
+                    if (this.lastItem) {
                         item.previous = this.lastItem;
                         this.lastItem.next = item;
                         this.lastItem = item;
                         this.currentItem = this.lastItem;
                     }
+                    else {
+                        this.firstItem = this.lastItem = this.currentItem = item;
+                    }
                 };
-                Structure.prototype.addNextItem = function (t) {
-                    var item = new Item(t);
-                    if (this.currentItem === undefined) {
+                Structure.prototype.addNextItem = function (key, data) {
+                    var item = new Item(key, data);
+                    if (!this.currentItem) {
                         this.firstItem = this.lastItem = this.currentItem = item;
                     }
                     else if (this.currentItem === this.lastItem) {
-                        this.addLastItem(t);
+                        this.addLastItem(key, data);
                     }
                     else {
                         item.next = this.currentItem.next;
@@ -61,13 +62,13 @@ var JirglStructures;
                         this.currentItem = item;
                     }
                 };
-                Structure.prototype.addPreviousItem = function (t) {
-                    var item = new Item(t);
-                    if (this.currentItem == null) {
+                Structure.prototype.addPreviousItem = function (key, data) {
+                    var item = new Item(key, data);
+                    if (!this.currentItem) {
                         this.firstItem = this.lastItem = this.currentItem = item;
                     }
                     else if (this.currentItem === this.firstItem) {
-                        this.addFirstItem(t);
+                        this.addFirstItem(key, data);
                     }
                     else {
                         item.next = this.currentItem;
@@ -92,10 +93,37 @@ var JirglStructures;
                 Structure.prototype.getPreviousItem = function () {
                     return this.currentItem.previous.data;
                 };
-                Structure.prototype.removeCurrentItem = function () {
-                    if (this.currentItem === undefined) {
+                Structure.prototype.removeKey = function (key) {
+                    if (!this.firstItem)
                         return undefined;
+                    var previousItem = undefined;
+                    var currentItem = this.firstItem;
+                    while (currentItem) {
+                        if (currentItem.key === key) {
+                            if (previousItem) {
+                                previousItem.next = currentItem.next;
+                                currentItem.next.previous = previousItem;
+                                currentItem.previous = currentItem.previous = undefined;
+                            }
+                            else {
+                                //current item is first item
+                                if (this.currentItem === this.firstItem) {
+                                    this.currentItem = this.firstItem = currentItem.next;
+                                }
+                                else {
+                                    this.firstItem = currentItem.next;
+                                }
+                            }
+                            return currentItem.data;
+                        }
+                        previousItem = currentItem;
+                        currentItem = currentItem.next;
                     }
+                    return undefined;
+                };
+                Structure.prototype.removeCurrentItem = function () {
+                    if (!this.currentItem)
+                        return undefined;
                     if (this.currentItem === this.firstItem) {
                         return this.removeFirstItem();
                     }
@@ -113,9 +141,8 @@ var JirglStructures;
                     }
                 };
                 Structure.prototype.removeFirstItem = function () {
-                    if (this.firstItem === undefined) {
+                    if (!this.firstItem)
                         return undefined;
-                    }
                     var itemData = this.firstItem.data;
                     if (this.firstItem === this.lastItem) {
                         this.firstItem = this.lastItem = this.currentItem = undefined;
@@ -132,9 +159,8 @@ var JirglStructures;
                     return itemData;
                 };
                 Structure.prototype.removeLastItem = function () {
-                    if (this.lastItem === undefined) {
+                    if (!this.lastItem)
                         return undefined;
-                    }
                     var itemData = this.lastItem.data;
                     if (this.lastItem === this.firstItem) {
                         this.firstItem = this.lastItem = this.currentItem = undefined;
@@ -151,7 +177,7 @@ var JirglStructures;
                     return itemData;
                 };
                 Structure.prototype.removeNextItem = function () {
-                    if (this.currentItem === undefined || this.currentItem.next === undefined) {
+                    if (!this.currentItem || !this.currentItem.next) {
                         return undefined;
                     }
                     else if (this.currentItem.next === this.lastItem) {
@@ -168,7 +194,7 @@ var JirglStructures;
                     }
                 };
                 Structure.prototype.removePreviousItem = function () {
-                    if (this.currentItem == undefined || this.currentItem.previous === undefined) {
+                    if (!this.currentItem || !this.currentItem.previous) {
                         return undefined;
                     }
                     else if (this.currentItem.previous === this.firstItem) {
@@ -195,7 +221,7 @@ var JirglStructures;
                     this.firstItem = this.currentItem = firstItem;
                 }
                 Iterator.prototype.hasNext = function () {
-                    return this.currentItem != undefined;
+                    return this.currentItem !== undefined;
                 };
                 Iterator.prototype.next = function () {
                     var current = this.currentItem;

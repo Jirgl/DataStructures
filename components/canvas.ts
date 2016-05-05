@@ -1,24 +1,25 @@
 ﻿module JirglStructures {
     export interface IGuiContent {
-        getContent(): string;
+        key: string;
+        data: string;
         isCurrent;
     }
 
-    export interface ICanvasData<T> {
+    export interface ICanvasData {
         contentIterator: IIterator<IGuiContent>;
         grid: IGrid;
     }
 
-    interface ICanvasCtx<T> {
-        data: ICanvasData<T>;
+    interface ICanvasCtx {
+        data: ICanvasData;
         arrow: Arrow;
     }
 
     var canvasComponent: IBobrilComponent = {
-        init<T>(ctx: ICanvasCtx<T>) {
+        init<T>(ctx: ICanvasCtx) {
             ctx.arrow = new Arrow();
         },
-        render<T>(ctx: ICanvasCtx<T>, me: IBobrilNode) {
+        render<T>(ctx: ICanvasCtx, me: IBobrilNode) {
             const iterator = ctx.data.contentIterator;
             const children: IBobrilNode[] = [];
             const arrows: IBobrilNode[] = [];
@@ -29,7 +30,7 @@
                 const position = ctx.data.grid.getPosition();
                 const previousPosition = ctx.data.grid.getPositionOfPreviousItem();
                 children.push(item({
-                    content: guiItem.getContent(),
+                    content: guiItem.key,
                     x: position.x,
                     y: position.y,
                     isCurrent: guiItem.isCurrent
@@ -64,7 +65,7 @@
         }
     }
 
-    export function canvas<T>(data: ICanvasData<T>): IBobrilNode {
+    export function canvas(data: ICanvasData): IBobrilNode {
         return { component: canvasComponent, data: data };
     }
 }

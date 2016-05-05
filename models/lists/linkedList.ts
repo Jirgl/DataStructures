@@ -123,7 +123,42 @@ module JirglStructures.Lists.LinkedList {
         }
 
         getNextItem(): TData {
-            return this.currentItem.next.data;
+            const nextItem = this.currentItem.next;
+            return nextItem ? nextItem.data : undefined;
+        }
+
+        getPreviousItem(): TData {
+            const previousItem = this.findPrevious(this.currentItem);
+            return previousItem ? previousItem.data : undefined;
+        }
+
+        removeKey(key: TKey): TData {
+            if (!this.firstItem)
+                return undefined;
+
+            let previousItem = undefined;
+            let currentItem = this.firstItem;
+            while (currentItem) {
+                if (currentItem.key === key) {
+                    if (previousItem) {
+                        previousItem.next = currentItem.next;
+                    } else {
+                        //current item is first item
+                        if (this.currentItem === this.firstItem) {
+                            this.currentItem = this.firstItem = currentItem.next;
+                        } else {
+                            this.firstItem = currentItem.next;
+                        }
+                    }
+
+                    return currentItem.data;
+                }
+
+                previousItem = currentItem;
+                currentItem = currentItem.next;
+            }
+
+            return undefined;
         }
 
         removeCurrentItem(): TData {
@@ -196,6 +231,25 @@ module JirglStructures.Lists.LinkedList {
                 const newNextItem = this.currentItem.next.next;
                 this.currentItem.next.next = undefined;
                 this.currentItem.next = newNextItem;
+
+                return itemData;
+            }
+        }
+
+        removePreviousItem(): TData {
+            const previousItem = this.findPrevious(this.currentItem);
+            if (!previousItem)
+                return undefined;
+
+            if (!this.currentItem) {
+                return undefined;
+            } else if (previousItem === this.firstItem) {
+                return this.removeFirstItem();
+            } else {
+                const itemData = previousItem.data;
+                const newPreviousItem = this.findPrevious(previousItem);
+                newPreviousItem.next = this.currentItem;
+                previousItem.next = undefined;
 
                 return itemData;
             }

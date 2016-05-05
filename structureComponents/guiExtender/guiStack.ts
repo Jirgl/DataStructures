@@ -8,12 +8,12 @@ module JirglStructures.GuiExtender {
             this.guiList = new GuiDoublyLinkedList();
         }
 
-        getFirstGuiItem(): Lists.DoublyLinkedList.Item<GuiItem> {
+        getFirstGuiItem(): Lists.DoublyLinkedList.Item<string, GuiItem> {
             return this.guiList.getFirstGuiItem();
         }
 
         push(item: GuiItem): void {
-            this.guiList.addFirstItem(item);
+            this.guiList.addFirstItem(item.data, item);
         }
 
         pop(): GuiItem {

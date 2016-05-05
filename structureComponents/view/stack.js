@@ -7,14 +7,13 @@
 /// <reference path="../../components/textbox.ts" />
 /// <reference path="../../structureComponents/grid.ts" />
 /// <reference path="../guiExtender/guiStack.ts" />
-/// <reference path="../guiExtender/guiItem.ts" />
 /// <reference path="../guiExtender/guiGridList.ts" />
 var JirglStructures;
 (function (JirglStructures) {
     var View;
     (function (View) {
         var queueComponent = {
-            init: function (ctx, me) {
+            init: function (ctx) {
                 ctx.stack = new JirglStructures.GuiExtender.GuiStack();
                 ctx.stack.push(new JirglStructures.GuiExtender.GuiItem("init item"));
                 ctx.action = "push";

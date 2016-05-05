@@ -15,7 +15,7 @@ var JirglStructures;
         var doublyListComponent = {
             init: function (ctx, me) {
                 ctx.doublyLinkedList = new JirglStructures.GuiExtender.GuiDoublyLinkedList();
-                ctx.doublyLinkedList.addFirstItem(new JirglStructures.GuiExtender.GuiItem("init item"));
+                ctx.doublyLinkedList.addFirstItem("init item", new JirglStructures.GuiExtender.GuiItem("init item"));
                 ctx.option = "first";
                 ctx.action = "add";
             },
@@ -50,16 +50,16 @@ var JirglStructures;
                             onClick: function () {
                                 if (ctx.action === "add") {
                                     if (ctx.option === "first") {
-                                        ctx.doublyLinkedList.addFirstItem(new JirglStructures.GuiExtender.GuiItem(ctx.value));
+                                        ctx.doublyLinkedList.addFirstItem(ctx.value, new JirglStructures.GuiExtender.GuiItem(ctx.value));
                                     }
                                     else if (ctx.option === "predecessor") {
-                                        ctx.doublyLinkedList.addPreviousItem(new JirglStructures.GuiExtender.GuiItem(ctx.value));
+                                        ctx.doublyLinkedList.addPreviousItem(ctx.value, new JirglStructures.GuiExtender.GuiItem(ctx.value));
                                     }
                                     else if (ctx.option === "successor") {
-                                        ctx.doublyLinkedList.addNextItem(new JirglStructures.GuiExtender.GuiItem(ctx.value));
+                                        ctx.doublyLinkedList.addNextItem(ctx.value, new JirglStructures.GuiExtender.GuiItem(ctx.value));
                                     }
                                     else if (ctx.option === "last") {
-                                        ctx.doublyLinkedList.addLastItem(new JirglStructures.GuiExtender.GuiItem(ctx.value));
+                                        ctx.doublyLinkedList.addLastItem(ctx.value, new JirglStructures.GuiExtender.GuiItem(ctx.value));
                                     }
                                 }
                                 else if (ctx.action === "remove") {

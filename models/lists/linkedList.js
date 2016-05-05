@@ -107,7 +107,38 @@ var JirglStructures;
                     return this.lastItem.data;
                 };
                 Structure.prototype.getNextItem = function () {
-                    return this.currentItem.next.data;
+                    var nextItem = this.currentItem.next;
+                    return nextItem ? nextItem.data : undefined;
+                };
+                Structure.prototype.getPreviousItem = function () {
+                    var previousItem = this.findPrevious(this.currentItem);
+                    return previousItem ? previousItem.data : undefined;
+                };
+                Structure.prototype.removeKey = function (key) {
+                    if (!this.firstItem)
+                        return undefined;
+                    var previousItem = undefined;
+                    var currentItem = this.firstItem;
+                    while (currentItem) {
+                        if (currentItem.key === key) {
+                            if (previousItem) {
+                                previousItem.next = currentItem.next;
+                            }
+                            else {
+                                //current item is first item
+                                if (this.currentItem === this.firstItem) {
+                                    this.currentItem = this.firstItem = currentItem.next;
+                                }
+                                else {
+                                    this.firstItem = currentItem.next;
+                                }
+                            }
+                            return currentItem.data;
+                        }
+                        previousItem = currentItem;
+                        currentItem = currentItem.next;
+                    }
+                    return undefined;
                 };
                 Structure.prototype.removeCurrentItem = function () {
                     if (!this.currentItem)
@@ -172,6 +203,24 @@ var JirglStructures;
                         var newNextItem = this.currentItem.next.next;
                         this.currentItem.next.next = undefined;
                         this.currentItem.next = newNextItem;
+                        return itemData;
+                    }
+                };
+                Structure.prototype.removePreviousItem = function () {
+                    var previousItem = this.findPrevious(this.currentItem);
+                    if (!previousItem)
+                        return undefined;
+                    if (!this.currentItem) {
+                        return undefined;
+                    }
+                    else if (previousItem === this.firstItem) {
+                        return this.removeFirstItem();
+                    }
+                    else {
+                        var itemData = previousItem.data;
+                        var newPreviousItem = this.findPrevious(previousItem);
+                        newPreviousItem.next = this.currentItem;
+                        previousItem.next = undefined;
                         return itemData;
                     }
                 };

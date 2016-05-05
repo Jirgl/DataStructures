@@ -16,7 +16,7 @@ var JirglStructures;
                     return this.list.isEmpty();
                 };
                 Structure.prototype.push = function (t) {
-                    this.list.addFirstItem(t);
+                    this.list.addFirstItem(undefined, t);
                 };
                 Structure.prototype.pop = function () {
                     return this.list.removeFirstItem();

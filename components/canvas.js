@@ -14,7 +14,7 @@ var JirglStructures;
                 var position = ctx.data.grid.getPosition();
                 var previousPosition = ctx.data.grid.getPositionOfPreviousItem();
                 children.push(JirglStructures.item({
-                    content: guiItem.getContent(),
+                    content: guiItem.key,
                     x: position.x,
                     y: position.y,
                     isCurrent: guiItem.isCurrent

@@ -2,10 +2,10 @@
 
 module JirglStructures.Lists.Queue {
     export class Structure<T> implements IIterable<T> {
-        protected list: DoublyLinkedList.Structure<T>;
+        protected list: DoublyLinkedList.Structure<T, T>;
 
         constructor() {
-            this.list = new DoublyLinkedList.Structure<T>();
+            this.list = new DoublyLinkedList.Structure<T, T>();
         }
 
         clear(): void {
@@ -17,7 +17,7 @@ module JirglStructures.Lists.Queue {
         }
 
         enqueue(t: T): void {
-            this.list.addLastItem(t);
+            this.list.addLastItem(undefined, t);
         }
 
         dequeue(): T {
