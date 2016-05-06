@@ -37,14 +37,15 @@ let canvasComponent: b.IBobrilComponent = {
             }));
 
             if (previousPosition) {
-                let itemArrows = ctx.data.grid.getArrowsPositions(previousPosition, position);
-                for (let index = 0; index < itemArrows.length; index++) {
-                    arrows.push(arrow(itemArrows[index].start.x,
-                        itemArrows[index].start.y,
-                        itemArrows[index].end.x,
-                        itemArrows[index].end.y,
-                        ctx.data.grid.getArrowType()));
-                }
+                ctx.data.grid.getArrowsPositions(previousPosition, position)
+                    .forEach((item) => {
+                        arrow(item.start.x,
+                            item.start.y,
+                            item.end.x,
+                            item.end.y,
+                            ctx.data.grid.getArrowType()
+                        ).forEach((path) => arrows.push(path));
+                    })
             }
 
             let currentHeight = position.y + itemProps.height + (2 * itemProps.margin);
@@ -53,11 +54,15 @@ let canvasComponent: b.IBobrilComponent = {
             }
         }
 
-        /*children.push({
-            component: b.vg,
-            data: { width: ctx.data.grid.getWidth(), height: maxHeight, zIndex: 100 },
+        children.push({
+            tag: 'svg',
+            style: {
+                width: ctx.data.grid.getWidth(),
+                height: maxHeight,
+                zIndex: 100
+            },
             children: arrows
-        });*/
+        });
 
         me.tag = 'div';
         me.style = {

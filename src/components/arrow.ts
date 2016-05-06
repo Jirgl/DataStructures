@@ -1,3 +1,5 @@
+import * as b from 'bobril';
+
 export enum ArrowType {
     DirectOneWay,
     DirectTwoWay,
@@ -9,7 +11,7 @@ let arrowLength = 10;
 let itemBorder = 20;
 let arrowAngle = 30;
 
-function getArrowhead(startX: number, startY: number, endX: number, endY: number): any {
+function getArrowhead(startX: number, startY: number, endX: number, endY: number): string {
     let currentAngle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
     let angle = currentAngle + arrowAngle;
     let arrowStartX = Math.round(arrowLength * Math.cos(angle * Math.PI / 180));
@@ -23,26 +25,27 @@ function getArrowhead(startX: number, startY: number, endX: number, endY: number
         'M', startX + arrowStartX, startY + arrowStartY,
         'L', startX, startY,
         'L', startX + arrowEndX, startY + arrowEndY
-    ];
+    ].join(' ');
 }
 
-function getDirectLine(startX: number, startY: number, endX: number, endY: number): any {
+function getDirectLine(startX: number, startY: number, endX: number, endY: number): string {
     return [
         'M', startX, startY,
         'L', endX, endY
-    ];
+    ].join(' ');
 }
 
-function getSchemaLine(startX: number, startY: number, endX: number, endY: number): any {
+function getSchemaLine(startX: number, startY: number, endX: number, endY: number): string {
+    let elements;
     if (startX < endX) {
-        return [
+        elements = [
             'M', startX, startY,
             'L', startX + ((endX - startX) / 2), startY,
             'L', startX + ((endX - startX) / 2), startY + (endY - startY),
             'L', endX, endY
         ];
     } else {
-        return [
+        elements = [
             'M', startX, startY,
             'L', startX + itemBorder, startY,
             'L', startX + itemBorder, startY + ((endY - startY) / 2),
@@ -51,9 +54,11 @@ function getSchemaLine(startX: number, startY: number, endX: number, endY: numbe
             'L', endX, endY
         ];
     }
+
+    return elements.join(' ');
 }
 
-export function create(startX: number, startY: number, endX: number, endY: number, type: ArrowType): any {
+export function create(startX: number, startY: number, endX: number, endY: number, type: ArrowType): b.IBobrilNode[] {
     let endForArrowX = endX;
     let endForArrowY = endY;
     let startForOppositeArrowX = startX;
@@ -69,26 +74,20 @@ export function create(startX: number, startY: number, endX: number, endY: numbe
         }
     }
 
-    let arrowPaths = getArrowhead(startX, startY, endForArrowX, endForArrowY);
-    if (type === ArrowType.SchemaTwoWay || type === ArrowType.DirectTwoWay) {
-        let arrowPath = getArrowhead(endX, endY, startForOppositeArrowX, startForOppositeArrowY);
-        for (let i = 0; i < arrowPath.length; i++) {
-            arrowPaths.push(arrowPath[i]);
-        }
-    }
-
     return [
         {
-            data: {
-                path: (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay)
+            tag: 'path',
+            attrs: {
+                d: (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay)
                     ? getSchemaLine(startX, startY, endX, endY)
                     : getDirectLine(startX, startY, endX, endY),
                 stroke: '#000000',
                 strokeWidth: 2
             }
         }, {
-            data: {
-                path: arrowPaths,
+            tag: 'path',
+            attrs: {
+                d: getArrowhead(endX, endY, startForOppositeArrowX, startForOppositeArrowY),
                 stroke: '#000000',
                 strokeWidth: 2,
                 lineJoin: 'miter'
