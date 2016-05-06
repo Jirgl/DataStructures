@@ -1,7 +1,7 @@
 import * as b from 'bobril';
 import { ArrowType } from '../../components/arrow';
 import { itemProps } from '../../components/item';
-import { IGrid, ArrowPosition, Position } from '../grid';
+import { IGrid, ArrowPosition, Position } from '../../components/grid';
 import { ListIterator } from './graphicalEnricher/listIterator';
 
 export class ListGrid implements IGrid {

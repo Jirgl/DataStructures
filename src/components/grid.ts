@@ -1,4 +1,4 @@
-import { ArrowType } from '../components/arrow';
+import { ArrowType } from './arrow';
 
 export class Position {
     x: number;
