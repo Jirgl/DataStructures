@@ -65,5 +65,5 @@ b.routes(b.route({ handler: pageComposition }, [
     b.route({ name: 'lists', url: '/lists', handler: listsPage }),
     b.route({ name: 'trees', url: '/trees', handler: treesPage }),
     b.route({ name: 'heaps', url: '/heaps', handler: heapsPage }),
-    b.routeDefault({ handler: treesPage })
+    b.routeDefault({ handler: listsPage })
 ]));
