@@ -19,7 +19,7 @@ interface IHeaderCtx extends b.IBobrilCtx {
 function toSize(type: HeaderType): number {
     switch (type) {
         case HeaderType.AppHeader:
-            return 40;
+            return 52;
         default:
             return 26;
     }
@@ -30,9 +30,8 @@ function toStyle(type: HeaderType): any {
     switch (type) {
         case HeaderType.AppHeader:
             style.fontSize = toSize(type);
-            style.fontFamily = font.baseFontFamily;
-            style.fontWeight = 'bold';
-            style.color = color.lightForeground;
+            style.fontFamily = font.lightFontFamily;
+            style.color = color.darkForeground;
             break;
         default:
             style.fontSize = toSize(type);
