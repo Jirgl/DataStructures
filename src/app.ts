@@ -7,33 +7,39 @@ import { queue } from './views/lists/queue';
 import { stack } from './views/lists/stack';
 import { binaryTree } from './views/trees/binaryTree';
 
+//TODO temp solution
+let commingSoon = {
+    tag: 'div',
+    style: {
+        color: '#E1E1E1',
+        fontFamily: 'Segoe UI Light',
+        fontSize: 24
+    },
+    children: 'comming soon...'
+}
+
 let listsPage: b.IBobrilComponent = {
     render(ctx: b.IBobrilCtx, me: b.IBobrilNode) {
         me.tag = 'div';
         me.children = [
             dataStructureComposition({
                 title: 'Arrays',
-                description: '',
-                content: undefined
+                content: commingSoon
             }),
             dataStructureComposition({
                 title: 'Linked lists',
-                description: '',
-                content: undefined
+                content: commingSoon
             }),
             dataStructureComposition({
                 title: 'Doubly linked list',
-                description: '',
                 content: doublyLinkedList({})
             }),
             dataStructureComposition({
                 title: 'Queue',
-                description: '',
                 content: queue({})
             }),
             dataStructureComposition({
                 title: 'Stack',
-                description: '',
                 content: stack({})
             })
         ];

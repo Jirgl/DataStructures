@@ -2,6 +2,7 @@ import * as b from 'bobril';
 import { ArrowType } from '../../components/arrow';
 import { itemProps } from '../../components/item';
 import { IGrid, ArrowPosition, Position } from '../../components/grid';
+import { PagePadding } from '../../compositions/page';
 import { ListIterator } from './graphicalEnricher/listIterator';
 
 export class ListGrid implements IGrid {
@@ -51,8 +52,6 @@ export class ListGrid implements IGrid {
     }
 
     getWidth(): number {
-        const contentWidth = b.getMedia().width;// - (PageLayout.sidePadding * 2);
-        const sizeOfLeftContent = 100;//DataStructureLayout.leftContentWidth / 100;
-        return contentWidth * sizeOfLeftContent - 25;
+        return b.getMedia().width - (PagePadding * 2) - 50;
     }
 }

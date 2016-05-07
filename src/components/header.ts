@@ -20,6 +20,8 @@ function toSize(type: HeaderType): number {
     switch (type) {
         case HeaderType.AppHeader:
             return 52;
+        case HeaderType.TopicHeader:
+            return 28;
         default:
             return 26;
     }
@@ -35,7 +37,7 @@ function toStyle(type: HeaderType): any {
             break;
         default:
             style.fontSize = toSize(type);
-            style.fontFamily = font.baseFontFamily;
+            style.fontFamily = font.lightFontFamily;
             style.color = color.darkForeground;
     }
 

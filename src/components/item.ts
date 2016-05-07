@@ -24,7 +24,7 @@ let itemComponent: b.IBobrilComponent = {
         me.tag = 'div';
         me.style = {
             color: color.lightForeground,
-            background: ctx.data.isCurrent ? color.majorColor : color.darkBackground,
+            background: ctx.data.isCurrent ? color.primaryColor : color.darkBackground,
             width: itemProps.width,
             height: itemProps.height,
             position: 'absolute',

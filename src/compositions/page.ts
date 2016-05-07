@@ -3,6 +3,8 @@ import { color } from '../constants';
 import { create as header, HeaderType } from '../components/header';
 import { create as navItem } from '../components/navItem';
 
+export const PagePadding = 100;
+
 export interface IPageCompositionData {
     headerContent: string;
 }
@@ -11,7 +13,7 @@ interface IPageCompositionCtx extends b.IBobrilCtx {
     data: IPageCompositionData;
 }
 
-var createNavItem = (content: string, routeName: string): b.IBobrilNode => {
+function createNavItem(content: string, routeName: string): b.IBobrilNode {
     let isActive;
     if (b.getActiveRoutes()[0].name === 'root' && routeName === 'lists') {
         isActive = true;
@@ -28,14 +30,14 @@ var createNavItem = (content: string, routeName: string): b.IBobrilNode => {
     });
 };
 
-var createNavigation = (): b.IBobrilNode => {
+function createNavigation(): b.IBobrilNode {
     return {
         tag: 'nav',
         children: {
             tag: 'div',
             style: {
                 paddingTop: 5,
-                paddingBottom: 20
+                paddingBottom: 40
             },
             children: [
                 createNavItem('Lists', 'lists'),
@@ -49,7 +51,7 @@ var createNavigation = (): b.IBobrilNode => {
 let pageComposition: b.IBobrilComponent = {
     render(ctx: IPageCompositionCtx, me: b.IBobrilNode) {
         me.tag = 'div';
-        me.style = { paddingLeft: 100, paddingRight: 100 };
+        me.style = { paddingLeft: PagePadding, paddingRight: PagePadding };
         me.children = [
             header({ content: 'Data Structures', type: HeaderType.AppHeader }),
             createNavigation(),
