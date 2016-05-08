@@ -1,4 +1,5 @@
 import * as b from 'bobril';
+import { color } from '../constants';
 
 export enum ArrowType {
     DirectOneWay,
@@ -81,16 +82,15 @@ export function create(startX: number, startY: number, endX: number, endY: numbe
                 d: (type === ArrowType.SchemaOneWay || type === ArrowType.SchemaTwoWay)
                     ? getSchemaLine(startX, startY, endX, endY)
                     : getDirectLine(startX, startY, endX, endY),
-                stroke: '#000000',
-                strokeWidth: 2
+                stroke: color.grayBackground,
+                fill: 'none'
             }
         }, {
             tag: 'path',
             attrs: {
                 d: getArrowhead(endX, endY, startForOppositeArrowX, startForOppositeArrowY),
-                stroke: '#000000',
-                strokeWidth: 2,
-                lineJoin: 'miter'
+                stroke: color.grayBackground,
+                fill: 'none'
             }
         }
     ];
