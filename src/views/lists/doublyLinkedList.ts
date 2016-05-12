@@ -50,6 +50,7 @@ let doublyLinkedListComponent: b.IBobrilComponent = {
                     value: ctx.value,
                     onChange: (value: string) => {
                         ctx.value = value;
+                        b.invalidate();
                     },
                     disabled: ctx.action === 'remove',
                     labelText: 'content'
