@@ -1,9 +1,8 @@
 ﻿import * as b from 'bobril';
-import { create as button } from '../../components/button';
+import * as m from 'bobril-m';
 import { create as canvas } from '../../components/canvas';
 import { create as combobox } from '../../components/combobox';
 import { create as controlPanel } from '../../components/controlPanel';
-import { create as textbox } from '../../components/textbox';
 import { Structure as Stack } from './graphicalEnricher/stack';
 import { ListGrid } from './listGrid';
 
@@ -34,15 +33,19 @@ let queueComponent: b.IBobrilComponent = {
                         ctx.action = value;
                     }
                 }),
-                valueBox: textbox({
+                valueBox: m.TextField({
+                    value: ctx.value,
                     onChange: (value: string) => {
                         ctx.value = value;
                     },
-                    isDisabled: ctx.action === 'pop'
+                    disabled: ctx.action === 'pop',
+                    labelText: 'content'
                 }),
-                submitButton: button({
-                    content: 'Execute',
-                    onClick: () => {
+                submitButton: m.Button({
+                    type: m.ButtonType.Raised,
+                    feature: m.Feature.Secondary,
+                    children: 'execute',
+                    action: () => {
                         if (ctx.action === 'push') {
                             ctx.stack.push(ctx.value);
                         } else if (ctx.action === 'pop') {

@@ -1,8 +1,7 @@
 ﻿import * as b from 'bobril';
-import { create as button } from '../../components/button';
+import * as m from 'bobril-m';
 import { create as canvas } from '../../components/canvas';
 import { create as controlPanel } from '../../components/controlPanel';
-import { create as textbox } from '../../components/textbox';
 import { create as combobox } from '../../components/combobox';
 import { Structure as BinaryTree } from './graphicalEnricher/binaryTree';
 import { TreeGrid } from './treeGrid';
@@ -58,15 +57,19 @@ let binaryTreeComponent: b.IBobrilComponent = {
                         ctx.option = value;
                     }
                 }),
-                valueBox: textbox({
+                valueBox: m.TextField({
+                    value: ctx.value,
                     onChange: (value: string) => {
-                        ctx.value = value;
+                        ctx.value = ctx.value;
                     },
-                    isDisabled: ctx.action === 'remove' || ctx.action === 'get'
+                    disabled: ctx.action === 'remove' || ctx.action === 'get',
+                    labelText: 'content'
                 }),
-                submitButton: button({
-                    content: 'Execute',
-                    onClick: () => {
+                submitButton: m.Button({
+                    type: m.ButtonType.Raised,
+                    feature: m.Feature.Secondary,
+                    children: 'execute',
+                    action: () => {
                         if (ctx.action === 'add') {
                             if (ctx.option === 'root') {
                                 ctx.binaryTree.addRoot(ctx.value);

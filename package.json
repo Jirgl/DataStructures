@@ -12,6 +12,7 @@
   "author": "Jakub Jirgl",
   "license": "",
   "dependencies": {
-    "bobril": "*"
+    "bobril": "*",
+    "bobril-m": "*"
   }
 }
