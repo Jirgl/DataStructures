@@ -1,7 +1,7 @@
 ﻿import * as b from 'bobril';
 import * as m from 'bobril-m';
 import { create as canvas } from '../../components/canvas';
-import { create as controlPanel } from '../../components/controlPanel';
+import { create as controlPanel } from '../../compositions/controlPanel';
 import { create as combobox } from '../../components/combobox';
 import { Structure as BinaryTree } from './graphicalEnricher/binaryTree';
 import { TreeGrid } from './treeGrid';
@@ -60,7 +60,7 @@ let binaryTreeComponent: b.IBobrilComponent = {
                 valueBox: m.TextField({
                     value: ctx.value,
                     onChange: (value: string) => {
-                        ctx.value = ctx.value;
+                        ctx.value = value;
                     },
                     disabled: ctx.action === 'remove' || ctx.action === 'get',
                     labelText: 'content'

@@ -2,7 +2,7 @@
 import * as m from 'bobril-m';
 import { create as canvas } from '../../components/canvas';
 import { create as combobox } from '../../components/combobox';
-import { create as controlPanel } from '../../components/controlPanel';
+import { create as controlPanel } from '../../compositions/controlPanel';
 import { Structure as Stack } from './graphicalEnricher/stack';
 import { ListGrid } from './listGrid';
 
