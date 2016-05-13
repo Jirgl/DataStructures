@@ -1,4 +1,5 @@
 import * as b from 'bobril';
+import * as m from 'bobril-m';
 import { color } from '../constants';
 
 export module itemProps {
@@ -19,20 +20,33 @@ interface IItemCtx extends b.IBobrilCtx {
     data: IItemData;
 }
 
+function getContentNode(content: string): b.IBobrilNode {
+    return {
+        tag: 'div',
+        style: {
+            textAlign: 'center',
+            paddingTop: 30
+        },
+        children: content
+    };
+}
+
 let itemComponent: b.IBobrilComponent = {
     render(ctx: IItemCtx, me: b.IBobrilNode) {
         me.tag = 'div';
-        me.style = {
-            color: color.lightForeground,
-            background: ctx.data.isCurrent ? color.primaryColor : color.darkBackground,
-            width: itemProps.width,
-            height: itemProps.height,
-            position: 'absolute',
-            left: ctx.data.x,
-            top: ctx.data.y,
-            margin: itemProps.margin
-        };
-        me.children = ctx.data.content;
+
+        me.children = m.Paper({
+            zDepth: 2, style: {
+                width: itemProps.width,
+                height: itemProps.height,
+                position: 'absolute', left:
+                ctx.data.x,
+                top: ctx.data.y,
+                color: ctx.data.isCurrent ? m.white : m.grey600,
+                background: ctx.data.isCurrent ? m.primary1Color : m.transparent,
+                margin: itemProps.margin
+            }
+        }, getContentNode(ctx.data.content));
     }
 }
 
