@@ -1,6 +1,7 @@
 ﻿import * as b from 'bobril';
 import * as m from 'bobril-m';
 import { create as canvas } from '../../components/canvas';
+import { create as textfield } from '../../components/textfield';
 import { create as combobox } from '../../components/combobox';
 import { create as controlPanel } from '../../compositions/controlPanel';
 import { Structure as LinkedList } from './graphicalEnricher/linkedList';
@@ -46,14 +47,10 @@ let linkedListComponent: b.IBobrilComponent = {
                         ctx.option = value;
                     }
                 }),
-                valueBox: m.TextField({
-                    value: ctx.value,
-                    onChange: (value: string) => {
-                        ctx.value = value;
-                        b.invalidate();
-                    },
-                    disabled: ctx.action === 'remove',
-                    labelText: 'content'
+                valueBox: textfield({
+                    isDisabled: ctx.action === 'remove',
+                    onChange: (value) => { ctx.value = value; },
+                    maxLength: 5
                 }),
                 submitButton: m.Button({
                     type: m.ButtonType.Raised,

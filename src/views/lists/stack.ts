@@ -2,6 +2,7 @@
 import * as m from 'bobril-m';
 import { create as canvas } from '../../components/canvas';
 import { create as combobox } from '../../components/combobox';
+import { create as textfield } from '../../components/textfield';
 import { create as controlPanel } from '../../compositions/controlPanel';
 import { Structure as Stack } from './graphicalEnricher/stack';
 import { ListGrid } from './listGrid';
@@ -33,14 +34,10 @@ let queueComponent: b.IBobrilComponent = {
                         ctx.action = value;
                     }
                 }),
-                valueBox: m.TextField({
-                    value: ctx.value,
-                    onChange: (value: string) => {
-                        ctx.value = value;
-                        b.invalidate();
-                    },
-                    disabled: ctx.action === 'pop',
-                    labelText: 'content'
+                valueBox: textfield({
+                    isDisabled: ctx.action === 'pop',
+                    onChange: (value) => { ctx.value = value; },
+                    maxLength: 5
                 }),
                 submitButton: m.Button({
                     type: m.ButtonType.Raised,
