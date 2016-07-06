@@ -7,12 +7,14 @@ export interface INavItemData {
     routeParamName: string;
 }
 
-interface INavItemCtx extends b.IBobrilCtx {
-    data: INavItemData;
-}
+const rootStyle = {
+    paddingLeft: 4,
+    paddingRight: 50,
+    display: 'inline-block'
+};
 
-let toStyle = (isActive: boolean): any => {
-    const style: any = {
+function getStyle(isActive: boolean): Object {
+    const style = {
         fontFamily: font.lightFontFamily,
         color: color.grayForeground,
         textAlign: 'center',
@@ -25,22 +27,14 @@ let toStyle = (isActive: boolean): any => {
     return style;
 }
 
-let navItemComponent: b.IBobrilComponent = {
-    render(ctx: INavItemCtx, me: b.IBobrilNode) {
-        me.tag = 'div';
-        me.style = {
-            paddingLeft: 4,
-            paddingRight: 50,
-            display: "inline-block"
-        };
-        me.children = b.link({
-            tag: 'div',
-            style: toStyle(ctx.data.isActive),
-            children: ctx.data.content
-        }, ctx.data.routeParamName);
-    }
-}
-
 export function create(data: INavItemData): b.IBobrilNode {
-    return { component: navItemComponent, data: data };
+    return {
+        tag: 'div',
+        style: rootStyle,
+        children: b.link({
+            tag: 'div',
+            style: getStyle(data.isActive),
+            children: data.content
+        }, data.routeParamName)
+    };
 }
