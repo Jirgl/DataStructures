@@ -1,7 +1,6 @@
 ﻿import * as b from 'bobril';
 import * as m from 'bobril-m';
 import { create as canvas } from '../../components/canvas';
-import { create as combobox } from '../../components/combobox';
 import { create as textfield } from '../../components/textfield';
 import { create as controlPanel } from '../../compositions/controlPanel';
 import { Structure as Stack } from './graphicalEnricher/stack';
@@ -26,39 +25,10 @@ let queueComponent: b.IBobrilComponent = {
     },
     render(ctx: IStackCtx, me: b.IBobrilNode): void {
         const iterator = ctx.stack.getIterator();
-        me.children = [
-            controlPanel({
-                actions: combobox({
-                    options: ['push', 'pop'],
-                    onChange: (value: string) => {
-                        ctx.action = value;
-                    }
-                }),
-                valueBox: textfield({
-                    isDisabled: ctx.action === 'pop',
-                    onChange: (value) => { ctx.value = value; },
-                    maxLength: 5
-                }),
-                submitButton: m.Button({
-                    type: m.ButtonType.Raised,
-                    feature: m.Feature.Secondary,
-                    children: 'execute',
-                    action: () => {
-                        if (ctx.action === 'push') {
-                            ctx.stack.push(ctx.value);
-                        } else if (ctx.action === 'pop') {
-                            ctx.stack.pop();
-                        }
-
-                        b.invalidate(ctx);
-                    }
-                })
-            }),
-            canvas({
-                contentIterator: iterator,
-                grid: new ListGrid(iterator)
-            })
-        ];
+        me.children = canvas({
+            contentIterator: iterator,
+            grid: new ListGrid(iterator)
+        });
     }
 }
 

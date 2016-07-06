@@ -2,7 +2,6 @@
 import * as m from 'bobril-m';
 import { create as canvas } from '../../components/canvas';
 import { create as controlPanel } from '../../compositions/controlPanel';
-import { create as combobox } from '../../components/combobox';
 import { create as textfield } from '../../components/textfield';
 import { Structure as BinaryTree } from './graphicalEnricher/binaryTree';
 import { TreeGrid } from './treeGrid';
@@ -37,76 +36,16 @@ let binaryTreeComponent: b.IBobrilComponent = {
     },
     render(ctx: IBinaryTreeCtx, me: b.IBobrilNode): void {
         let iterator = ctx.binaryTree.getIterator();
-        let options = ['root', 'left child', 'right child'];
 
-        if (ctx.action === 'get') {
+        /*if (ctx.action === 'get') {
             options.push('parent');
             options.push('current');
-        }
+        }*/
 
-        me.children = [
-            controlPanel({
-                actions: combobox({
-                    options: ['add', 'get', 'remove'],
-                    onChange: (value: string) => {
-                        ctx.action = value;
-                    }
-                }),
-                options: combobox({
-                    options: options,
-                    onChange: (value: string) => {
-                        ctx.option = value;
-                    }
-                }),
-                valueBox: textfield({
-                    isDisabled: ctx.action === 'remove' || ctx.action === 'get',
-                    onChange: (value) => { ctx.value = value; },
-                    maxLength: 5
-                }),
-                submitButton: m.Button({
-                    type: m.ButtonType.Raised,
-                    feature: m.Feature.Secondary,
-                    children: 'execute',
-                    action: () => {
-                        if (ctx.action === 'add') {
-                            if (ctx.option === 'root') {
-                                ctx.binaryTree.addRoot(ctx.value);
-                            } else if (ctx.option === 'left child') {
-                                ctx.binaryTree.addLeftChild(ctx.value);
-                            } else if (ctx.option === 'right child') {
-                                ctx.binaryTree.addRightChild(ctx.value);
-                            }
-                        } else if (ctx.action === 'get') {
-                            if (ctx.option === 'root') {
-                                ctx.binaryTree.getRoot();
-                            } else if (ctx.option === 'left child') {
-                                ctx.binaryTree.getLeftChild();
-                            } else if (ctx.option === 'right child') {
-                                ctx.binaryTree.getRightChild();
-                            } else if (ctx.option === 'parent') {
-                                ctx.binaryTree.getParent();
-                            } else if (ctx.option === 'current') {
-                                ctx.binaryTree.getCurrentNode();
-                            }
-                        } else if (ctx.action === 'remove') {
-                            if (ctx.option === 'root') {
-                                ctx.binaryTree.removeRoot();
-                            } else if (ctx.option === 'left child') {
-                                ctx.binaryTree.removeLeftChild();
-                            } else if (ctx.option === 'right child') {
-                                ctx.binaryTree.removeRightChild();
-                            }
-                        }
-
-                        b.invalidate(ctx);
-                    }
-                })
-            }),
-            canvas({
-                contentIterator: iterator,
-                grid: new TreeGrid(ctx.binaryTree.getDepth(), iterator)
-            })
-        ];
+        me.children = canvas({
+            contentIterator: iterator,
+            grid: new TreeGrid(ctx.binaryTree.getDepth(), iterator)
+        });
     }
 }
 

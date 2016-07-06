@@ -8,44 +8,23 @@ export interface IControlPanelData {
     submitButton: b.IBobrilNode;
 }
 
-function getBlock(children: b.IBobrilNode, left: number, bottom: number = 0): b.IBobrilNode {
+function getBlock(children: b.IBobrilNode): b.IBobrilNode {
     return {
         tag: 'div',
-        style: {
-            display: 'inline-block',
-            position: 'absolute',
-            paddingLeft: 10,
-            paddingRight: 10,
-            bottom: bottom,
-            left: left
-        },
+        style: { flex: 1 },
         children: children
     };
-}
-
-function getLine(): b.IBobrilNode {
-    return {
-        tag: 'div',
-        style: {
-            height: 1,
-            backgroundImage: '-webkit-gradient(linear, 0 0, 80% 0, from(' + m.primary1Color() + '), to(' + m.transparent + '))',
-        }
-    }
 }
 
 export function create(data: IControlPanelData): b.IBobrilNode {
     return {
         tag: 'div',
-        style: {
-            position: 'relative',
-            height: 80
-        },
+        style: { display: 'flex', alignItems: 'center' },
         children: [
-            getLine(),
-            getBlock(data.actions, 0, 10),
-            getBlock(data.options, 90, 10),
-            getBlock(data.valueBox, 200),
-            getBlock(data.submitButton, 420, 2)
+            getBlock(data.actions),
+            getBlock(data.options),
+            getBlock(data.valueBox),
+            getBlock(data.submitButton)
         ]
     };
 }

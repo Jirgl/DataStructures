@@ -1,9 +1,6 @@
 ﻿import * as b from 'bobril';
 import * as m from 'bobril-m';
 import { create as canvas } from '../../components/canvas';
-import { create as combobox } from '../../components/combobox';
-import { create as textfield } from '../../components/textfield';
-import { create as controlPanel } from '../../compositions/controlPanel';
 import { Structure as DoublyLinkedList } from './graphicalEnricher/doublyLinkedList';
 import { ListGrid } from './listGrid';
 
@@ -28,63 +25,12 @@ let doublyLinkedListComponent: b.IBobrilComponent = {
     },
     render(ctx: IDoublyLinkedListCtx, me: b.IBobrilNode): void {
         const iterator = ctx.doublyLinkedList.getIterator();
-        const options = ['first', 'predecessor', 'successor', 'last'];
-        if (ctx.action === 'remove') {
+        /*if (ctx.action === 'remove') {
             options.push('current');
-        }
+        }*/
 
         me.children = [
-            controlPanel({
-                actions: combobox({
-                    options: ['add', 'remove'],
-                    onChange: (value: string) => {
-                        ctx.action = value;
-                    }
-                }),
-                options: combobox({
-                    options: options,
-                    onChange: (value: string) => {
-                        ctx.option = value;
-                    }
-                }),
-                valueBox: textfield({
-                    isDisabled: ctx.action === 'remove',
-                    onChange: (value) => { ctx.value = value; },
-                    maxLength: 5
-                }),
-                submitButton: m.Button({
-                    type: m.ButtonType.Raised,
-                    feature: m.Feature.Secondary,
-                    children: 'execute',
-                    action: () => {
-                        if (ctx.action === 'add') {
-                            if (ctx.option === 'first') {
-                                ctx.doublyLinkedList.addFirstItem(ctx.value);
-                            } else if (ctx.option === 'predecessor') {
-                                ctx.doublyLinkedList.addPreviousItem(ctx.value);
-                            } else if (ctx.option === 'successor') {
-                                ctx.doublyLinkedList.addNextItem(ctx.value);
-                            } else if (ctx.option === 'last') {
-                                ctx.doublyLinkedList.addLastItem(ctx.value);
-                            }
-                        } else if (ctx.action === 'remove') {
-                            if (ctx.option === 'first') {
-                                ctx.doublyLinkedList.removeFirstItem();
-                            } else if (ctx.option === 'predecessor') {
-                                ctx.doublyLinkedList.removePreviousItem();
-                            } else if (ctx.option === 'current') {
-                                ctx.doublyLinkedList.removeCurrentItem();
-                            } else if (ctx.option === 'successor') {
-                                ctx.doublyLinkedList.removeNextItem();
-                            } else if (ctx.option === 'last') {
-                                ctx.doublyLinkedList.removeLastItem();
-                            }
-                        }
-
-                        b.invalidate(ctx);
-                    }
-                })
-            }),
+            ,
             canvas({
                 contentIterator: iterator,
                 grid: new ListGrid(iterator)
