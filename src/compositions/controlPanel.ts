@@ -9,22 +9,14 @@ export interface IControlPanelData {
 }
 
 function getBlock(children: b.IBobrilNode): b.IBobrilNode {
-    return {
-        tag: 'div',
-        style: { flex: 1 },
-        children: children
-    };
+    return b.styledDiv(children, { flex: 1 });
 }
 
 export function create(data: IControlPanelData): b.IBobrilNode {
-    return {
-        tag: 'div',
-        style: { display: 'flex', alignItems: 'center' },
-        children: [
-            getBlock(data.actions),
-            getBlock(data.options),
-            getBlock(data.valueBox),
-            getBlock(data.submitButton)
-        ]
-    };
+    return b.styledDiv([
+        getBlock(data.actions),
+        getBlock(data.options),
+        getBlock(data.valueBox),
+        getBlock(data.submitButton)
+    ], { display: 'flex', alignItems: 'center' });
 }

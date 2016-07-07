@@ -21,26 +21,18 @@ interface IItemCtx extends b.IBobrilCtx {
 }
 
 function getContentNode(content: string): b.IBobrilNode {
-    return {
-        tag: 'div',
-        style: {
-            textAlign: 'center',
-            paddingTop: 30
-        },
-        children: content
-    };
+    return b.styledDiv(content, { textAlign: 'center', paddingTop: 30 });
 }
 
 let itemComponent: b.IBobrilComponent = {
     render(ctx: IItemCtx, me: b.IBobrilNode) {
         me.tag = 'div';
-
         me.children = m.Paper({
             zDepth: 2, style: {
                 width: itemProps.width,
                 height: itemProps.height,
-                position: 'absolute', left:
-                ctx.data.x,
+                position: 'absolute',
+                left: ctx.data.x,
                 top: ctx.data.y,
                 color: ctx.data.isCurrent ? m.white : m.grey600,
                 background: ctx.data.isCurrent ? m.primary1Color : m.transparent,

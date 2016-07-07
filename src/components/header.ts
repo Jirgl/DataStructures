@@ -32,9 +32,5 @@ function getStyle(type: HeaderType): Object {
 }
 
 export function create(data: IHeaderData): b.IBobrilNode {
-    return {
-        tag: 'div',
-        style: getStyle(data.type),
-        children: data.content
-    };
+    return b.styledDiv(data.content, getStyle(data.type));
 }

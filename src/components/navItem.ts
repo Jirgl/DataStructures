@@ -31,10 +31,6 @@ export function create(data: INavItemData): b.IBobrilNode {
     return {
         tag: 'div',
         style: rootStyle,
-        children: b.link({
-            tag: 'div',
-            style: getStyle(data.isActive),
-            children: data.content
-        }, data.routeParamName)
+        children: b.link(b.styledDiv(data.content, getStyle(data.isActive)), data.routeParamName)
     };
 }
