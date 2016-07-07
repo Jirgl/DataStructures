@@ -12,6 +12,7 @@
   "author": "Jakub Jirgl",
   "license": "",
   "dependencies": {
+    "bobflux": "^4.4.1",
     "bobril": "*",
     "bobril-m": "*"
   }

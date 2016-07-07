@@ -9,8 +9,8 @@ export interface IDataStructureCompositionData {
     content: b.IBobrilNode;
     actions: string[];
     onActionChange: (number) => number;
-    options?: string[];
-    onOptionChange?: (number) => number;
+    parameters?: { title: string; index: number }[];
+    onParameterChange?: (number) => number;
     isValueDisabled: boolean;
     onValueChange: (string) => void;
     onExecuteClick: () => void;
@@ -34,8 +34,8 @@ function createLayout(data: IDataStructureCompositionData): b.IBobrilNode[] {
             actions: data.actions && m.RadioButtonGroup({ value: data.onActionChange, unselectedValue: -1 },
                 data.actions.map((action, index) => { return m.RadioButton({ value: index }, action); })
             ),
-            options: data.options && m.RadioButtonGroup({ value: data.onOptionChange, unselectedValue: -1 },
-                data.options.map((option, index) => { return m.RadioButton({ value: index }, option); })
+            options: data.parameters && m.RadioButtonGroup({ value: data.onParameterChange, unselectedValue: -1 },
+                data.parameters.map((option) => { return m.RadioButton({ value: option.index }, option.title); })
             ),
             valueBox: textfield({
                 isDisabled: data.isValueDisabled,
