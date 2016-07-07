@@ -17,13 +17,10 @@ export interface IDataStructureCompositionData {
 }
 
 function getLine(): b.IBobrilNode {
-    return {
-        tag: 'div',
-        style: {
-            height: 1,
-            backgroundImage: '-webkit-gradient(linear, 0 0, 80% 0, from(' + m.primary1Color() + '), to(' + m.transparent + '))',
-        }
-    }
+    return b.styledDiv(undefined, {
+        height: 1,
+        backgroundImage: '-webkit-gradient(linear, 0 0, 80% 0, from(' + m.primary1Color() + '), to(' + m.transparent + '))',
+    });
 }
 
 function createLayout(data: IDataStructureCompositionData): b.IBobrilNode[] {
@@ -54,9 +51,5 @@ function createLayout(data: IDataStructureCompositionData): b.IBobrilNode[] {
 }
 
 export function create(data: IDataStructureCompositionData): b.IBobrilNode {
-    return {
-        tag: 'div',
-        style: { paddingLeft: 4, marginBottom: 50 },
-        children: createLayout(data)
-    };
+    return m.Paper({ zDepth: 2, style: { paddingLeft: 4, marginBottom: 30 } }, createLayout(data));
 }

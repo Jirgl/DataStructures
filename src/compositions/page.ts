@@ -1,4 +1,5 @@
 import * as b from 'bobril';
+import * as m from 'bobril-m';
 import { color } from '../constants';
 import { create as header, HeaderType } from '../components/header';
 import { create as navItem } from '../components/navItem';
@@ -33,29 +34,30 @@ function createNavItem(content: string, routeName: string): b.IBobrilNode {
 function createNavigation(): b.IBobrilNode {
     return {
         tag: 'nav',
-        children: {
-            tag: 'div',
-            style: {
-                paddingTop: 5,
-                paddingBottom: 40
-            },
-            children: [
-                createNavItem('Lists', 'lists'),
-                createNavItem('Trees', 'trees'),
-                createNavItem('Heaps', 'heaps')
-            ]
-        }
+        children: b.styledDiv([
+            createNavItem('Lists', 'lists'),
+            createNavItem('Trees', 'trees'),
+            createNavItem('Heaps', 'heaps')
+        ], { paddingTop: 5, paddingBottom: 10 })
     };
-};
+}
 
 let pageComposition: b.IBobrilComponent = {
     render(ctx: IPageCompositionCtx, me: b.IBobrilNode) {
         me.tag = 'div';
-        me.style = { paddingLeft: PagePadding, paddingRight: PagePadding };
         me.children = [
-            header({ content: 'Data Structures', type: HeaderType.AppHeader }),
-            createNavigation(),
-            me.data.activeRouteHandler()
+            m.Paper({
+                zDepth: 2, style: {
+                    background: m.white,
+                    paddingLeft: PagePadding,
+                    paddingRight: PagePadding,
+                    marginBottom: 30
+                }
+            }, [header({ content: 'Data Structures', type: HeaderType.AppHeader }), createNavigation()]
+            ),
+            b.styledDiv([
+                me.data.activeRouteHandler()
+            ], { paddingLeft: PagePadding, paddingRight: PagePadding })
         ];
     }
 };

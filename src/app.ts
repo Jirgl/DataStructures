@@ -1,4 +1,5 @@
 ﻿import * as b from 'bobril';
+import * as m from 'bobril-m';
 import * as f from 'bobflux';
 import * as s from './state';
 import { create as pageComposition } from './compositions/page';
@@ -56,6 +57,11 @@ let heapsPage: b.IBobrilComponent = {
 }
 
 f.bootstrap(s.createDefaultAppState());
+
+b.selectorStyleDef('body', {
+    margin: 0,
+    backgroundColor: m.grey100
+});
 
 b.routes(b.route({ handler: pageComposition }, [
     b.route({ name: 'lists', url: '/lists', handler: listsPage }),
