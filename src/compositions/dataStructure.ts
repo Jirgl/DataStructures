@@ -39,17 +39,26 @@ function createLayout(data: IDataStructureCompositionData): b.IBobrilNode[] {
                 onChange: data.onValueChange,
                 maxLength: 5
             }),
-            submitButton: m.Button({
+            executeButton: m.Button({
                 type: m.ButtonType.Raised,
                 feature: m.Feature.Secondary,
                 children: 'execute',
                 action: data.onExecuteClick
+            }),
+            iteratorSlider: m.Slider({ value: 10, min: 5, max: 15, step: 1 }),
+            iterateButton: m.Button({
+                type: m.ButtonType.Raised,
+                feature: m.Feature.Default,
+                children: 'iterate',
+                //action: data.onExecuteClick
             })
-        }),
-        data.content
+        })
     ]
 }
 
 export function create(data: IDataStructureCompositionData): b.IBobrilNode {
-    return m.Paper({ zDepth: 2, style: { paddingLeft: 4, marginBottom: 30 } }, createLayout(data));
+    return m.Paper({}, [
+        m.Paper({ zDepth: 2, round: false, style: { padding: 10 } }, createLayout(data)),
+        m.Paper({ zDepth: 2, round: false, style: { marginBottom: 30, background: m.grey100, marginTop: 1 } }, data.content)
+    ]);
 }

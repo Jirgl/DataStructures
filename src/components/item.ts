@@ -35,7 +35,7 @@ let itemComponent: b.IBobrilComponent = {
                 left: ctx.data.x,
                 top: ctx.data.y,
                 color: ctx.data.isCurrent ? m.white : m.grey600,
-                background: ctx.data.isCurrent ? m.primary1Color : m.transparent,
+                background: ctx.data.isCurrent ? m.primary1Color : m.white,
                 margin: itemProps.margin
             }
         }, getContentNode(ctx.data.content));

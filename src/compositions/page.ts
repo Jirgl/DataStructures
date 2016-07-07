@@ -47,7 +47,9 @@ let pageComposition: b.IBobrilComponent = {
         me.tag = 'div';
         me.children = [
             m.Paper({
-                zDepth: 2, style: {
+                zDepth: 2,
+                round: false,
+                style: {
                     background: m.white,
                     paddingLeft: PagePadding,
                     paddingRight: PagePadding,
@@ -57,7 +59,7 @@ let pageComposition: b.IBobrilComponent = {
             ),
             b.styledDiv([
                 me.data.activeRouteHandler()
-            ], { paddingLeft: PagePadding, paddingRight: PagePadding })
+            ], { paddingLeft: PagePadding - 5, paddingRight: PagePadding - 5 })
         ];
     }
 };
