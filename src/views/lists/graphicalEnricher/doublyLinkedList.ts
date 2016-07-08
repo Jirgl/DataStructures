@@ -21,28 +21,28 @@ export class Structure {
     addFirstItem(content: string): void {
         this.doublyLinkedList.addFirstItem(content, {
             content: content,
-            isCurrent: false
+            isHighlighted: false
         });
     }
 
     addLastItem(content: string): void {
         this.doublyLinkedList.addLastItem(content, {
             content: content,
-            isCurrent: false
+            isHighlighted: false
         });
     }
 
     addNextItem(content: string): void {
         this.doublyLinkedList.addNextItem(content, {
             content: content,
-            isCurrent: false
+            isHighlighted: false
         });
     }
 
     addPreviousItem(content: string): void {
         this.doublyLinkedList.addPreviousItem(content, {
             content: content,
-            isCurrent: false
+            isHighlighted: false
         });
     }
 

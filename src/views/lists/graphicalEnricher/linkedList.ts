@@ -19,19 +19,19 @@ export class Structure {
     }
 
     addFirstItem(content: string): void {
-        this.linkedList.addFirstItem(content, { content: content, isCurrent: false });
+        this.linkedList.addFirstItem(content, { content: content, isHighlighted: false });
     }
 
     addLastItem(content: string): void {
-        this.linkedList.addLastItem(content, { content: content, isCurrent: false });
+        this.linkedList.addLastItem(content, { content: content, isHighlighted: false });
     }
 
     addNextItem(content: string): void {
-        this.linkedList.addNextItem(content, { content: content, isCurrent: false });
+        this.linkedList.addNextItem(content, { content: content, isHighlighted: false });
     }
 
     addPreviousItem(content: string): void {
-        this.linkedList.addPreviousItem(content, { content: content, isCurrent: false });
+        this.linkedList.addPreviousItem(content, { content: content, isHighlighted: false });
     }
 
     removeCurrentItem(): void {

@@ -3,7 +3,7 @@ import { Item } from '../../../models/lists/linkedList';
 
 export interface IEnrichedContent {
     content: string;
-    isCurrent: boolean;
+    isHighlighted: boolean;
     orderOfItem?: number;
 }
 
@@ -28,7 +28,7 @@ export class ListIterator implements IIterator<IEnrichedContent> {
         this.iteratorCurrent = this.iteratorCurrent.next;
         return {
             content: current.key,
-            isCurrent: this.currentItem && this.currentItem === current,
+            isHighlighted: this.currentItem && this.currentItem === current,
             orderOfItem: this.orderOfItem++
         };
     }

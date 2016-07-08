@@ -13,7 +13,7 @@ export const Queue = () => {
     return dataStructureComposition({
         title: 'Queue',
         content: canvas({
-            contentIterator: iterator,
+            iterator: iterator,
             grid: new ListGrid(iterator)
         }),
         actions: state.actions,

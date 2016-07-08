@@ -13,7 +13,7 @@ export const Stack = () => {
     return dataStructureComposition({
         title: 'Stack',
         content: canvas({
-            contentIterator: iterator,
+            iterator: iterator,
             grid: new ListGrid(iterator)
         }),
         actions: state.actions,

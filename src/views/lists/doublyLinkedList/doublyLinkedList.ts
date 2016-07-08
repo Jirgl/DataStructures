@@ -1,10 +1,11 @@
 ﻿import * as f from 'bobflux';
-import { changeAction, changeParameter, setContent, execute } from './actions';
+import { changeAction, changeParameter, setContent, setIndexOfCurrentItem, execute } from './actions';
 import { doublyLinkedListCursor } from './cursor';
 import { Actions, Parameters } from './state';
 import { create as canvas } from '../../../components/canvas';
 import { create as dataStructureComposition } from '../../../compositions/dataStructure';
 import { ListGrid } from '../listGrid';
+import { IteratorManager } from '../../iteratorManager';
 
 export const DoublyLinkedList = () => {
     const state = f.getState(doublyLinkedListCursor);
@@ -13,7 +14,8 @@ export const DoublyLinkedList = () => {
     return dataStructureComposition({
         title: 'Doubly linked list',
         content: canvas({
-            contentIterator: iterator,
+            iterator: iterator,
+            getIndexOfCurrentIteratorItem: () => f.getState(doublyLinkedListCursor).indexOfCurrentItem,
             grid: new ListGrid(iterator)
         }),
         actions: state.actions,
@@ -33,6 +35,10 @@ export const DoublyLinkedList = () => {
         },
         isValueDisabled: state.selectedAction === Actions['remove'],
         onValueChange: setContent,
-        onExecuteClick: execute
+        onExecuteClick: execute,
+        onIterateClick: () => {
+            const state = f.getState(doublyLinkedListCursor);
+            state.iteratorManager.start(state.doublyLinkedList.getIterator(), setIndexOfCurrentItem);
+        }
     });
 }

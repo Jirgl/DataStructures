@@ -1,5 +1,5 @@
 ﻿import * as f from 'bobflux';
-import { changeAction, changeParameter, setContent, execute } from './actions';
+import { changeAction, changeParameter, setContent, setIndexOfCurrentItem, execute } from './actions';
 import { linkedListCursor } from './cursor';
 import { Actions, Parameters } from './state';
 import { create as canvas } from '../../../components/canvas';
@@ -13,7 +13,8 @@ export const LinkedList = () => {
     return dataStructureComposition({
         title: 'Linked list',
         content: canvas({
-            contentIterator: iterator,
+            iterator: iterator,
+            getIndexOfCurrentIteratorItem: () => f.getState(linkedListCursor).indexOfCurrentItem,
             grid: new ListGrid(iterator)
         }),
         actions: state.actions,
@@ -33,6 +34,10 @@ export const LinkedList = () => {
         },
         isValueDisabled: state.selectedAction === Actions['remove'],
         onValueChange: setContent,
-        onExecuteClick: execute
+        onExecuteClick: execute,
+        onIterateClick: () => {
+            const state = f.getState(linkedListCursor);
+            state.iteratorManager.start(state.linkedList.getIterator(), setIndexOfCurrentItem);
+        }
     });
 }

@@ -17,7 +17,7 @@ export class Structure {
     push(content: string): void {
         this.doublyLinkedList.addFirstItem(content, {
             content: content,
-            isCurrent: false
+            isHighlighted: false
         });
     }
 

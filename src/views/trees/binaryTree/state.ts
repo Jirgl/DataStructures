@@ -22,6 +22,7 @@ export interface IBinaryTreeState extends f.IState {
     selectedAction: number;
     parameters: string[];
     selectedParameter: number;
+    indexOfCurrentItem: number;
 }
 
 function initTree(binaryTree: BinaryTree): void {
@@ -48,6 +49,7 @@ export const createDefaultBinaryTreeState = (): IBinaryTreeState => {
         actions: Object.keys(Actions),
         selectedAction: 0,
         parameters: params,
-        selectedParameter: 1
+        selectedParameter: 1,
+        indexOfCurrentItem: -1
     };
 }

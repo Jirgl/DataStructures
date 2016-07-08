@@ -2,15 +2,16 @@ import * as b from 'bobril';
 import { create as arrow } from './arrow';
 import { IGrid } from './grid';
 import { create as item, itemProps } from './item';
-import { IIterable, IIterator } from '../models/iterator';
+import { IIterator } from '../models/iterator';
 
 export interface IContent {
     content: string;
-    isCurrent: boolean;
+    isHighlighted: boolean;
 }
 
 export interface ICanvasData {
-    contentIterator: IIterator<IContent>;
+    iterator: IIterator<IContent>;
+    getIndexOfCurrentIteratorItem?: () => number;
     grid: IGrid;
 }
 
@@ -20,35 +21,38 @@ interface ICanvasCtx extends b.IBobrilCtx {
 
 let canvasComponent: b.IBobrilComponent = {
     render(ctx: ICanvasCtx, me: b.IBobrilNode) {
-        let iterator = ctx.data.contentIterator;
-        let children: b.IBobrilNode[] = [];
-        let arrows: b.IBobrilNode[] = [];
-        let maxHeight = itemProps.height + (2 * itemProps.margin);
+        const d = ctx.data;
+        const iterator = d.iterator;
+        const children: b.IBobrilNode[] = [];
+        const arrows: b.IBobrilNode[] = [];
+        let maxHeight = itemProps.size + (2 * itemProps.margin);
 
+        let index = 0;
         while (iterator.hasNext()) {
             let guiItem = iterator.next();
-            let position = ctx.data.grid.getPosition();
-            let previousPosition = ctx.data.grid.getPositionOfPreviousItem();
+            let position = d.grid.getPosition();
+            let previousPosition = d.grid.getPositionOfPreviousItem();
             children.push(item({
                 content: guiItem.content,
                 x: position.x,
                 y: position.y,
-                isCurrent: guiItem.isCurrent
+                isHighlighted: guiItem.isHighlighted,
+                scale: d.getIndexOfCurrentIteratorItem && d.getIndexOfCurrentIteratorItem() === index ? 1.2 : 1
             }));
-
+            index++;
             if (previousPosition) {
-                ctx.data.grid.getArrowsPositions(previousPosition, position)
+                d.grid.getArrowsPositions(previousPosition, position)
                     .forEach((item) => {
                         arrow(item.start.x,
                             item.start.y,
                             item.end.x,
                             item.end.y,
-                            ctx.data.grid.getArrowType()
+                            d.grid.getArrowType()
                         ).forEach((path) => arrows.push(path));
                     })
             }
 
-            let currentHeight = position.y + itemProps.height + (2 * itemProps.margin);
+            let currentHeight = position.y + itemProps.size + (2 * itemProps.margin);
             if (currentHeight > maxHeight) {
                 maxHeight = currentHeight;
             }
@@ -57,7 +61,8 @@ let canvasComponent: b.IBobrilComponent = {
         children.push({
             tag: 'svg',
             style: {
-                width: ctx.data.grid.getWidth(),
+                //shapeRendering: 'crispEdges',
+                width: d.grid.getWidth(),
                 height: maxHeight,
                 zIndex: 100
             },
@@ -66,7 +71,7 @@ let canvasComponent: b.IBobrilComponent = {
 
         me.tag = 'div';
         me.style = {
-            width: ctx.data.grid.getWidth(),
+            width: d.grid.getWidth(),
             height: maxHeight,
             position: 'relative'
         };

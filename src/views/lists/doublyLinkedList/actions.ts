@@ -28,6 +28,12 @@ export let setContent = f.createAction<s.IDoublyLinkedListState, string>(c.doubl
     })
 );
 
+export let setIndexOfCurrentItem = f.createAction<s.IDoublyLinkedListState, number>(c.doublyLinkedListCursor, (state, index) =>
+    f.shallowCopy(state, (newState) => {
+        newState.indexOfCurrentItem = index;
+    })
+);
+
 export let execute = f.createAction<s.IDoublyLinkedListState, number>(c.doublyLinkedListCursor, (state) =>
     f.shallowCopy(state, (newState) => {
         if (newState.selectedAction === s.Actions['add']) {

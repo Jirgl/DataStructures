@@ -13,7 +13,8 @@ export const BinaryTree = () => {
     return dataStructureComposition({
         title: 'Binary tree',
         content: canvas({
-            contentIterator: iterator,
+            iterator: iterator,
+            getIndexOfCurrentIteratorItem: () => f.getState(binaryTreeCursor).indexOfCurrentItem,
             grid: new TreeGrid(state.binaryTree.getDepth(), iterator)
         }),
         actions: state.actions,

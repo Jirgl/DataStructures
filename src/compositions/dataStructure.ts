@@ -14,6 +14,7 @@ export interface IDataStructureCompositionData {
     isValueDisabled: boolean;
     onValueChange: (string) => void;
     onExecuteClick: () => void;
+    onIterateClick?: () => void;
 }
 
 function getLine(): b.IBobrilNode {
@@ -45,12 +46,12 @@ function createLayout(data: IDataStructureCompositionData): b.IBobrilNode[] {
                 children: 'execute',
                 action: data.onExecuteClick
             }),
-            iteratorSlider: m.Slider({ value: 10, min: 5, max: 15, step: 1 }),
-            iterateButton: m.Button({
+            iteratorSlider: data.onIterateClick && m.Slider({ value: 10, min: 5, max: 15, step: 1 }),
+            iterateButton: data.onIterateClick && m.Button({
                 type: m.ButtonType.Raised,
                 feature: m.Feature.Default,
                 children: 'iterate',
-                //action: data.onExecuteClick
+                action: data.onIterateClick
             })
         })
     ]

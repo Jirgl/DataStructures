@@ -1,5 +1,6 @@
 import * as f from 'bobflux';
 import { Structure as LinkedList } from '../graphicalEnricher/linkedList';
+import { IteratorManager } from '../../iteratorManager';
 
 export const Actions = {
     add: 0,
@@ -16,11 +17,13 @@ export const Parameters = {
 
 export interface ILinkedListState extends f.IState {
     linkedList: LinkedList;
+    iteratorManager: IteratorManager;
     content: string;
     actions: string[];
     selectedAction: number;
     parameters: string[];
     selectedParameter: number;
+    indexOfCurrentItem: number;
 }
 
 export const createDefaultLinkedListState = (): ILinkedListState => {
@@ -30,10 +33,12 @@ export const createDefaultLinkedListState = (): ILinkedListState => {
     linkedList.addFirstItem('init item');
     return {
         linkedList: linkedList,
+        iteratorManager: new IteratorManager(),
         content: '',
         actions: Object.keys(Actions),
         selectedAction: 0,
         parameters: params,
-        selectedParameter: 0
+        selectedParameter: 0,
+        indexOfCurrentItem: -1
     };
 }

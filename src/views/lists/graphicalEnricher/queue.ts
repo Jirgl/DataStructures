@@ -25,7 +25,7 @@ export class Structure {
     enqueue(content: string): void {
         this.doublyLinkedList.addLastItem(content, {
             content: content,
-            isCurrent: false
+            isHighlighted: false
         });
     }
 

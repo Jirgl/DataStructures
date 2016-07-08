@@ -28,6 +28,12 @@ export let setContent = f.createAction<s.ILinkedListState, string>(c.linkedListC
     })
 );
 
+export let setIndexOfCurrentItem = f.createAction<s.ILinkedListState, number>(c.linkedListCursor, (state, index) =>
+    f.shallowCopy(state, (newState) => {
+        newState.indexOfCurrentItem = index;
+    })
+);
+
 export let execute = f.createAction<s.ILinkedListState, number>(c.linkedListCursor, (state) =>
     f.shallowCopy(state, (newState) => {
         if (newState.selectedAction === s.Actions['add']) {

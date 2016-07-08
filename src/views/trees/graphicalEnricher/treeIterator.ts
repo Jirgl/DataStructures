@@ -6,7 +6,7 @@ import { Node } from '../../../models/trees/binaryTree';
 export interface IEnrichedContent {
     content: string;
     indexOfNode: number;
-    isCurrent: boolean;
+    isHighlighted: boolean;
 }
 
 export class TreeIterator implements IIterator<IEnrichedContent> {
@@ -35,7 +35,7 @@ export class TreeIterator implements IIterator<IEnrichedContent> {
         if (node.leftChild) this.que.enqueue(node.leftChild);
         if (node.rightChild) this.que.enqueue(node.rightChild);
 
-        node.data.isCurrent = node === this.currentNode;
+        node.data.isHighlighted = node === this.currentNode;
         this.depth = calculateDepth(node.data.indexOfNode);
         this.orderInLevel = (node.data.indexOfNode + 1) - Math.pow(2, this.depth);
         this.indexOfCurrentNode = node.data.indexOfNode;

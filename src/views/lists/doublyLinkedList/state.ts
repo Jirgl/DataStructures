@@ -1,5 +1,6 @@
 import * as f from 'bobflux';
 import { Structure as DoublyLinkedList } from '../graphicalEnricher/doublyLinkedList';
+import { IteratorManager } from '../../iteratorManager';
 
 export const Actions = {
     add: 0,
@@ -16,11 +17,13 @@ export const Parameters = {
 
 export interface IDoublyLinkedListState extends f.IState {
     doublyLinkedList: DoublyLinkedList;
+    iteratorManager: IteratorManager;
     content: string;
     actions: string[];
     selectedAction: number;
     parameters: string[];
     selectedParameter: number;
+    indexOfCurrentItem: number;
 }
 
 export const createDefaultDoublyLinkedListState = (): IDoublyLinkedListState => {
@@ -30,10 +33,12 @@ export const createDefaultDoublyLinkedListState = (): IDoublyLinkedListState => 
     doublyLinkedList.addFirstItem('init item');
     return {
         doublyLinkedList: doublyLinkedList,
+        iteratorManager: new IteratorManager(),
         content: '',
         actions: Object.keys(Actions),
         selectedAction: 0,
         parameters: params,
-        selectedParameter: 0
+        selectedParameter: 0,
+        indexOfCurrentItem: -1
     };
 }

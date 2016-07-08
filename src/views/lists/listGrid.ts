@@ -29,7 +29,7 @@ export class ListGrid implements IGrid {
     }
 
     private getItemPosition(orderOfItem: number): Position {
-        const itemWidthWithMargin = (itemProps.width + (itemProps.margin * 2));
+        const itemWidthWithMargin = (itemProps.size + (itemProps.margin * 2));
         const itemsPerLine = Math.floor(this.getWidth() / itemWidthWithMargin);
 
         return {
@@ -41,12 +41,12 @@ export class ListGrid implements IGrid {
     getArrowsPositions(previousPosition: Position, position: Position): ArrowPosition[] {
         return [{
             start: {
-                x: previousPosition.x + itemProps.width + itemProps.margin + itemProps.arrowMargin,
-                y: previousPosition.y + itemProps.height / 2 + itemProps.margin
+                x: previousPosition.x + itemProps.size + itemProps.margin + itemProps.arrowMargin,
+                y: previousPosition.y + itemProps.size / 2 + itemProps.margin
             },
             end: {
                 x: position.x + itemProps.margin - itemProps.arrowMargin,
-                y: position.y + itemProps.height / 2 + itemProps.margin
+                y: position.y + itemProps.size / 2 + itemProps.margin
             }
         }];
     }

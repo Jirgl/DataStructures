@@ -30,7 +30,7 @@ export class Structure {
         this.binaryTree.addRoot({
             content: content,
             indexOfNode: 0,
-            isCurrent: false
+            isHighlighted: false
         });
     }
 
@@ -52,7 +52,7 @@ export class Structure {
         this.binaryTree.addLeftChild({
             content: content,
             indexOfNode: indexOfNode,
-            isCurrent: false
+            isHighlighted: false
         });
         this.incrementDepth(isAvailableForAdding, indexOfNode);
     }
@@ -65,7 +65,7 @@ export class Structure {
         this.binaryTree.addRightChild({
             content: content,
             indexOfNode: indexOfNode,
-            isCurrent: false
+            isHighlighted: false
         });
         this.incrementDepth(isAvailableForAdding, indexOfNode);
     }

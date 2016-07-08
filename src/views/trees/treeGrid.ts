@@ -37,7 +37,7 @@ export class TreeGrid implements IGrid {
 
     private getItemPosition(orderInLevel: number, depth: number): Position {
         let countInLevel = Math.pow(2, depth);
-        let itemWidthWithMargin = itemProps.width + (itemProps.margin * 2);
+        let itemWidthWithMargin = itemProps.size + (itemProps.margin * 2);
         let widthPerItem = Math.max(this.getWidth() / countInLevel, itemWidthWithMargin);
 
         let height = 0;
@@ -59,11 +59,11 @@ export class TreeGrid implements IGrid {
         return [
             {
                 start: {
-                    x: previousPosition.x + itemProps.width / 2 + itemProps.margin + childArrowOffset,
-                    y: previousPosition.y + itemProps.height + itemProps.margin + itemProps.arrowMargin
+                    x: previousPosition.x + itemProps.size / 2 + itemProps.margin + childArrowOffset,
+                    y: previousPosition.y + itemProps.size + itemProps.margin + itemProps.arrowMargin
                 },
                 end: {
-                    x: position.x + itemProps.width / 2 + itemProps.margin,
+                    x: position.x + itemProps.size / 2 + itemProps.margin,
                     y: position.y + itemProps.margin - itemProps.arrowMargin
                 }
             }
@@ -72,7 +72,7 @@ export class TreeGrid implements IGrid {
 
     getWidth(): number {
         let baseWidth = b.getMedia().width - this.widthReduction;
-        let treeWidth = Math.pow(2, this.depth) * (itemProps.width + (2 * itemProps.margin));
+        let treeWidth = Math.pow(2, this.depth) * (itemProps.size + (2 * itemProps.margin));
 
         return Math.max(baseWidth, treeWidth);
     }
