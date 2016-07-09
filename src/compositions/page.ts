@@ -38,7 +38,7 @@ function createNavigation(): b.IBobrilNode {
             createNavItem('Lists', 'lists'),
             createNavItem('Trees', 'trees'),
             createNavItem('Heaps', 'heaps')
-        ], { paddingTop: 5, paddingBottom: 10 })
+        ], { paddingTop: 5 })
     };
 }
 
