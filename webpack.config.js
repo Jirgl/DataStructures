@@ -42,6 +42,7 @@ module.exports = {
         new HotModuleReplacementPlugin(),
         new CopyWebpackPlugin([
             { from: __dirname + '/index.html' },
+            { from: __dirname + '/styles.css' },
         ])
     ]
 };
