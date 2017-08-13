@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { FlatButton, Paper } from 'material-ui';
 
 export interface INavigationItem {
@@ -11,7 +12,7 @@ export interface IHeaderProps {
 }
 
 const headerStyle = {
-    height: 200
+    height: 100
 };
 
 const headerInnerStyle = {
@@ -24,7 +25,8 @@ const headerInnerStyle = {
 
 const titleStyle = {
     flex: '1 1 auto',
-    paddingTop: 50,
+    padding: 10,
+    paddingTop: 15,
     fontSize: 32
 };
 
@@ -38,7 +40,9 @@ export const Header = (props: IHeaderProps) =>
             <div style={titleStyle}>{props.children}</div>
             <div style={tabsStyle}>
                 {props.navigationItems.map((item, idx) =>
-                    <FlatButton key={idx + item} label={item} />
+                    <Link key={idx + item} to={'/' + item}>
+                        <FlatButton label={item} />
+                    </Link>
                 )}
             </div>
         </div>
