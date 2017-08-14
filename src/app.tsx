@@ -7,7 +7,7 @@ import { ArrayPlaygrounds } from './playgrounds/arrayPlaygrounds/arrayPlayground
 import { ListPlaygrounds } from './playgrounds/listPlaygrounds/listPlaygrounds';
 import { TreePlaygrounds } from './playgrounds/treePlaygrounds/treePlaygrounds';
 
-const navigationItems = ['arrays', 'lists', 'trees', 'graphs'];
+const navigationItems = ['arrays', 'lists', 'trees', 'heaps'];
 
 export interface AppProps { }
 

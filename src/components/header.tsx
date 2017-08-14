@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { FlatButton, Paper } from 'material-ui';
+import { Block } from './block';
+import { Title, TitleType } from './title';
 
 export interface IHeaderProps {
     title: string;
@@ -22,8 +24,7 @@ const headerInnerStyle = {
 const titleStyle = {
     flex: '1 1 auto',
     padding: 10,
-    paddingTop: 15,
-    fontSize: 32
+    paddingTop: 15
 };
 
 const tabsStyle = {
@@ -35,16 +36,18 @@ class HeaderInner extends React.Component<IHeaderProps, {}> {
         let currentRoute = (this.props as any).location.pathname.replace('/', '');
         if (currentRoute === '') currentRoute = this.props.navigationItems[0];
         return <Paper style={headerStyle} zDepth={1}>
-            <div style={headerInnerStyle}>
-                <div style={titleStyle}>{this.props.title}</div>
-                <div style={tabsStyle}>
+            <Block style={headerInnerStyle}>
+                <Block style={titleStyle}>
+                    <Title type={TitleType.App}>{this.props.title}</Title>
+                </Block>
+                <Block style={tabsStyle}>
                     {this.props.navigationItems.map((item, idx) =>
                         <Link key={idx + item} to={'/' + item}>
                             <FlatButton label={item} primary={item === currentRoute} />
                         </Link>
                     )}
-                </div>
-            </div>
+                </Block>
+            </Block>
         </Paper>;
     }
 }
