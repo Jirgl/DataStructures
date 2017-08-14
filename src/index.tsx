@@ -7,16 +7,16 @@ import { App } from './app';
 injectTapEventPlugin();
 
 const render = (Component: any) => {
-  ReactDOM.render(
-    <AppContainer>
-      <Component />
-    </AppContainer>,
-    document.getElementById('root')
-  )
+    ReactDOM.render(
+        <AppContainer>
+            <Component />
+        </AppContainer>,
+        document.getElementById('root')
+    )
 }
 
 render(App)
 
 if (module.hot) {
-  module.hot.accept('./app', () => { render(App) })
+    module.hot.accept('./app', () => { render(App) })
 }

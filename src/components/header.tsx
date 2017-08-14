@@ -1,13 +1,9 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { FlatButton, Paper } from 'material-ui';
 
-export interface INavigationItem {
-    title: string;
-}
-
 export interface IHeaderProps {
-    children: string;
+    title: string;
     navigationItems: string[];
 }
 
@@ -34,16 +30,23 @@ const tabsStyle = {
     flex: '0 1 40px'
 };
 
-export const Header = (props: IHeaderProps) =>
-    <Paper style={headerStyle} zDepth={1}>
-        <div style={headerInnerStyle}>
-            <div style={titleStyle}>{props.children}</div>
-            <div style={tabsStyle}>
-                {props.navigationItems.map((item, idx) =>
-                    <Link key={idx + item} to={'/' + item}>
-                        <FlatButton label={item} />
-                    </Link>
-                )}
+class HeaderInner extends React.Component<IHeaderProps, {}> {
+    render() {
+        let currentRoute = (this.props as any).location.pathname.replace('/', '');
+        if (currentRoute === '') currentRoute = this.props.navigationItems[0];
+        return <Paper style={headerStyle} zDepth={1}>
+            <div style={headerInnerStyle}>
+                <div style={titleStyle}>{this.props.title}</div>
+                <div style={tabsStyle}>
+                    {this.props.navigationItems.map((item, idx) =>
+                        <Link key={idx + item} to={'/' + item}>
+                            <FlatButton label={item} primary={item === currentRoute} />
+                        </Link>
+                    )}
+                </div>
             </div>
-        </div>
-    </Paper>;
+        </Paper>;
+    }
+}
+
+export const Header = withRouter((props: IHeaderProps) => <HeaderInner {...props} />);
