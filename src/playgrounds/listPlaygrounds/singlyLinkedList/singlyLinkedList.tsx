@@ -1,24 +1,22 @@
 import * as React from 'react';
+import { observer } from 'mobx-react';
 import { Block } from '../../../components/block';
 import { ControlBar } from '../../../components/controlBar';
-
-const actions = [
-    { title: 'add', disabled: false },
-    { title: 'remove', disabled: false }
-];
-const settings = [
-    { title: 'first', disabled: false },
-    { title: 'predecessor', disabled: false },
-    { title: 'current', disabled: true },
-    { title: 'successor', disabled: false },
-    { title: 'last', disabled: false }
-];
+import { store } from './store';
 
 const boxStyle = {
     paddingTop: 20
 };
 
-export const SinglyLinkedList = () =>
+export const SinglyLinkedList = observer(() =>
     <Block style={boxStyle}>
-        <ControlBar actions={actions} additionalSettings={settings} />
-    </Block>;
+        <ControlBar
+            actions={store.actions}
+            settings={store.settings}
+            onActionChange={store.setAction}
+            onSettingsChange={store.setSettings}
+            selectedActionValue={store.selectedAction}
+            selectedSettingsValue={store.selectedSettings}
+        />
+    </Block>
+);

@@ -9,15 +9,17 @@ export interface IControlItem {
 
 export interface IControlBarProps {
     actions: IControlItem[];
-    additionalSettings?: IControlItem[];
+    settings?: IControlItem[];
+    onActionChange: (value: number) => void;
+    onSettingsChange: (value: number) => void;
+    selectedActionValue: number;
+    selectedSettingsValue: number;
 }
 
 interface IControlBarState {
-    actionValue: number;
-    settingsValue: number;
 }
 
-type onChangeType = (_event: TouchTapEvent, _index: number, value: number) => void;
+type onChangeType = (event: TouchTapEvent, index: number, value: number) => void;
 
 const blockStyle = {
     paddingLeft: 20,
@@ -66,11 +68,11 @@ export class ControlBar extends React.Component<IControlBarProps, IControlBarSta
     }
 
     handleChangeActionValue(_event: TouchTapEvent, _index: number, value: number) {
-        this.setState({ actionValue: value });
+        this.props.onActionChange(value);
     }
 
     handleChangeSettingsValue(_event: TouchTapEvent, _index: number, value: number) {
-        this.setState({ settingsValue: value });
+        this.props.onSettingsChange(value);
     }
 
     createDropDownMenu = (items: IControlItem[] | undefined, value: number, onChange: onChangeType) =>
@@ -97,13 +99,15 @@ export class ControlBar extends React.Component<IControlBarProps, IControlBarSta
         return <Block>
             <Block style={Object.assign({}, dropDownBlocksStyle)}>
                 {
-                    this.createDropDownMenu(this.props.actions, this.state.actionValue,
+                    this.createDropDownMenu(
+                        this.props.actions,
+                        this.props.selectedActionValue,
                         (e, i, v) => this.handleChangeActionValue(e, i, v))
                 }
                 {
                     this.createDropDownMenu(
-                        this.props.additionalSettings,
-                        this.state.settingsValue,
+                        this.props.settings,
+                        this.props.selectedSettingsValue,
                         (e, i, v) => this.handleChangeSettingsValue(e, i, v)
                     )
                 }
