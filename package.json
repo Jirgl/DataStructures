@@ -1,29 +1,32 @@
 {
-    "name": "data-structures-playground",
-    "version": "1.0.0",
-    "description": "Application for playing with data structures.",
-    "main": "./src/app.ts",
-    "author": "Jakub Jirgl",
-    "license": "ISC",
-    "dependencies": {
-        "material-ui": "^0.18.7",
-        "react": "^15.6.1",
-        "react-dom": "^15.6.1",
-        "react-router-dom": "^4.1.2",
-        "react-tap-event-plugin": "^2.0.1"
-    },
-    "devDependencies": {
-        "@types/material-ui": "^0.17.21",
-        "@types/react": "^16.0.2",
-        "@types/react-dom": "^15.5.2",
-        "@types/react-hot-loader": "^3.0.3",
-        "@types/react-tap-event-plugin": "0.0.30",
-        "@types/webpack-env": "^1.13.0",
-        "awesome-typescript-loader": "^3.2.2",
-        "copy-webpack-plugin": "^4.0.1",
-        "react-hot-loader": "^3.0.0-beta.7",
-        "source-map-loader": "^0.2.1",
-        "typescript": "^2.4.2",
-        "webpack": "^3.5.2"
-    }
+  "name": "data-structures-playground",
+  "version": "1.0.0",
+  "description": "Application for playing with data structures.",
+  "author": "Jakub Jirgl",
+  "license": "ISC",
+  "scripts": {
+    "dev": "node_modules/.bin/webpack-dev-server"
+  },
+  "dependencies": {
+    "material-ui": "^0.18.7",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.2",
+    "react-tap-event-plugin": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/material-ui": "^0.17.21",
+    "@types/react": "^16.0.2",
+    "@types/react-dom": "^15.5.2",
+    "@types/react-hot-loader": "^3.0.3",
+    "@types/react-tap-event-plugin": "0.0.30",
+    "@types/webpack-env": "^1.13.0",
+    "awesome-typescript-loader": "^3.2.2",
+    "copy-webpack-plugin": "^4.0.1",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "source-map-loader": "^0.2.1",
+    "typescript": "^2.4.2",
+    "webpack": "^3.5.2",
+    "webpack-dev-server": "^2.7.1"
+  }
 }
