@@ -2,9 +2,14 @@ import * as React from 'react';
 import { DropDownMenu, RaisedButton, MenuItem, TextField, TouchTapEvent } from 'material-ui';
 import { Block } from './block';
 
+export interface IControlItem {
+    title: string;
+    disabled: boolean;
+}
+
 export interface IControlBarProps {
-    actions: string[];
-    additionalSettings?: string[];
+    actions: IControlItem[];
+    additionalSettings?: IControlItem[];
 }
 
 interface IControlBarState {
@@ -68,7 +73,7 @@ export class ControlBar extends React.Component<IControlBarProps, IControlBarSta
         this.setState({ settingsValue: value });
     }
 
-    createDropDownMenu = (items: string[] | undefined, value: number, onChange: onChangeType) =>
+    createDropDownMenu = (items: IControlItem[] | undefined, value: number, onChange: onChangeType) =>
         <Block style={dropDownBlockStyle}>
             <DropDownMenu
                 value={value}
@@ -77,7 +82,12 @@ export class ControlBar extends React.Component<IControlBarProps, IControlBarSta
                 disabled={!items}>
                 {
                     items && items.map((item, idx) =>
-                        <MenuItem key={idx + item} value={idx} primaryText={item} />
+                        <MenuItem
+                            key={idx + item.title}
+                            value={idx}
+                            primaryText={item.title}
+                            disabled={item.disabled}
+                        />
                     )
                 }
             </DropDownMenu>

@@ -12,11 +12,11 @@ const render = (Component: any) => {
             <Component />
         </AppContainer>,
         document.getElementById('root')
-    )
-}
+    );
+};
 
-render(App)
+render(App);
 
 if (module.hot) {
-    module.hot.accept('./app', () => { render(App) })
+    module.hot.accept('./app', () => { render(App); });
 }
