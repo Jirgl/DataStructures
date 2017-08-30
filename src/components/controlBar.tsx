@@ -11,9 +11,9 @@ export interface IControlBarProps {
     actions: IControlItem[];
     settings?: IControlItem[];
     onActionChange: (value: number) => void;
-    onSettingsChange: (value: number) => void;
+    onSettingsChange?: (value: number) => void;
     selectedActionValue: number;
-    selectedSettingsValue: number;
+    selectedSettingsValue?: number;
 }
 
 interface IControlBarState {
@@ -72,11 +72,11 @@ export class ControlBar extends React.Component<IControlBarProps, IControlBarSta
     }
 
     handleChangeSettingsValue(_event: TouchTapEvent, _index: number, value: number) {
-        this.props.onSettingsChange(value);
+        this.props.onSettingsChange && this.props.onSettingsChange(value);
     }
 
-    createDropDownMenu = (items: IControlItem[] | undefined, value: number, onChange: onChangeType) =>
-        <Block style={dropDownBlockStyle}>
+    createDropDownMenu = (items: IControlItem[], value: number, onChange: onChangeType) => {
+        return <Block style={dropDownBlockStyle}>
             <DropDownMenu
                 value={value}
                 onChange={onChange}
@@ -94,10 +94,11 @@ export class ControlBar extends React.Component<IControlBarProps, IControlBarSta
                 }
             </DropDownMenu>
         </Block>;
+    }
 
     render() {
         return <Block>
-            <Block style={Object.assign({}, dropDownBlocksStyle)}>
+            <Block style={dropDownBlocksStyle}>
                 {
                     this.createDropDownMenu(
                         this.props.actions,
@@ -105,11 +106,13 @@ export class ControlBar extends React.Component<IControlBarProps, IControlBarSta
                         (e, i, v) => this.handleChangeActionValue(e, i, v))
                 }
                 {
-                    this.createDropDownMenu(
-                        this.props.settings,
-                        this.props.selectedSettingsValue,
-                        (e, i, v) => this.handleChangeSettingsValue(e, i, v)
-                    )
+                    (this.props.settings !== undefined && this.props.selectedSettingsValue !== undefined)
+                        ? this.createDropDownMenu(
+                            this.props.settings,
+                            this.props.selectedSettingsValue,
+                            (e, i, v) => this.handleChangeSettingsValue(e, i, v)
+                        )
+                        : undefined
                 }
             </Block>
             <Block style={blocksWrapperStyle}>

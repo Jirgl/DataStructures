@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export interface IBlockProps {
     style?: Object;
-    children: React.ReactChild | React.ReactChild[];
+    children: React.ReactChild | (React.ReactChild | undefined)[];
 }
 
 export const Block = (props: IBlockProps) =>

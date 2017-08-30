@@ -8,15 +8,12 @@ const boxStyle = {
     paddingTop: 20
 };
 
-export const SinglyLinkedList = observer(() =>
+export const QueuePlayground = observer(() =>
     <Block style={boxStyle}>
         <ControlBar
             actions={store.actions}
-            settings={store.settings}
             onActionChange={store.setAction}
-            onSettingsChange={store.setSettings}
             selectedActionValue={store.selectedAction}
-            selectedSettingsValue={store.selectedSettings}
         />
     </Block>
 );
