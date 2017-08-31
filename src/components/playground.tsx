@@ -7,17 +7,19 @@ export interface IPlaygroundProps {
     children: React.ReactChild;
 }
 
-const boxStyle = {
-    width: '80%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: 50,
-    marginBottom: 50,
-    padding: 10
+const styles = {
+    box: {
+        width: '80%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: 50,
+        marginBottom: 50,
+        padding: 10
+    }
 }
 
 export const Playground = (props: IPlaygroundProps) =>
-    <Paper zDepth={0} style={boxStyle}>
+    <Paper zDepth={0} style={styles.box}>
         <Title type={TitleType.Playground}>{props.title}</Title>
         {props.children}
     </Paper>;

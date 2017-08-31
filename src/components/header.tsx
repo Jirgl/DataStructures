@@ -9,38 +9,37 @@ export interface IHeaderProps {
     navigationItems: string[];
 }
 
-const headerStyle = {
-    height: 100
-};
-
-const headerInnerStyle = {
-    width: '80%',
-    height: '100%',
-    margin: 'auto',
-    display: 'flex',
-    flexFlow: 'column'
-};
-
-const titleStyle = {
-    flex: '1 1 auto',
-    padding: 10,
-    paddingTop: 15
-};
-
-const tabsStyle = {
-    flex: '0 1 40px'
-};
+const styles = {
+    header: {
+        height: 100
+    },
+    headerInner: {
+        width: '80%',
+        height: '100%',
+        margin: 'auto',
+        display: 'flex',
+        flexFlow: 'column'
+    },
+    title: {
+        flex: '1 1 auto',
+        padding: 10,
+        paddingTop: 15
+    },
+    tabs: {
+        flex: '0 1 40px'
+    }
+}
 
 class HeaderInner extends React.Component<IHeaderProps, {}> {
     render() {
         let currentRoute = (this.props as any).location.pathname.replace('/', '');
         if (currentRoute === '') currentRoute = this.props.navigationItems[0];
-        return <Paper style={headerStyle} zDepth={1}>
-            <Block style={headerInnerStyle}>
-                <Block style={titleStyle}>
+        return <Paper style={styles.header} zDepth={1}>
+            <Block style={styles.headerInner}>
+                <Block style={styles.title}>
                     <Title type={TitleType.App}>{this.props.title}</Title>
                 </Block>
-                <Block style={tabsStyle}>
+                <Block style={styles.tabs}>
                     {this.props.navigationItems.map((item, idx) =>
                         <Link key={idx + item} to={'/' + item}>
                             <FlatButton label={item} primary={item === currentRoute} />
