@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IIterator } from 'jirgl-data-structures';
-import { Arrow } from './arrow';
+import { Arrow, ArrowType } from './arrow';
 import { IGrid } from './grid';
 import { Block } from '../block';
 import { Item, itemSettings } from './item';
@@ -9,15 +9,12 @@ const styles = {
     relative: { position: 'relative' }
 };
 
-export interface IContent {
-    content: string;
-    isHighlighted: boolean;
-}
-
 export interface ICanvasProps {
-    iterator: IIterator<IContent>;
-    getIndexOfCurrentIteratorItem: () => number;
+    arrowType: ArrowType;
+    currentIndex: number;
     grid: IGrid;
+    iterator: IIterator<string>;
+    width: number;
 }
 
 export const Canvas = (props: ICanvasProps) => {
@@ -27,21 +24,21 @@ export const Canvas = (props: ICanvasProps) => {
     let index = 0;
 
     while (props.iterator.hasNext()) {
-        const guiItem = props.iterator.next();
-        const position = props.grid.getPosition();
-        const previousPosition = props.grid.getPositionOfPreviousItem();
+        const currentItem = props.iterator.next();
+        const position = props.grid.getPositionOfItemAtIndex(index);
         children.push(
-            <Item x={position.x} y={position.y} isActive={props.getIndexOfCurrentIteratorItem() === index}>
-                {guiItem.content}
+            <Item x={position.x} y={position.y} isActive={props.currentIndex === index}>
+                {currentItem}
             </Item>
         );
 
         index++;
-        if (previousPosition) {
+        if (index > 0) {
+            const previousPosition = props.grid.getPositionOfItemAtIndex(index - 1);
             props.grid.getArrowsPositions(previousPosition, position)
                 .forEach((item) => {
                     arrows.push(
-                        <Arrow type={props.grid.getArrowType()}
+                        <Arrow type={props.arrowType}
                             startX={item.start.x}
                             startY={item.start.y}
                             endX={item.end.x}
@@ -59,13 +56,13 @@ export const Canvas = (props: ICanvasProps) => {
 
     const svgStyle = {
         //shapeRendering: 'crispEdges',
-        width: props.grid.getWidth(),
+        width: props.width,
         height: maxHeight,
         zIndex: 100
     };
     children.push(<svg style={svgStyle}>{arrows}</svg>);
 
-    return <Block style={Object.assign({}, styles.relative, { width: props.grid.getWidth(), height: maxHeight })}>
+    return <Block style={Object.assign({}, styles.relative, { width: props.width, height: maxHeight })}>
         {children}
     </Block>;
 }

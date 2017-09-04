@@ -1,19 +1,14 @@
-import { ArrowType } from './arrow';
-
-export class Position {
+export interface IPosition {
     x: number;
     y: number;
 }
 
-export class ArrowPosition {
-    start: Position;
-    end: Position;
+export interface IArrowPosition {
+    start: IPosition;
+    end: IPosition;
 }
 
 export interface IGrid {
-    getArrowType(): ArrowType;
-    getPosition(): Position;
-    getPositionOfPreviousItem(): Position;
-    getArrowsPositions(previousPosition: Position, position: Position): ArrowPosition[];
-    getWidth(): number;
+    getPositionOfItemAtIndex(index: number): IPosition;
+    getArrowsPositions(previousPosition: IPosition, position: IPosition): IArrowPosition[];
 }

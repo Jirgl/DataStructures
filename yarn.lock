@@ -1904,9 +1904,9 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-jirgl-data-structures@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/jirgl-data-structures/-/jirgl-data-structures-0.1.0.tgz#23d7285659eedeb1d09a45faa99a2a7bc466ceb3"
+jirgl-data-structures@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/jirgl-data-structures/-/jirgl-data-structures-0.3.0.tgz#d27818c9b67df52c8fbc70c703e5cd28301825b0"
 
 js-tokens@^3.0.0:
   version "3.0.2"

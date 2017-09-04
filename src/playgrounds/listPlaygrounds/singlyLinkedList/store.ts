@@ -1,4 +1,5 @@
 import { action, observable } from 'mobx';
+import { SinglyLinkedList, IIterator } from 'jirgl-data-structures';
 
 class SinglyLinkedListStore {
     actions = [
@@ -13,8 +14,13 @@ class SinglyLinkedListStore {
         { title: 'last', disabled: false }
     ];
 
+    @observable private structure: SinglyLinkedList.Structure<string, string>;
     @observable selectedAction: number = 0;
     @observable selectedSettings: number = 0;
+
+    constructor() {
+        this.structure = new SinglyLinkedList.Structure<string, string>();
+    }
 
     @action.bound
     setAction(value: number) {
@@ -30,6 +36,10 @@ class SinglyLinkedListStore {
     @action.bound
     setSettings(value: number) {
         this.selectedSettings = value;
+    }
+
+    getIterator(): IIterator<string> {
+        return this.structure.getIterator();
     }
 }
 
