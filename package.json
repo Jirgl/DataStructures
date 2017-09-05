@@ -9,7 +9,6 @@
     "test": "mocha -r ts-node/register spec/**/*.ts"
   },
   "dependencies": {
-    
     "jirgl-data-structures": "^0.3.0",
     "material-ui": "^0.18.7",
     "mobx": "^3.2.2",

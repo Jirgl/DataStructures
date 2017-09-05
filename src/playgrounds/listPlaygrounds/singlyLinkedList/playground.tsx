@@ -18,6 +18,7 @@ export const SinglyLinkedListPlayground = observer(() =>
             settings={store.settings}
             onActionChange={store.setAction}
             onSettingsChange={store.setSettings}
+            onExecute={store.execute}
             selectedActionValue={store.selectedAction}
             selectedSettingsValue={store.selectedSettings}
         />

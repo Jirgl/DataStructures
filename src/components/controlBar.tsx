@@ -12,6 +12,7 @@ export interface IControlBarProps {
     settings?: IControlItem[];
     onActionChange: (value: number) => void;
     onSettingsChange?: (value: number) => void;
+    onExecute?: (content?: string) => void;
     selectedActionValue: number;
     selectedSettingsValue?: number;
 }
@@ -65,33 +66,44 @@ function createDropDownMenu(items: IControlItem[], value: number, onChange: onCh
     </Block>;
 }
 
-export const ControlBar = (props: IControlBarProps) =>
-    <Block>
-        <Block style={styles.inlineBlock}>
-            {
-                createDropDownMenu(
-                    props.actions,
-                    props.selectedActionValue,
-                    (_e: TouchTapEvent, _i: number, v: number) => props.onActionChange(v))
-            }
-            {
-                (props.settings !== undefined && props.selectedSettingsValue !== undefined)
-                    ? createDropDownMenu(
-                        props.settings,
-                        props.selectedSettingsValue,
-                        (_e: TouchTapEvent, _i: number, v: number) => props.onSettingsChange && props.onSettingsChange(v)
-                    )
-                    : undefined
-            }
-        </Block>
-        <Block style={Object.assign({}, styles.blocksWrapper, styles.inlineBlock)}>
-            <Block style={styles.blocks}>
-                <Block style={Object.assign({}, styles.blockPaddings, styles.inlineBlock, styles.textfield)}>
-                    <TextField hintText='content' />
-                </Block>
-                <Block style={Object.assign({}, styles.blockPaddings, styles.inlineBlock, styles.button)}>
-                    <RaisedButton label='execute' />
+export interface IControlBarState {
+    content: string;
+}
+
+export class ControlBar extends React.Component<IControlBarProps, IControlBarState> {
+    render() {
+        return <Block>
+            <Block style={styles.inlineBlock}>
+                {
+                    createDropDownMenu(
+                        this.props.actions,
+                        this.props.selectedActionValue,
+                        (_e: TouchTapEvent, _i: number, v: number) => this.props.onActionChange(v))
+                }
+                {
+                    (this.props.settings !== undefined && this.props.selectedSettingsValue !== undefined)
+                        ? createDropDownMenu(
+                            this.props.settings,
+                            this.props.selectedSettingsValue,
+                            (_e: TouchTapEvent, _i: number, v: number) =>
+                                this.props.onSettingsChange && this.props.onSettingsChange(v)
+                        )
+                        : undefined
+                }
+            </Block>
+            <Block style={Object.assign({}, styles.blocksWrapper, styles.inlineBlock)}>
+                <Block style={styles.blocks}>
+                    <Block style={Object.assign({}, styles.blockPaddings, styles.inlineBlock, styles.textfield)}>
+                        <TextField hintText='content' onChange={(_e, value) => this.setState({ content: value })} />
+                    </Block>
+                    <Block style={Object.assign({}, styles.blockPaddings, styles.inlineBlock, styles.button)}>
+                        <RaisedButton
+                            label='execute'
+                            onClick={() => this.props.onExecute && this.props.onExecute(this.state.content)}
+                        />
+                    </Block>
                 </Block>
             </Block>
-        </Block>
-    </Block>;
+        </Block>;
+    }
+}
