@@ -30,8 +30,8 @@ export class ListGrid implements IGrid {//TODO write test
         const itemsPerLine = Math.floor(this.width / itemWidthWithMargin);
 
         return {
-            x: ((index - 1) % itemsPerLine) * itemWidthWithMargin,
-            y: Math.floor((index - 1) / itemsPerLine) * itemWidthWithMargin
+            x: (index % itemsPerLine) * itemWidthWithMargin,
+            y: Math.floor(index / itemsPerLine) * itemWidthWithMargin
         };
     }
 }

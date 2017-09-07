@@ -1,5 +1,6 @@
 import { action, observable } from 'mobx';
-import { SinglyLinkedList, IIterator } from 'jirgl-data-structures';
+import { Structure } from './graphicalStructure';
+import { ListIterator } from '../listIterator';
 
 class SinglyLinkedListStore {
     actions = [
@@ -15,23 +16,22 @@ class SinglyLinkedListStore {
     ];
 
     private structureFunctions: { [action: string]: { [settings: string]: (content?: string) => void } };
-
-    private structure: SinglyLinkedList.Structure<string, string>;
+    private structure: Structure;
+    @observable iterator: ListIterator;
     @observable selectedAction: number = 0;
     @observable selectedSettings: number = 0;
 
     constructor() {
-        this.structure = new SinglyLinkedList.Structure<string, string>();
-        this.structure.addLastItem('3', '3');
-        this.structure.addLastItem('4', '4');
-        this.structure.addLastItem('5', '5');
+        this.structure = new Structure();
+        this.structure.addLastItem('init');
+        this.iterator = this.structure.getIterator();
 
         this.structureFunctions = {
             'add': {
-                'first': (content: string) => this.structure.addFirstItem(content, content),
-                'predecessor': (content: string) => this.structure.addPreviousItem(content, content),
-                'successor': (content: string) => this.structure.addNextItem(content, content),
-                'last': (content: string) => this.structure.addLastItem(content, content)
+                'first': (content: string) => this.structure.addFirstItem(content),
+                'predecessor': (content: string) => this.structure.addPreviousItem(content),
+                'successor': (content: string) => this.structure.addNextItem(content),
+                'last': (content: string) => this.structure.addLastItem(content)
             },
             'remove': {
                 'first': () => this.structure.removeFirstItem(),
@@ -64,10 +64,7 @@ class SinglyLinkedListStore {
         const action = this.actions[this.selectedAction].title;
         const settings = this.settings[this.selectedSettings].title;
         this.structureFunctions[action][settings](content);
-    }
-
-    getIterator(): IIterator<string> {
-        return this.structure.getIterator();
+        this.iterator = this.structure.getIterator();
     }
 }
 

@@ -12,7 +12,7 @@ export interface IControlBarProps {
     settings?: IControlItem[];
     onActionChange: (value: number) => void;
     onSettingsChange?: (value: number) => void;
-    onExecute?: (content?: string) => void;
+    onExecute: (content?: string) => void;
     selectedActionValue: number;
     selectedSettingsValue?: number;
 }

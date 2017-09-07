@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Paper } from 'material-ui';
+import * as Colors from 'material-ui/styles/colors';
 import { Block } from '../block';
 
 export const itemSettings = {
@@ -7,10 +8,6 @@ export const itemSettings = {
     margin: {
         inner: 2,
         outer: 30
-    },
-    scale: {
-        active: 1.2,
-        classic: 1
     }
 };
 
@@ -35,29 +32,25 @@ const styles = {
     }
 }
 
-function createContent(children: React.ReactChild, scale: number): React.ReactChild {
+function createContent(children: React.ReactChild): React.ReactChild {
     return <Block style={Object.assign({}, styles.outerBox, { width: itemSettings.size, height: itemSettings.size })}>
-        <Block style={Object.assign({}, styles.innerBox, styles.absolute, { fontSize: 100 * scale + '%', })}>
+        <Block style={Object.assign({}, styles.innerBox, styles.absolute)}>
             {children}
         </Block>
     </Block>
 }
 
 export const Item = (props: IItemProps) => {
-    const scale = props.isActive ? itemSettings.scale.active : itemSettings.scale.classic;
-    const size = itemSettings.size * scale;
-    const diff = scale !== 1 ? Math.abs(itemSettings.size - size) / 2 : 0;
-
     const itemStyle = {
-        width: size,
-        height: size,
-        left: props.x + (scale > 1 ? -diff : diff),
-        top: props.y + (scale > 1 ? -diff : diff),
-        //  color: props.isHighlighted ? m.white : m.grey600,
-        //  background: props.isHighlighted ? m.primary1Color : m.white,
+        width: itemSettings.size,
+        height: itemSettings.size,
+        left: props.x,
+        top: props.y,
+        color: props.isActive ? Colors.white : Colors.black,
+        background: props.isActive ? Colors.lightBlue500 : Colors.white,
         margin: itemSettings.margin.outer
     };
     return <Paper zDepth={2} style={Object.assign({}, styles.absolute, itemStyle)}>
-        {createContent(props.children, scale)}
+        {createContent(props.children)}
     </Paper>
 }

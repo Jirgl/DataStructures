@@ -1,37 +1,37 @@
-import { ListIterator, IEnrichedContent } from './listIterator';
-import { Structure as LinkedList, Item } from '../../../models/lists/linkedList';
+import { SinglyLinkedList } from 'jirgl-data-structures';
+import { ListIterator, IEnrichedContent } from '../listIterator';
 
-class EnrichedLinkedList extends LinkedList<string, IEnrichedContent> {
-    getFirst(): Item<string, IEnrichedContent> {
+class GraphicalSinglyLinkedList extends SinglyLinkedList.Structure<string, IEnrichedContent> {
+    getFirst(): SinglyLinkedList.Item<string, IEnrichedContent> | undefined {
         return this.firstItem;
     }
 
-    getCurrent(): Item<string, IEnrichedContent> {
+    getCurrent(): SinglyLinkedList.Item<string, IEnrichedContent> | undefined {
         return this.currentItem;
     }
 }
 
 export class Structure {
-    private linkedList: EnrichedLinkedList;
+    private linkedList: GraphicalSinglyLinkedList;
 
     constructor() {
-        this.linkedList = new EnrichedLinkedList();
+        this.linkedList = new GraphicalSinglyLinkedList();
     }
 
     addFirstItem(content: string): void {
-        this.linkedList.addFirstItem(content, { content: content, isHighlighted: false });
+        this.linkedList.addFirstItem(content, { content: content, isActive: false });
     }
 
     addLastItem(content: string): void {
-        this.linkedList.addLastItem(content, { content: content, isHighlighted: false });
+        this.linkedList.addLastItem(content, { content: content, isActive: false });
     }
 
     addNextItem(content: string): void {
-        this.linkedList.addNextItem(content, { content: content, isHighlighted: false });
+        this.linkedList.addNextItem(content, { content: content, isActive: false });
     }
 
     addPreviousItem(content: string): void {
-        this.linkedList.addPreviousItem(content, { content: content, isHighlighted: false });
+        this.linkedList.addPreviousItem(content, { content: content, isActive: false });
     }
 
     removeCurrentItem(): void {

@@ -24,9 +24,8 @@ export const SinglyLinkedListPlayground = observer(() =>
         />
         <Canvas
             arrowType={ArrowType.DirectOneWay}
-            currentIndex={0}
             grid={new ListGrid(window.document.documentElement.clientWidth)}
-            iterator={store.getIterator()}
+            iterator={store.iterator}
             width={window.document.documentElement.clientWidth}
         />
     </Block>

@@ -9,11 +9,15 @@ const styles = {
     relative: { position: 'relative' }
 };
 
+export interface IGraphicalContent {
+    content: string;
+    isActive: boolean;
+}
+
 export interface ICanvasProps {
     arrowType: ArrowType;
-    currentIndex: number;
     grid: IGrid;
-    iterator: IIterator<string>;
+    iterator: IIterator<IGraphicalContent>;
     width: number;
 }
 
@@ -23,12 +27,13 @@ export const Canvas = (props: ICanvasProps) => {
     let maxHeight = itemSettings.size + (2 * itemSettings.margin.outer);
     let index = 0;
 
+    props.iterator.reset();
     while (props.iterator.hasNext()) {
         const currentItem = props.iterator.next();
         const position = props.grid.getPositionOfItemAtIndex(index);
         children.push(
-            <Item x={position.x} y={position.y} isActive={props.currentIndex === index}>
-                {currentItem}
+            <Item x={position.x} y={position.y} isActive={currentItem.isActive}>
+                {currentItem.content}
             </Item>
         );
 
