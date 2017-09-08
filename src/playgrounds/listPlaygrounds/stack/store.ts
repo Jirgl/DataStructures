@@ -1,11 +1,12 @@
 import { action, observable } from 'mobx';
+import { IAction } from '../../../components/controlBar';
 import { Structure } from './graphicalStructure';
-import { ListIterator } from '../common/listIterator';
+import { ListIterator } from '../base/listIterator';
 
 class StackStore {
-    actions = [
-        { title: 'push', disabled: false },
-        { title: 'pop', disabled: false }
+    actions: IAction[] = [
+        { title: 'push' },
+        { title: 'pop' }
     ];
 
     private structureFunctions: { [action: string]: (content?: string) => void };

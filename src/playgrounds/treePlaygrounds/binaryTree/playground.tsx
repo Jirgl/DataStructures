@@ -14,11 +14,12 @@ export const BinaryTreePlayground = observer(() =>
     <Block style={boxStyle}>
         <ControlBar
             actions={store.actions}
+            parameters={store.parameters}
             onActionChange={store.setAction}
-            onSettingsChange={store.setSettings}
+            onParameterChange={store.setParameter}
             onExecute={store.execute}
             selectedActionValue={store.selectedAction}
-            selectedSettingsValue={store.selectedSettings}
+            selectedParameterValue={store.selectedParameter}
         />
         <TreeCanvas
             arrowType={ArrowType.DirectOneWay}

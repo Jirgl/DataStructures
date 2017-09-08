@@ -4,13 +4,13 @@ import { Canvas } from '../../../components/canvas/canvas';
 import { ListGrid } from './listGrid';
 import { ListIterator } from './listIterator';
 
-export interface IListGridProps {
+export interface IListCanvasProps {
     arrowType: ArrowType;
     iterator: ListIterator;
     width: number;
 }
 
-export const ListCanvas = (props: IListGridProps) => {
+export const ListCanvas = (props: IListCanvasProps) => {
     const grid = new ListGrid(props.width, props.iterator);
     return (<Canvas
         arrowType={props.arrowType}

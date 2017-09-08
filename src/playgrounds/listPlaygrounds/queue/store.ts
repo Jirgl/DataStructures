@@ -1,11 +1,12 @@
 import { action, observable } from 'mobx';
+import { IAction } from '../../../components/controlBar';
 import { Structure } from './graphicalStructure';
-import { ListIterator } from '../common/listIterator';
+import { ListIterator } from '../base/listIterator';
 
 class StackStore {
-    actions = [
-        { title: 'enqueue', disabled: false },
-        { title: 'dequeue', disabled: false }
+    actions: IAction[] = [
+        { title: 'enqueue' },
+        { title: 'dequeue' }
     ];
 
     private structureFunctions: { [action: string]: (content?: string) => void };

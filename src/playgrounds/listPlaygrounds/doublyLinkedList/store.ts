@@ -1,13 +1,14 @@
 import { action, observable } from 'mobx';
+import { IAction, IParameter } from '../../../components/controlBar';
 import { Structure } from './graphicalStructure';
-import { ListIterator } from '../common/listIterator';
+import { ListIterator } from '../base/listIterator';
 
 class DoublyLinkedListStore {
-    actions = [
-        { title: 'add', disabled: false },
-        { title: 'remove', disabled: false }
+    actions: IAction[] = [
+        { title: 'add' },
+        { title: 'remove' }
     ];
-    settings = [
+    parameters: IParameter[] = [
         { title: 'first', disabled: false },
         { title: 'predecessor', disabled: false },
         { title: 'current', disabled: true },
@@ -15,11 +16,11 @@ class DoublyLinkedListStore {
         { title: 'last', disabled: false }
     ];
 
-    private structureFunctions: { [action: string]: { [settings: string]: (content?: string) => void } };
+    private structureFunctions: { [action: string]: { [parameters: string]: (content?: string) => void } };
     private structure: Structure;
     @observable iterator: ListIterator;
     @observable selectedAction: number = 0;
-    @observable selectedSettings: number = 0;
+    @observable selectedParameter: number = 0;
 
     constructor() {
         this.structure = new Structure();
@@ -47,23 +48,23 @@ class DoublyLinkedListStore {
     setAction(value: number) {
         this.selectedAction = value;
         if (value === 1) {
-            this.settings[2].disabled = false;
+            this.parameters[2].disabled = false;
         } else {
-            this.settings[2].disabled = true;
-            if (this.selectedSettings === 2) this.selectedSettings = 0;
+            this.parameters[2].disabled = true;
+            if (this.selectedParameter === 2) this.selectedParameter = 0;
         }
     }
 
     @action.bound
-    setSettings(value: number) {
-        this.selectedSettings = value;
+    setParameter(value: number) {
+        this.selectedParameter = value;
     }
 
     @action.bound
     execute(content?: string) {
         const action = this.actions[this.selectedAction].title;
-        const settings = this.settings[this.selectedSettings].title;
-        this.structureFunctions[action][settings](content);
+        const parameter = this.parameters[this.selectedParameter].title;
+        this.structureFunctions[action][parameter](content);
         this.iterator = this.structure.getIterator();
     }
 }

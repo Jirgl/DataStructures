@@ -1,5 +1,5 @@
 import { DoublyLinkedList } from 'jirgl-data-structures';
-import { ListIterator } from '../common/listIterator';
+import { ListIterator } from '../base/listIterator';
 
 class EnrichedDoublyLinkedList extends DoublyLinkedList.Structure<string, string> {
     getFirst(): DoublyLinkedList.Item<string, string> | undefined {

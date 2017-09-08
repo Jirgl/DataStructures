@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { Block } from '../../../components/block';
 import { ArrowType } from '../../../components/canvas/arrow';
 import { ControlBar } from '../../../components/controlBar';
-import { ListCanvas } from '../common/listCanvas';
+import { ListCanvas } from '../base/listCanvas';
 import { store } from './store';
 
 const boxStyle = {
@@ -14,12 +14,12 @@ export const DoublyLinkedListPlayground = observer(() =>
     <Block style={boxStyle}>
         <ControlBar
             actions={store.actions}
-            settings={store.settings}
+            parameters={store.parameters}
             onActionChange={store.setAction}
-            onSettingsChange={store.setSettings}
+            onParameterChange={store.setParameter}
             onExecute={store.execute}
             selectedActionValue={store.selectedAction}
-            selectedSettingsValue={store.selectedSettings}
+            selectedParameterValue={store.selectedParameter}
         />
         <ListCanvas
             arrowType={ArrowType.DirectOneWay}

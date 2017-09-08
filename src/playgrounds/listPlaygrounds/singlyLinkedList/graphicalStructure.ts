@@ -1,7 +1,7 @@
 import { SinglyLinkedList } from 'jirgl-data-structures';
-import { ListIterator } from '../common/listIterator';
+import { ListIterator } from '../base/listIterator';
 
-class GraphicalSinglyLinkedList extends SinglyLinkedList.Structure<string, string> {
+class EnrichedSinglyLinkedList extends SinglyLinkedList.Structure<string, string> {
     getFirst(): SinglyLinkedList.Item<string, string> | undefined {
         return this.firstItem;
     }
@@ -12,10 +12,10 @@ class GraphicalSinglyLinkedList extends SinglyLinkedList.Structure<string, strin
 }
 
 export class Structure {
-    private linkedList: GraphicalSinglyLinkedList;
+    private linkedList: EnrichedSinglyLinkedList;
 
     constructor() {
-        this.linkedList = new GraphicalSinglyLinkedList();
+        this.linkedList = new EnrichedSinglyLinkedList();
     }
 
     addFirstItem(content: string): void {

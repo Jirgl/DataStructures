@@ -2,19 +2,23 @@ import * as React from 'react';
 import { DropDownMenu, RaisedButton, MenuItem, TextField, TouchTapEvent } from 'material-ui';
 import { Block } from './block';
 
-export interface IControlItem {
+export interface IAction {
+    title: string;
+}
+
+export interface IParameter {
     title: string;
     disabled: boolean;
 }
 
 export interface IControlBarProps {
-    actions: IControlItem[];
-    settings?: IControlItem[];
+    actions: IAction[];
+    parameters?: IParameter[];
     onActionChange: (value: number) => void;
-    onSettingsChange?: (value: number) => void;
+    onParameterChange?: (value: number) => void;
     onExecute: (content?: string) => void;
     selectedActionValue: number;
-    selectedSettingsValue?: number;
+    selectedParameterValue?: number;
 }
 
 const styles = {
@@ -46,21 +50,25 @@ const styles = {
 
 type onChangeType = (event: TouchTapEvent, index: number, value: number) => void;
 
-function createDropDownMenu(items: IControlItem[], value: number, onChange: onChangeType): React.ReactChild {
+function createDropDownMenu(items: (IAction | IParameter)[], value: number, onChange: onChangeType): React.ReactChild {
     return <Block style={styles.inlineBlock}>
         <DropDownMenu
             value={value}
             onChange={onChange}
             style={styles.dropDownMenu}>
             {
-                items && items.map((item, idx) =>
-                    <MenuItem
+                items && items.map((item, idx) => {
+                    let disabled = false;
+                    const parameter = item as IParameter;
+                    if (parameter.disabled) disabled = parameter.disabled;
+
+                    return (<MenuItem
                         key={idx + item.title}
                         value={idx}
                         primaryText={item.title}
-                        disabled={item.disabled}
-                    />
-                )
+                        disabled={disabled}
+                    />);
+                })
             }
         </DropDownMenu>
     </Block>;
@@ -81,12 +89,12 @@ export class ControlBar extends React.Component<IControlBarProps, IControlBarSta
                         (_e: TouchTapEvent, _i: number, v: number) => this.props.onActionChange(v))
                 }
                 {
-                    (this.props.settings !== undefined && this.props.selectedSettingsValue !== undefined)
+                    (this.props.parameters !== undefined && this.props.selectedParameterValue !== undefined)
                         ? createDropDownMenu(
-                            this.props.settings,
-                            this.props.selectedSettingsValue,
+                            this.props.parameters,
+                            this.props.selectedParameterValue,
                             (_e: TouchTapEvent, _i: number, v: number) =>
-                                this.props.onSettingsChange && this.props.onSettingsChange(v)
+                                this.props.onParameterChange && this.props.onParameterChange(v)
                         )
                         : undefined
                 }

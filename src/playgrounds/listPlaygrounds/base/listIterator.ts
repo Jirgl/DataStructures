@@ -9,24 +9,24 @@ export interface IIteratorItem {
 
 export class ListIterator implements IIterator<IIteratorItem> {
     private index: number = -1;
-    private iteratorCurrent: SinglyLinkedList.Item<string, string> | undefined;
+    private currentItemOfIterator: SinglyLinkedList.Item<string, string> | undefined;
 
     constructor(
         private firstItem: SinglyLinkedList.Item<string, string> | undefined,
         private currentItem: SinglyLinkedList.Item<string, string> | undefined) {
-        this.iteratorCurrent = firstItem;
+        this.currentItemOfIterator = firstItem;
     }
 
     hasNext(): boolean {
-        return !!this.iteratorCurrent;
+        return !!this.currentItemOfIterator;
     }
 
     next(): IIteratorItem {
-        if (!this.iteratorCurrent || !this.currentItem)
+        if (!this.currentItemOfIterator || !this.currentItem)
             throw 'end of collection';
 
-        const current = this.iteratorCurrent;
-        this.iteratorCurrent = this.iteratorCurrent.next;
+        const current = this.currentItemOfIterator;
+        this.currentItemOfIterator = this.currentItemOfIterator.next;
         this.index++;
         return {
             content: current.key,
@@ -37,7 +37,7 @@ export class ListIterator implements IIterator<IIteratorItem> {
     }
 
     reset() {
-        this.iteratorCurrent = this.firstItem;
+        this.currentItemOfIterator = this.firstItem;
         this.index = -1;
     }
 }

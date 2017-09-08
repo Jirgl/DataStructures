@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { Block } from '../../../components/block';
 import { ArrowType } from '../../../components/canvas/arrow';
 import { ControlBar } from '../../../components/controlBar';
-import { ListCanvas } from '../common/listCanvas';
+import { ListCanvas } from '../base/listCanvas';
 import { store } from './store';
 
 const boxStyle = {
