@@ -1,18 +1,12 @@
 import { action, observable } from 'mobx';
-import { IAction } from '../../../components/controlBar';
 import { Structure } from './graphicalStructure';
 import { ListIterator } from '../base/listIterator';
 
 class StackStore {
-    actions: IAction[] = [
-        { title: 'push' },
-        { title: 'pop' }
-    ];
-
     private structureFunctions: { [action: string]: (content?: string) => void };
     private structure: Structure;
     @observable iterator: ListIterator;
-    @observable selectedAction: number = 0;
+    @observable selectedAction: string;
 
     constructor() {
         this.structure = new Structure();
@@ -23,17 +17,21 @@ class StackStore {
             'push': (content: string) => this.structure.push(content),
             'pop': () => this.structure.pop()
         };
+        this.selectedAction = Object.keys(this.structureFunctions)[0];
+    }
+
+    get actions(): string[] {
+        return Object.getOwnPropertyNames(this.structureFunctions);
     }
 
     @action.bound
-    setAction(value: number) {
+    setAction(value: string) {
         this.selectedAction = value;
     }
 
     @action.bound
     execute(content?: string) {
-        const action = this.actions[this.selectedAction].title;
-        this.structureFunctions[action](content);
+        this.structureFunctions[this.selectedAction](content);
         this.iterator = this.structure.getIterator();
     }
 }

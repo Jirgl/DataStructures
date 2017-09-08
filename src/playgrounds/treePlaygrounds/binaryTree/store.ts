@@ -1,27 +1,13 @@
 import { action, observable } from 'mobx';
-import { IAction, IParameter } from '../../../components/controlBar';
 import { Structure } from './graphicalStructure';
 import { TreeIterator } from '../base/treeIterator';
 
 class StackStore {
-    actions: IAction[] = [
-        { title: 'add' },
-        { title: 'get' },
-        { title: 'remove' }
-    ];
-    parameters: IParameter[] = [
-        { title: 'root', disabled: false },
-        { title: 'parent', disabled: false },
-        { title: 'current', disabled: false },
-        { title: 'leftChild', disabled: false },
-        { title: 'rightChild', disabled: false }
-    ]
-
     private structureFunctions: { [action: string]: { [parameter: string]: (content?: string) => void } };
     private structure: Structure;
     @observable iterator: TreeIterator;
-    @observable selectedAction: number = 0;
-    @observable selectedParameter: number = 0;
+    @observable selectedAction: string;
+    @observable selectedParameter: string;
 
     constructor() {
         this.structure = new Structure();
@@ -47,23 +33,31 @@ class StackStore {
                 'rightChild': () => this.structure.removeRightChild()
             }
         };
+        this.setAction(Object.keys(this.structureFunctions)[0]);
+    }
+
+    get actions(): string[] {
+        return Object.getOwnPropertyNames(this.structureFunctions);
+    }
+
+    get parameters(): string[] {
+        return Object.getOwnPropertyNames(this.structureFunctions[this.selectedAction]);
     }
 
     @action.bound
-    setAction(value: number) {
+    setAction(value: string) {
         this.selectedAction = value;
+        this.setParameter(Object.keys(this.structureFunctions[this.selectedAction])[0]);
     }
 
     @action.bound
-    setParameter(value: number) {
+    setParameter(value: string) {
         this.selectedParameter = value;
     }
 
     @action.bound
     execute(content?: string) {
-        const action = this.actions[this.selectedAction].title;
-        const parameter = this.parameters[this.selectedParameter].title;
-        this.structureFunctions[action][parameter](content);
+        this.structureFunctions[this.selectedAction][this.selectedParameter](content);
         this.iterator = this.structure.getIterator();
     }
 }
