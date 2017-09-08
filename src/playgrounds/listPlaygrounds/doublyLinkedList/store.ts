@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { Structure } from './graphicalStructure';
-import { ListIterator } from '../listIterator';
+import { ListIterator } from '../common/listIterator';
 
 class DoublyLinkedListStore {
     actions = [

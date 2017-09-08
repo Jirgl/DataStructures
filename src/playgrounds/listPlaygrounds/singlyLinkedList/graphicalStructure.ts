@@ -1,12 +1,12 @@
 import { SinglyLinkedList } from 'jirgl-data-structures';
-import { ListIterator, IEnrichedContent } from '../listIterator';
+import { ListIterator } from '../common/listIterator';
 
-class GraphicalSinglyLinkedList extends SinglyLinkedList.Structure<string, IEnrichedContent> {
-    getFirst(): SinglyLinkedList.Item<string, IEnrichedContent> | undefined {
+class GraphicalSinglyLinkedList extends SinglyLinkedList.Structure<string, string> {
+    getFirst(): SinglyLinkedList.Item<string, string> | undefined {
         return this.firstItem;
     }
 
-    getCurrent(): SinglyLinkedList.Item<string, IEnrichedContent> | undefined {
+    getCurrent(): SinglyLinkedList.Item<string, string> | undefined {
         return this.currentItem;
     }
 }
@@ -19,19 +19,19 @@ export class Structure {
     }
 
     addFirstItem(content: string): void {
-        this.linkedList.addFirstItem(content, { content: content, isActive: false });
+        this.linkedList.addFirstItem(content, content);
     }
 
     addLastItem(content: string): void {
-        this.linkedList.addLastItem(content, { content: content, isActive: false });
+        this.linkedList.addLastItem(content, content);
     }
 
     addNextItem(content: string): void {
-        this.linkedList.addNextItem(content, { content: content, isActive: false });
+        this.linkedList.addNextItem(content, content);
     }
 
     addPreviousItem(content: string): void {
-        this.linkedList.addPreviousItem(content, { content: content, isActive: false });
+        this.linkedList.addPreviousItem(content, content);
     }
 
     removeCurrentItem(): void {

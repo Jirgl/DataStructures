@@ -1,8 +1,8 @@
 import { DoublyLinkedList } from 'jirgl-data-structures';
-import { ListIterator, IEnrichedContent } from '../listIterator';
+import { ListIterator } from '../common/listIterator';
 
-class EnrichedDoublyLinkedList extends DoublyLinkedList.Structure<string, IEnrichedContent> {
-    getFirst(): DoublyLinkedList.Item<string, IEnrichedContent> | undefined {
+class EnrichedDoublyLinkedList extends DoublyLinkedList.Structure<string, string> {
+    getFirst(): DoublyLinkedList.Item<string, string> | undefined {
         return this.firstItem;
     }
 }
@@ -23,10 +23,7 @@ export class Structure {
     }
 
     enqueue(content: string): void {
-        this.doublyLinkedList.addLastItem(content, {
-            content: content,
-            isActive: false
-        });
+        this.doublyLinkedList.addLastItem(content, content);
     }
 
     dequeue(): void {

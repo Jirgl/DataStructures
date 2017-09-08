@@ -1,12 +1,12 @@
 import { DoublyLinkedList } from 'jirgl-data-structures';
-import { ListIterator, IEnrichedContent } from '../listIterator';
+import { ListIterator } from '../common/listIterator';
 
-class EnrichedDoublyLinkedList extends DoublyLinkedList.Structure<string, IEnrichedContent> {
-    getFirst(): DoublyLinkedList.Item<string, IEnrichedContent> | undefined {
+class EnrichedDoublyLinkedList extends DoublyLinkedList.Structure<string, string> {
+    getFirst(): DoublyLinkedList.Item<string, string> | undefined {
         return this.firstItem;
     }
 
-    getCurrent(): DoublyLinkedList.Item<string, IEnrichedContent> | undefined {
+    getCurrent(): DoublyLinkedList.Item<string, string> | undefined {
         return this.currentItem;
     }
 }
@@ -19,31 +19,19 @@ export class Structure {
     }
 
     addFirstItem(content: string): void {
-        this.doublyLinkedList.addFirstItem(content, {
-            content: content,
-            isActive: false
-        });
+        this.doublyLinkedList.addFirstItem(content, content);
     }
 
     addLastItem(content: string): void {
-        this.doublyLinkedList.addLastItem(content, {
-            content: content,
-            isActive: false
-        });
+        this.doublyLinkedList.addLastItem(content, content);
     }
 
     addNextItem(content: string): void {
-        this.doublyLinkedList.addNextItem(content, {
-            content: content,
-            isActive: false
-        });
+        this.doublyLinkedList.addNextItem(content, content);
     }
 
     addPreviousItem(content: string): void {
-        this.doublyLinkedList.addPreviousItem(content, {
-            content: content,
-            isActive: false
-        });
+        this.doublyLinkedList.addPreviousItem(content, content);
     }
 
     removeCurrentItem(): void {

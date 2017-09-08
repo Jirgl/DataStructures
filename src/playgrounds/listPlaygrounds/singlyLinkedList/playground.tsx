@@ -2,9 +2,8 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { Block } from '../../../components/block';
 import { ArrowType } from '../../../components/canvas/arrow';
-import { Canvas } from '../../../components/canvas/canvas';
 import { ControlBar } from '../../../components/controlBar';
-import { ListGrid } from '../listGrid';
+import { ListCanvas } from '../common/listCanvas';
 import { store } from './store';
 
 const boxStyle = {
@@ -22,9 +21,8 @@ export const SinglyLinkedListPlayground = observer(() =>
             selectedActionValue={store.selectedAction}
             selectedSettingsValue={store.selectedSettings}
         />
-        <Canvas
+        <ListCanvas
             arrowType={ArrowType.DirectOneWay}
-            grid={new ListGrid(window.document.documentElement.clientWidth)}
             iterator={store.iterator}
             width={window.document.documentElement.clientWidth}
         />
