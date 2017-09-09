@@ -35,7 +35,8 @@ const styles = {
         width: 170
     },
     textfield: {
-        float: 'left'
+        float: 'left',
+        width: 80
     }
 };
 
@@ -57,6 +58,12 @@ export interface IControlBarState {
 }
 
 export class ControlBar extends React.Component<IControlBarProps, IControlBarState> {
+    constructor() {
+        super();
+        this.state = {
+            content: ''
+        };
+    }
     render() {
         return <Block>
             <Block style={styles.inlineBlock}>
@@ -80,7 +87,10 @@ export class ControlBar extends React.Component<IControlBarProps, IControlBarSta
             <Block style={Object.assign({}, styles.blocksWrapper, styles.inlineBlock)}>
                 <Block style={styles.blocks}>
                     <Block style={Object.assign({}, styles.blockPaddings, styles.inlineBlock, styles.textfield)}>
-                        <TextField hintText='content' onChange={(_e, value) => this.setState({ content: value })} />
+                        <TextField hintText='content' value={this.state.content} fullWidth={true} onChange={(_e, value) => {
+                            if (value.length > 3) return;
+                            this.setState({ content: value });
+                        }} />
                     </Block>
                     <Block style={Object.assign({}, styles.blockPaddings, styles.inlineBlock, styles.button)}>
                         <RaisedButton
