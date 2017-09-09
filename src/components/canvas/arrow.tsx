@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const arrowSettings = {
-    thickness: 1,//TODO neni potreba
+    length: 10,
     itemBorder: 20,
     angle: 30
 }
@@ -24,12 +24,12 @@ export interface IArrowProps {
 function getHeadDefinition(startX: number, startY: number, endX: number, endY: number): string {
     const currentAngle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
     let angle = currentAngle + arrowSettings.angle;
-    const arrowStartX = Math.round(arrowSettings.thickness * Math.cos(angle * Math.PI / 180));
-    const arrowStartY = Math.round(arrowSettings.thickness * Math.sin(angle * Math.PI / 180));
+    const arrowStartX = Math.round(arrowSettings.length * Math.cos(angle * Math.PI / 180));
+    const arrowStartY = Math.round(arrowSettings.length * Math.sin(angle * Math.PI / 180));
 
     angle = currentAngle - arrowSettings.angle;
-    const arrowEndX = Math.round(arrowSettings.thickness * Math.cos(angle * Math.PI / 180));
-    const arrowEndY = Math.round(arrowSettings.thickness * Math.sin(angle * Math.PI / 180));
+    const arrowEndX = Math.round(arrowSettings.length * Math.cos(angle * Math.PI / 180));
+    const arrowEndY = Math.round(arrowSettings.length * Math.sin(angle * Math.PI / 180));
 
     return [
         'M', startX + arrowStartX, startY + arrowStartY,
@@ -84,10 +84,10 @@ function getHead(props: IArrowProps): string {
         endForArrowX = props.startX + 5;
         endForArrowY = props.startY;
 
-        // if (props.type === ArrowType.SchemaTwoWay || props.type === ArrowType.DirectTwoWay) {//TODO bullshit
-        //     startForOppositeArrowX = props.endX - 5;
-        //     startForOppositeArrowY = props.endY;
-        // }
+        if (props.type === ArrowType.SchemaTwoWay) {
+            startForOppositeArrowX = props.endX - 5;
+            startForOppositeArrowY = props.endY;
+        }
     }
 
     return getHeadDefinition(props.endX, props.endY, startForOppositeArrowX, startForOppositeArrowY);

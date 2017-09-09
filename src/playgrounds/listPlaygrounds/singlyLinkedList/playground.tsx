@@ -22,7 +22,7 @@ export const SinglyLinkedListPlayground = observer(() =>
             selectedParameterValue={store.selectedParameter}
         />
         <ListCanvas
-            arrowType={ArrowType.DirectOneWay}
+            arrowType={ArrowType.SchemaOneWay}
             iterator={store.iterator}
             width={window.document.documentElement.clientWidth}
         />
