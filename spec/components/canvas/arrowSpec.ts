@@ -44,7 +44,7 @@ describe('Get arrow path', () => {
 
     });
 
-    describe.skip('Arrow', () => {
+    describe('Arrow', () => {
 
         it('right/top direction', () => {
             checkArrow(50, 50, 100, 0, ArrowType.DirectOneWay, 1, 'M 90 3 L 100 0 L 97 10');
@@ -63,4 +63,5 @@ describe('Get arrow path', () => {
         });
 
     });
+
 });
