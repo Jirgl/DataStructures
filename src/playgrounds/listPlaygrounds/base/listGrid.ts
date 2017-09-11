@@ -1,6 +1,10 @@
-import { IArrowPosition, IItem, IPosition } from '../../../components/canvas/canvas';
+import { IArrowPosition } from '../../../components/canvas/arrow';
+import { IItem } from '../../../components/canvas/canvas';
+import { IPosition } from '../../../components/canvas/position';
 import { itemSettings } from '../../../components/canvas/item';
 import { ListIterator } from './listIterator';
+
+const itemSizeWithMargin = (itemSettings.size + (itemSettings.margin.outer * 2));
 
 export class ListGrid {
     arrows: IArrowPosition[] = [];
@@ -23,13 +27,19 @@ export class ListGrid {
         }
     }
 
+    public get height(): number {
+        const itemsPerLine = Math.floor(this.width / itemSizeWithMargin);
+        const numberOfLines = Math.ceil(this.items.length / itemsPerLine);
+
+        return numberOfLines * itemSizeWithMargin;
+    }
+
     private getItemPosition(index: number): IPosition {
-        const itemWidthWithMargin = (itemSettings.size + (itemSettings.margin.outer * 2));
-        const itemsPerLine = Math.floor(this.width / itemWidthWithMargin);
+        const itemsPerLine = Math.floor(this.width / itemSizeWithMargin);
 
         return {
-            x: (index % itemsPerLine) * itemWidthWithMargin,
-            y: Math.floor(index / itemsPerLine) * itemWidthWithMargin
+            x: (index % itemsPerLine) * itemSizeWithMargin,
+            y: Math.floor(index / itemsPerLine) * itemSizeWithMargin
         };
     }
 

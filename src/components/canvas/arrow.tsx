@@ -1,4 +1,8 @@
 import * as React from 'react';
+import * as Colors from 'material-ui/styles/colors';
+import { IPosition } from './position';
+
+const doubleLineDistance = 5;
 
 const arrowSettings = {
     length: 10,
@@ -13,16 +17,19 @@ export enum ArrowType {
     SchemaTwoWay
 }
 
-export interface IArrowProps {
-    type: ArrowType;
-    startX: number;
-    startY: number;
-    endX: number;
-    endY: number;
+export interface IArrowPosition {
+    start: IPosition;
+    end: IPosition;
 }
 
-function getHeadDefinition(startX: number, startY: number, endX: number, endY: number): string {
-    const currentAngle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+export interface IArrowProps {
+    type: ArrowType;
+    start: IPosition
+    end: IPosition;
+}
+
+function getHeadDefinition(start: IPosition, end: IPosition): string {
+    const currentAngle = Math.atan2(end.y - start.y, end.x - start.x) * 180 / Math.PI;
     let angle = currentAngle + arrowSettings.angle;
     const arrowStartX = Math.round(arrowSettings.length * Math.cos(angle * Math.PI / 180));
     const arrowStartY = Math.round(arrowSettings.length * Math.sin(angle * Math.PI / 180));
@@ -32,37 +39,63 @@ function getHeadDefinition(startX: number, startY: number, endX: number, endY: n
     const arrowEndY = Math.round(arrowSettings.length * Math.sin(angle * Math.PI / 180));
 
     return [
-        'M', startX + arrowStartX, startY + arrowStartY,
-        'L', startX, startY,
-        'L', startX + arrowEndX, startY + arrowEndY
+        'M', start.x + arrowStartX, start.y + arrowStartY,
+        'L', start.x, start.y,
+        'L', start.x + arrowEndX, start.y + arrowEndY
     ].join(' ');
 }
 
-function getDirectLineDefinition(startX: number, startY: number, endX: number, endY: number): string {
+function getDirectLineDefinition(start: IPosition, end: IPosition): string {
     return [
-        'M', startX, startY,
-        'L', endX, endY
+        'M', start.x, start.y,
+        'L', end.x, end.y
     ].join(' ');
 }
 
-function getSchemaLineDefinition(startX: number, startY: number, endX: number, endY: number): string {
+function getSchemaLineDefinition(start: IPosition, end: IPosition, doubleLine: boolean): string {
     let elements;
-    if (startX < endX) {
-        elements = [
-            'M', startX, startY,
-            'L', startX + ((endX - startX) / 2), startY,
-            'L', startX + ((endX - startX) / 2), startY + (endY - startY),
-            'L', endX, endY
-        ];
+    if (start.x < end.x) {
+        elements = doubleLine
+            ? [
+                'M', start.x, start.y - doubleLineDistance,
+                'L', start.x + ((end.x - start.x) / 2), start.y - doubleLineDistance,
+                'L', start.x + ((end.x - start.x) / 2), start.y + (end.y - start.y) - doubleLineDistance,
+                'L', end.x, end.y - doubleLineDistance,
+                'M', start.x, start.y + doubleLineDistance,
+                'L', start.x + ((end.x - start.x) / 2), start.y + doubleLineDistance,
+                'L', start.x + ((end.x - start.x) / 2), start.y + (end.y - start.y) + doubleLineDistance,
+                'L', end.x, end.y + doubleLineDistance
+            ]
+            : [
+                'M', start.x, start.y,
+                'L', start.x + ((end.x - start.x) / 2), start.y,
+                'L', start.x + ((end.x - start.x) / 2), start.y + (end.y - start.y),
+                'L', end.x, end.y
+            ];
     } else {
-        elements = [
-            'M', startX, startY,
-            'L', startX + arrowSettings.itemBorder, startY,
-            'L', startX + arrowSettings.itemBorder, startY + ((endY - startY) / 2),
-            'L', endX - arrowSettings.itemBorder, startY + ((endY - startY) / 2),
-            'L', endX - arrowSettings.itemBorder, endY,
-            'L', endX, endY
-        ];
+        elements = doubleLine
+            ? [
+                'M', start.x, start.y - doubleLineDistance,
+                'L', start.x - doubleLineDistance + arrowSettings.itemBorder, start.y - doubleLineDistance,
+                'L', start.x - doubleLineDistance + arrowSettings.itemBorder, start.y + ((end.y - start.y) / 2) - doubleLineDistance,
+                'L', end.x - arrowSettings.itemBorder, start.y + ((end.y - start.y) / 2) - doubleLineDistance,
+                'L', end.x - arrowSettings.itemBorder, end.y - doubleLineDistance,
+                'L', end.x, end.y - doubleLineDistance,
+                'M', start.x, start.y + doubleLineDistance,
+                'L', start.x + arrowSettings.itemBorder, start.y + doubleLineDistance,
+                'L', start.x + arrowSettings.itemBorder, start.y + ((end.y - start.y) / 2) + doubleLineDistance,
+                'L', end.x + doubleLineDistance - arrowSettings.itemBorder, start.y + ((end.y - start.y) / 2) + doubleLineDistance,
+                'L', end.x + doubleLineDistance - arrowSettings.itemBorder, end.y + doubleLineDistance,
+                'L', end.x, end.y + doubleLineDistance
+            ]
+            : [
+                'M', start.x, start.y,
+                'L', start.x + arrowSettings.itemBorder, start.y,
+                'L', start.x + arrowSettings.itemBorder, start.y + ((end.y - start.y) / 2),
+                'L', end.x - arrowSettings.itemBorder, start.y + ((end.y - start.y) / 2),
+                'L', end.x - arrowSettings.itemBorder, end.y,
+                'L', end.x, end.y
+            ];
     }
 
     return elements.join(' ');
@@ -70,30 +103,41 @@ function getSchemaLineDefinition(startX: number, startY: number, endX: number, e
 
 function getLine(props: IArrowProps): string {
     return (props.type === ArrowType.SchemaOneWay || props.type === ArrowType.SchemaTwoWay)
-        ? getSchemaLineDefinition(props.startX, props.startY, props.endX, props.endY)
-        : getDirectLineDefinition(props.startX, props.startY, props.endX, props.endY);
+        ? getSchemaLineDefinition(props.start, props.end, props.type === ArrowType.SchemaTwoWay)
+        : getDirectLineDefinition(props.start, props.end);
 }
 
 function getHead(props: IArrowProps): string {
-    let endForArrowX = props.endX;
-    let endForArrowY = props.endY;
-    let startForOppositeArrowX = props.startX;
-    let startForOppositeArrowY = props.startY;
+    let endForArrowX = props.end.x;
+    let endForArrowY = props.end.y;
+    let startForOppositeArrowX = props.start.x;
+    let startForOppositeArrowY = props.start.y;
 
-    if ((props.type === ArrowType.SchemaOneWay || props.type === ArrowType.SchemaTwoWay) && props.startY !== props.endY) {
-        endForArrowX = props.startX + 5;
-        endForArrowY = props.startY;
-
-        if (props.type === ArrowType.SchemaTwoWay) {
-            startForOppositeArrowX = props.endX - 5;
-            startForOppositeArrowY = props.endY;
-        }
+    if ((props.type === ArrowType.SchemaOneWay || props.type === ArrowType.SchemaTwoWay) && props.start.y !== props.end.y) {
+        endForArrowX = props.start.x + 5;
+        endForArrowY = props.start.y;
+        startForOppositeArrowX = props.end.x - 5;
+        startForOppositeArrowY = props.end.y;
     }
 
-    return getHeadDefinition(props.endX, props.endY, startForOppositeArrowX, startForOppositeArrowY);
+    let arrows = '';
+    if (props.type === ArrowType.SchemaTwoWay || props.type === ArrowType.DirectTwoWay) {
+        arrows = getHeadDefinition(
+            { x: props.end.x, y: props.end.y - doubleLineDistance },
+            { x: startForOppositeArrowX, y: startForOppositeArrowY - doubleLineDistance }
+        );
+        arrows += getHeadDefinition(
+            { x: startForOppositeArrowX, y: startForOppositeArrowY + doubleLineDistance },
+            { x: props.end.x, y: props.end.y + doubleLineDistance }
+        );
+    } else {
+        arrows = getHeadDefinition(props.end, { x: startForOppositeArrowX, y: startForOppositeArrowY });
+    }
+
+    return arrows;
 }
 
 export const Arrow = (props: IArrowProps) => <g>
-    <path d={getLine(props)} stroke={'red'} fill={'none'} />
-    <path d={getHead(props)} stroke={'red'} fill={'none'} />
+    <path d={getLine(props)} stroke={Colors.grey400} fill={'none'} />
+    <path d={getHead(props)} stroke={Colors.grey400} fill={'none'} />
 </g>;

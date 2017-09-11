@@ -1,4 +1,6 @@
-import { IArrowPosition, IItem, IPosition } from '../../../components/canvas/canvas';
+import { IArrowPosition } from '../../../components/canvas/arrow';
+import { IItem } from '../../../components/canvas/canvas';
+import { IPosition } from '../../../components/canvas/position';
 import { itemSettings } from '../../../components/canvas/item';
 import { TreeIterator } from './treeIterator';
 

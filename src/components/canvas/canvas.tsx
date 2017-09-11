@@ -1,21 +1,12 @@
 import * as React from 'react';
-import { Arrow, ArrowType } from './arrow';
+import { Arrow, ArrowType, IArrowPosition } from './arrow';
+import { IPosition } from './position';
 import { Block } from '../block';
 import { Item } from './item';
 
 const styles = {
     relative: { position: 'relative' }
 };
-
-export interface IPosition {
-    x: number;
-    y: number;
-}
-
-export interface IArrowPosition {
-    start: IPosition;
-    end: IPosition;
-}
 
 export interface IItem {
     content: string;
@@ -34,10 +25,8 @@ export interface ICanvasProps {
 export const Canvas = (props: ICanvasProps) => {
     const arrows = props.arrows.map(arrow =>
         <Arrow type={props.arrowType}
-            startX={arrow.start.x}
-            startY={arrow.start.y}
-            endX={arrow.end.x}
-            endY={arrow.end.y}
+            start={arrow.start}
+            end={arrow.end}
         />
     );
 
@@ -48,7 +37,7 @@ export const Canvas = (props: ICanvasProps) => {
     );
 
     const svgStyle = {
-        //shapeRendering: 'crispEdges',
+        // shapeRendering: 'crispEdges',
         width: props.width,
         height: props.height,
         // zIndex: 100

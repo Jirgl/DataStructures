@@ -19,7 +19,7 @@ export const QueuePlayground = observer(() =>
             onExecute={store.execute}
         />
         <ListCanvas
-            arrowType={ArrowType.DirectOneWay}
+            arrowType={ArrowType.SchemaTwoWay}
             iterator={store.iterator}
             width={window.document.documentElement.clientWidth}
         />

@@ -19,7 +19,7 @@ export const StackPlayground = observer(() =>
             selectedActionValue={store.selectedAction}
         />
         <ListCanvas
-            arrowType={ArrowType.DirectOneWay}
+            arrowType={ArrowType.SchemaTwoWay}
             iterator={store.iterator}
             width={window.document.documentElement.clientWidth}
         />

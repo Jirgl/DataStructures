@@ -16,7 +16,7 @@ export const ListCanvas = (props: IListCanvasProps) => {
         arrowType={props.arrowType}
         arrows={grid.arrows}
         items={grid.items}
-        height={200}
+        height={grid.height}
         width={props.width}
     />);
 };

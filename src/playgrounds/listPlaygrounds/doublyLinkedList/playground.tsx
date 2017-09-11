@@ -22,7 +22,7 @@ export const DoublyLinkedListPlayground = observer(() =>
             selectedParameterValue={store.selectedParameter}
         />
         <ListCanvas
-            arrowType={ArrowType.DirectOneWay}
+            arrowType={ArrowType.SchemaTwoWay}
             iterator={store.iterator}
             width={window.document.documentElement.clientWidth}
         />
