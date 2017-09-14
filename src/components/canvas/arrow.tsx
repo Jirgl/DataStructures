@@ -108,33 +108,35 @@ function getLine(props: IArrowProps): string {
 }
 
 function getHead(props: IArrowProps): string {
-    let endForArrowX = props.end.x;
-    let endForArrowY = props.end.y;
-    let startForOppositeArrowX = props.start.x;
-    let startForOppositeArrowY = props.start.y;
-
-    if ((props.type === ArrowType.SchemaOneWay || props.type === ArrowType.SchemaTwoWay) && props.start.y !== props.end.y) {
-        endForArrowX = props.start.x + 5;
-        endForArrowY = props.start.y;
-        startForOppositeArrowX = props.end.x - 5;
-        startForOppositeArrowY = props.end.y;
-    }
-
-    let arrows = '';
-    if (props.type === ArrowType.SchemaTwoWay || props.type === ArrowType.DirectTwoWay) {
-        arrows = getHeadDefinition(
+    if (props.type === ArrowType.SchemaOneWay && props.start.x > props.end.x) {
+        return getHeadDefinition(props.end, { x: props.end.x - 1, y: props.end.y });
+    } else if (props.type === ArrowType.SchemaTwoWay && props.start.x > props.end.x) {
+        let arrows = getHeadDefinition(
             { x: props.end.x, y: props.end.y - doubleLineDistance },
-            { x: startForOppositeArrowX, y: startForOppositeArrowY - doubleLineDistance }
+            { x: props.end.x - 1, y: props.end.y - doubleLineDistance }
         );
+        arrows += ' ';
         arrows += getHeadDefinition(
-            { x: startForOppositeArrowX, y: startForOppositeArrowY + doubleLineDistance },
+            { x: props.start.x, y: props.start.y + doubleLineDistance },
+            { x: props.start.x + 1, y: props.start.y + doubleLineDistance }
+        );
+
+        return arrows;
+    } else if (props.type === ArrowType.SchemaTwoWay) {
+        let arrows = getHeadDefinition(
+            { x: props.end.x, y: props.end.y - doubleLineDistance },
+            { x: props.start.x, y: props.start.y - doubleLineDistance }
+        );
+        arrows += ' ';
+        arrows += getHeadDefinition(
+            { x: props.start.x, y: props.start.y + doubleLineDistance },
             { x: props.end.x, y: props.end.y + doubleLineDistance }
         );
-    } else {
-        arrows = getHeadDefinition(props.end, { x: startForOppositeArrowX, y: startForOppositeArrowY });
+
+        return arrows;
     }
 
-    return arrows;
+    return getHeadDefinition(props.end, props.start);
 }
 
 export const Arrow = (props: IArrowProps) => <g>
