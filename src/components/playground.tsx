@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Paper } from 'material-ui';
 import { Title, TitleType } from './title';
+import { settings } from '../appSettings';
 
 export interface IPlaygroundProps {
     title: string;
@@ -9,7 +10,7 @@ export interface IPlaygroundProps {
 
 const styles = {
     box: {
-        width: '80%',
+        width: settings.contentWidth * 100 + '%',
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: 50,

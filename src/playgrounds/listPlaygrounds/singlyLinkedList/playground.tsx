@@ -4,13 +4,14 @@ import { Block } from '../../../components/block';
 import { ArrowType } from '../../../components/canvas/arrow';
 import { ControlBar } from '../../../components/controlBar';
 import { ListCanvas } from '../base/listCanvas';
+import { IPlaygroundData } from '../base/playgroundData';
 import { store } from './store';
 
 const boxStyle = {
     paddingTop: 20
 };
 
-export const SinglyLinkedListPlayground = observer(() =>
+export const SinglyLinkedListPlayground = observer((data: IPlaygroundData) =>
     <Block style={boxStyle}>
         <ControlBar
             actions={store.actions}
@@ -24,7 +25,7 @@ export const SinglyLinkedListPlayground = observer(() =>
         <ListCanvas
             arrowType={ArrowType.SchemaOneWay}
             iterator={store.iterator}
-            width={window.document.documentElement.clientWidth}
+            width={data.width}
         />
     </Block>
 );
