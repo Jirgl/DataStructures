@@ -62,6 +62,7 @@ export class TreeIterator implements IIterator<IIteratorNode> {
 
     reset(): void {
         this.que.clear();
+        this.rootNode && this.que.enqueue(this.rootNode);
         this.index = 0;
     }
 }
