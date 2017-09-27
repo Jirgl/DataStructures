@@ -4,7 +4,7 @@ import * as Colors from 'material-ui/styles/colors';
 import { Block } from '../block';
 
 export const itemSettings = {
-    size: 80,
+    size: 50,
     margin: {
         inner: 2,
         outer: 30
@@ -50,7 +50,7 @@ export const Item = (props: IItemProps) => {
         background: props.isActive ? Colors.lightBlue500 : Colors.white,
         margin: itemSettings.margin.outer
     };
-    return <Paper zDepth={2} style={Object.assign({}, styles.absolute, itemStyle)}>
+    return <Paper zDepth={2} circle={true} style={Object.assign({}, styles.absolute, itemStyle)}>
         {createContent(props.children)}
     </Paper>
 }
