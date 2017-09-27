@@ -9,6 +9,7 @@ const levelHeight = 80;
 export class TreeGrid {
     arrows: IArrowPosition[] = [];
     items: IItem[] = [];
+    private depth: number = 0;
 
     constructor(private width: number, iterator: TreeIterator) {
         iterator.reset();
@@ -32,7 +33,15 @@ export class TreeGrid {
                     ), currentPosition)
                 );
             }
+
+            if (item.currentNodePosition.depth > this.depth) {
+                this.depth = item.currentNodePosition.depth;
+            }
         }
+    }
+
+    get height(): number {
+        return (this.depth + 1) * levelHeight;
     }
 
     private getItemPosition(depth: number, orderInLevel: number): IPosition {

@@ -27,7 +27,7 @@ export class ListGrid {
         }
     }
 
-    public get height(): number {
+    get height(): number {
         const itemsPerLine = Math.floor(this.width / itemSizeWithMargin);
         const numberOfLines = Math.ceil(this.items.length / itemsPerLine);
 

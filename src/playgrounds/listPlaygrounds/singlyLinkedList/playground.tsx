@@ -4,7 +4,7 @@ import { Block } from '../../../components/block';
 import { ArrowType } from '../../../components/canvas/arrow';
 import { ControlBar } from '../../../components/controlBar';
 import { ListCanvas } from '../base/listCanvas';
-import { IPlaygroundData } from '../base/playgroundData';
+import { IPlaygroundData } from '../../base/playgroundData';
 import { store } from './store';
 
 const boxStyle = {

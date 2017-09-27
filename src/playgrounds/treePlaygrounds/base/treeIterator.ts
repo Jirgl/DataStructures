@@ -13,16 +13,20 @@ export interface IIteratorNode {
     previousNodePosition: INodePosition | undefined;
 }
 
+interface IteratorNode {
+    index: number;
+    baseNode: BinaryTree.Node<string>;
+}
+
 export class TreeIterator implements IIterator<IIteratorNode> {
-    private que: Queue.Structure<BinaryTree.Node<string>>;
-    private index: number = 0;
+    private que: Queue.Structure<IteratorNode>;
 
     constructor(
         private rootNode: BinaryTree.Node<string> | undefined,
         private currentNode: BinaryTree.Node<string> | undefined) {
 
-        this.que = new Queue.Structure<BinaryTree.Node<string>>();
-        this.rootNode && this.que.enqueue(this.rootNode);
+        this.que = new Queue.Structure<IteratorNode>();
+        this.rootNode && this.que.enqueue({ index: 1, baseNode: this.rootNode });
     }
 
     hasNext(): boolean {
@@ -34,24 +38,26 @@ export class TreeIterator implements IIterator<IIteratorNode> {
         if (!node || !this.currentNode)
             throw 'end of collection';
 
-        if (node.leftChild) this.que.enqueue(node.leftChild);
-        if (node.rightChild) this.que.enqueue(node.rightChild);
+        if (node.baseNode.leftChild)
+            this.que.enqueue({ index: node.index * 2, baseNode: node.baseNode.leftChild });
 
-        const depth = calculateDepth(this.index);
-        const orderInLevel = (this.index + 1) - Math.pow(2, depth);
+        if (node.baseNode.rightChild)
+            this.que.enqueue({ index: node.index * 2 + 1, baseNode: node.baseNode.rightChild });
+
+        const depth = calculateDepth(node.index - 1);
+        const orderInLevel = node.index - Math.pow(2, depth);
         let previousNodePosition: INodePosition | undefined = undefined;
-        if (this.index > 0) {
-            const prevDepth = calculateDepth(this.index - 1);
+        if (node.index > 1) {
+            const prevDepth = calculateDepth(Math.floor(node.index / 2) - 1);
             previousNodePosition = {
                 depth: prevDepth,
-                orderInLevel: (this.index) - Math.pow(2, prevDepth)
+                orderInLevel: Math.floor(node.index / 2) - Math.pow(2, prevDepth)
             };
         }
 
-        this.index++;
         return {
-            content: node.data,
-            isActive: this.currentNode && this.currentNode === node,
+            content: node.baseNode.data,
+            isActive: this.currentNode && this.currentNode === node.baseNode,
             currentNodePosition: {
                 depth,
                 orderInLevel
@@ -62,7 +68,6 @@ export class TreeIterator implements IIterator<IIteratorNode> {
 
     reset(): void {
         this.que.clear();
-        this.rootNode && this.que.enqueue(this.rootNode);
-        this.index = 0;
+        this.rootNode && this.que.enqueue({ index: 1, baseNode: this.rootNode });
     }
 }

@@ -16,13 +16,13 @@ describe('List grid', () => {
     }
 
     it('get height I', () => {
-        const grid = new ListGrid(500, getIterator(3));
-        expect(140).equal(grid.height);
+        const grid = new ListGrid(500, getIterator(4));
+        expect(grid.height).to.equal(110);
     });
 
     it('get height II', () => {
-        const grid = new ListGrid(500, getIterator(4));
-        expect(280).equal(grid.height);
+        const grid = new ListGrid(500, getIterator(5));
+        expect(grid.height).to.equal(220);
     });
 
 });
