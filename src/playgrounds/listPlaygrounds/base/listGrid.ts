@@ -9,6 +9,7 @@ const itemSizeWithMargin = (itemSettings.size + (itemSettings.margin.outer * 2))
 export class ListGrid {
     arrows: IArrowPosition[] = [];
     items: IItem[] = [];
+    height: number;
 
     constructor(private width: number, iterator: ListIterator) {
         iterator.reset();
@@ -25,13 +26,10 @@ export class ListGrid {
                 this.arrows.push(...this.getArrowsPositions(this.getItemPosition(item.previousIndex), currentPosition));
             }
         }
-    }
 
-    get height(): number {
         const itemsPerLine = Math.floor(this.width / itemSizeWithMargin);
         const numberOfLines = Math.ceil(this.items.length / itemsPerLine);
-
-        return numberOfLines * itemSizeWithMargin;
+        this.height = numberOfLines * itemSizeWithMargin;
     }
 
     private getItemPosition(index: number): IPosition {

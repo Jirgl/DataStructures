@@ -20,6 +20,7 @@ export interface ICanvasProps {
     items: IItem[];
     width: number;
     height: number;
+    zoom?: number;
 }
 
 export const Canvas = (props: ICanvasProps) => {
@@ -46,7 +47,11 @@ export const Canvas = (props: ICanvasProps) => {
     const blockStyle = Object.assign(
         {},
         styles.relative,
-        { width: props.width, height: props.height }
+        {
+            width: props.width,
+            height: props.height,
+            zoom: props.zoom + '%'
+        }
     );
 
     return <Block style={blockStyle}>

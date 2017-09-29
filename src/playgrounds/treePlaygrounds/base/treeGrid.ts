@@ -5,13 +5,18 @@ import { itemSettings } from '../../../components/canvas/item';
 import { TreeIterator } from './treeIterator';
 
 const levelHeight = 80;
+const itemWidthWithMargin = itemSettings.size + (itemSettings.margin.outer);
 
 export class TreeGrid {
     arrows: IArrowPosition[] = [];
     items: IItem[] = [];
-    private depth: number = 0;
+    private maxDepth: number = 0;
+    private treeWidth: number = 0;
 
-    constructor(private width: number, iterator: TreeIterator) {
+    constructor(private awidth: number, iterator: TreeIterator) {
+        this.findMaxDepth(iterator);
+        this.treeWidth = Math.pow(2, this.maxDepth) * itemWidthWithMargin;
+
         iterator.reset();
         while (iterator.hasNext()) {
             const item = iterator.next();
@@ -34,29 +39,43 @@ export class TreeGrid {
                 );
             }
 
-            if (item.currentNodePosition.depth > this.depth) {
-                this.depth = item.currentNodePosition.depth;
+            if (item.currentNodePosition.depth > this.maxDepth) {
+                this.maxDepth = item.currentNodePosition.depth;
             }
         }
     }
 
     get height(): number {
-        return (this.depth + 1) * levelHeight;
+        return (this.maxDepth + 1) * (levelHeight + itemSettings.size);
+    }
+
+    get width(): number {
+        return this.treeWidth;
+    }
+
+    get zoom(): number {
+        const scale = this.awidth / this.treeWidth * 100;
+        return scale < 100 ? scale : 100;
+    }
+
+    private findMaxDepth(iterator: TreeIterator) {
+        iterator.reset();
+        while (iterator.hasNext()) {
+            const item = iterator.next();
+
+            if (item.currentNodePosition.depth > this.maxDepth) {
+                this.maxDepth = item.currentNodePosition.depth;
+            }
+        }
     }
 
     private getItemPosition(depth: number, orderInLevel: number): IPosition {
-        let countInLevel = Math.pow(2, depth);
-        let itemWidthWithMargin = itemSettings.size + (itemSettings.margin.outer * 2);
-        let widthPerItem = Math.max(this.width / countInLevel, itemWidthWithMargin);
-
-        let height = 0;
-        for (let i = depth; i > 0; i--) {
-            height += (depth - i) * levelHeight;
-        }
+        const countInLevel = Math.pow(2, depth);
+        const widthPerItem = this.treeWidth / countInLevel;
 
         return {
             x: orderInLevel * widthPerItem + widthPerItem / 2 - itemWidthWithMargin / 2,
-            y: depth * itemWidthWithMargin + height
+            y: depth * (itemWidthWithMargin + 30)
         };
     }
 

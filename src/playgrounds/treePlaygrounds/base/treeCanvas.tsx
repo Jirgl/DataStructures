@@ -16,7 +16,8 @@ export const TreeCanvas = (props: ITreeCanvasProps) => {
         arrowType={props.arrowType}
         arrows={grid.arrows}
         items={grid.items}
-        height={200}
-        width={props.width}
+        height={grid.height}
+        width={grid.width}
+        zoom={grid.zoom}
     />);
 };
