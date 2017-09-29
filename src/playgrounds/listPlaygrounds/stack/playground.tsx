@@ -4,7 +4,7 @@ import { Block } from '../../../components/block';
 import { ArrowType } from '../../../components/canvas/arrow';
 import { ControlBar } from '../../../components/controlBar';
 import { ListCanvas } from '../base/listCanvas';
-import { IPlaygroundData } from '../../base/playgroundData';
+import { IPlaygroundData } from '../../base/types';
 import { store } from './store';
 
 const boxStyle = {
@@ -15,6 +15,7 @@ export const StackPlayground = observer((data: IPlaygroundData) =>
     <Block style={boxStyle}>
         <ControlBar
             actions={store.actions}
+            disableContent={store.isContentDisabled}
             onActionChange={store.setAction}
             onExecute={store.execute}
             selectedActionValue={store.selectedAction}

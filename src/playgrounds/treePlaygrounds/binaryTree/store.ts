@@ -1,9 +1,10 @@
 import { action, observable } from 'mobx';
 import { Structure } from './graphicalStructure';
 import { TreeIterator } from '../base/treeIterator';
+import { StructureFunctionsType } from '../../base/types';
 
 class StackStore {
-    private structureFunctions: { [action: string]: { [parameter: string]: (content?: string) => void } };
+    private structureFunctions: StructureFunctionsType;
     private structure: Structure;
     @observable iterator: TreeIterator;
     @observable selectedAction: string;
@@ -16,21 +17,30 @@ class StackStore {
 
         this.structureFunctions = {
             'add': {
-                'root': (content: string) => this.structure.addRoot(content),
-                'leftChild': (content: string) => this.structure.addLeftChild(content),
-                'rightChild': (content: string) => this.structure.addRightChild(content)
+                disableContent: false,
+                params: {
+                    'root': (content: string) => this.structure.addRoot(content),
+                    'leftChild': (content: string) => this.structure.addLeftChild(content),
+                    'rightChild': (content: string) => this.structure.addRightChild(content)
+                }
             },
             'get': {
-                'root': () => this.structure.getRoot(),
-                'current': () => this.structure.getCurrentNode(),
-                'parent': () => this.structure.getParent(),
-                'leftChild': () => this.structure.getLeftChild(),
-                'rightChild': () => this.structure.getRightChild()
+                disableContent: true,
+                params: {
+                    'root': () => this.structure.getRoot(),
+                    'current': () => this.structure.getCurrentNode(),
+                    'parent': () => this.structure.getParent(),
+                    'leftChild': () => this.structure.getLeftChild(),
+                    'rightChild': () => this.structure.getRightChild()
+                }
             },
             'remove': {
-                'root': () => this.structure.removeRoot(),
-                'leftChild': () => this.structure.removeLeftChild(),
-                'rightChild': () => this.structure.removeRightChild()
+                disableContent: true,
+                params: {
+                    'root': () => this.structure.removeRoot(),
+                    'leftChild': () => this.structure.removeLeftChild(),
+                    'rightChild': () => this.structure.removeRightChild()
+                }
             }
         };
         this.setAction(Object.keys(this.structureFunctions)[0]);
@@ -41,13 +51,17 @@ class StackStore {
     }
 
     get parameters(): string[] {
-        return Object.getOwnPropertyNames(this.structureFunctions[this.selectedAction]);
+        return Object.getOwnPropertyNames(this.structureFunctions[this.selectedAction].params);
+    }
+
+    get isContentDisabled(): boolean {
+        return this.structureFunctions[this.selectedAction].disableContent;
     }
 
     @action.bound
     setAction(value: string) {
         this.selectedAction = value;
-        this.setParameter(Object.keys(this.structureFunctions[this.selectedAction])[0]);
+        this.setParameter(Object.keys(this.structureFunctions[this.selectedAction].params)[0]);
     }
 
     @action.bound
@@ -57,7 +71,7 @@ class StackStore {
 
     @action.bound
     execute(content?: string) {
-        this.structureFunctions[this.selectedAction][this.selectedParameter](content);
+        this.structureFunctions[this.selectedAction].params[this.selectedParameter](content);
         this.iterator = this.structure.getIterator();
     }
 }

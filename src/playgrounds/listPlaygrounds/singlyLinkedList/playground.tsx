@@ -4,7 +4,7 @@ import { Block } from '../../../components/block';
 import { ArrowType } from '../../../components/canvas/arrow';
 import { ControlBar } from '../../../components/controlBar';
 import { ListCanvas } from '../base/listCanvas';
-import { IPlaygroundData } from '../../base/playgroundData';
+import { IPlaygroundData } from '../../base/types';
 import { store } from './store';
 
 const boxStyle = {
@@ -16,6 +16,7 @@ export const SinglyLinkedListPlayground = observer((data: IPlaygroundData) =>
         <ControlBar
             actions={store.actions}
             parameters={store.parameters}
+            disableContent={store.isContentDisabled}
             onActionChange={store.setAction}
             onParameterChange={store.setParameter}
             onExecute={store.execute}

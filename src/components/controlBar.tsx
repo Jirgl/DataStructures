@@ -5,6 +5,7 @@ import { Block } from './block';
 export interface IControlBarProps {
     actions: string[];
     parameters?: string[];
+    disableContent: boolean;
     onActionChange: (value: string) => void;
     onParameterChange?: (value: string) => void;
     onExecute: (content?: string) => void;
@@ -87,10 +88,15 @@ export class ControlBar extends React.Component<IControlBarProps, IControlBarSta
             <Block style={Object.assign({}, styles.blocksWrapper, styles.inlineBlock)}>
                 <Block style={styles.blocks}>
                     <Block style={Object.assign({}, styles.blockPaddings, styles.inlineBlock, styles.textfield)}>
-                        <TextField hintText='content' value={this.state.content} fullWidth={true} onChange={(_e, value) => {
-                            if (value.length > 3) return;
-                            this.setState({ content: value });
-                        }} />
+                        <TextField
+                            hintText='content'
+                            value={this.state.content}
+                            fullWidth={true}
+                            disabled={this.props.disableContent}
+                            onChange={(_e, value) => {
+                                if (value.length > 3) return;
+                                this.setState({ content: value });
+                            }} />
                     </Block>
                     <Block style={Object.assign({}, styles.blockPaddings, styles.inlineBlock, styles.button)}>
                         <RaisedButton

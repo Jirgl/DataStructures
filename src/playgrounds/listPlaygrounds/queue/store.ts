@@ -1,9 +1,10 @@
 import { action, observable } from 'mobx';
 import { Structure } from './graphicalStructure';
 import { ListIterator } from '../base/listIterator';
+import { StructureFunctionsType } from '../../base/types';
 
 class StackStore {
-    private structureFunctions: { [action: string]: (content?: string) => void };
+    private structureFunctions: StructureFunctionsType;
     private structure: Structure;
     @observable iterator: ListIterator;
     @observable selectedAction: string;
@@ -14,14 +15,28 @@ class StackStore {
         this.iterator = this.structure.getIterator();
 
         this.structureFunctions = {
-            'enqueue': (content: string) => this.structure.enqueue(content),
-            'dequeue': () => this.structure.dequeue()
+            'enqueue': {
+                disableContent: false,
+                params: {
+                    '': (content: string) => this.structure.enqueue(content)
+                }
+            },
+            'dequeue': {
+                disableContent: true,
+                params: {
+                    '': () => this.structure.dequeue()
+                }
+            }
         };
         this.selectedAction = Object.keys(this.structureFunctions)[0];
     }
 
     get actions(): string[] {
         return Object.getOwnPropertyNames(this.structureFunctions);
+    }
+
+    get isContentDisabled(): boolean {
+        return this.structureFunctions[this.selectedAction].disableContent;
     }
 
     @action.bound
@@ -31,7 +46,7 @@ class StackStore {
 
     @action.bound
     execute(content?: string) {
-        this.structureFunctions[this.selectedAction](content);
+        this.structureFunctions[this.selectedAction].params[''](content);
         this.iterator = this.structure.getIterator();
     }
 }

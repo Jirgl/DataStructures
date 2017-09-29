@@ -1,9 +1,10 @@
 import { action, observable } from 'mobx';
 import { Structure } from './graphicalStructure';
 import { ListIterator } from '../base/listIterator';
+import { StructureFunctionsType } from '../../base/types';
 
 class SinglyLinkedListStore {
-    private structureFunctions: { [action: string]: { [parameter: string]: (content?: string) => void } };
+    private structureFunctions: StructureFunctionsType;
     private structure: Structure;
     @observable iterator: ListIterator;
     @observable selectedAction: string;
@@ -16,17 +17,23 @@ class SinglyLinkedListStore {
 
         this.structureFunctions = {
             'add': {
-                'first': (content: string) => this.structure.addFirstItem(content),
-                'predecessor': (content: string) => this.structure.addPreviousItem(content),
-                'successor': (content: string) => this.structure.addNextItem(content),
-                'last': (content: string) => this.structure.addLastItem(content)
+                disableContent: false,
+                params: {
+                    'first': (content: string) => this.structure.addFirstItem(content),
+                    'predecessor': (content: string) => this.structure.addPreviousItem(content),
+                    'successor': (content: string) => this.structure.addNextItem(content),
+                    'last': (content: string) => this.structure.addLastItem(content)
+                }
             },
             'remove': {
-                'first': () => this.structure.removeFirstItem(),
-                'predecessor': () => this.structure.removePreviousItem(),
-                'current': () => this.structure.removeCurrentItem(),
-                'successor': () => this.structure.removeNextItem(),
-                'last': () => this.structure.removeLastItem()
+                disableContent: true,
+                params: {
+                    'first': () => this.structure.removeFirstItem(),
+                    'predecessor': () => this.structure.removePreviousItem(),
+                    'current': () => this.structure.removeCurrentItem(),
+                    'successor': () => this.structure.removeNextItem(),
+                    'last': () => this.structure.removeLastItem()
+                }
             }
         };
         this.setAction(Object.keys(this.structureFunctions)[0]);
@@ -37,13 +44,17 @@ class SinglyLinkedListStore {
     }
 
     get parameters(): string[] {
-        return Object.getOwnPropertyNames(this.structureFunctions[this.selectedAction]);
+        return Object.getOwnPropertyNames(this.structureFunctions[this.selectedAction].params);
+    }
+
+    get isContentDisabled(): boolean {
+        return this.structureFunctions[this.selectedAction].disableContent;
     }
 
     @action.bound
     setAction(value: string) {
         this.selectedAction = value;
-        this.setParameter(Object.keys(this.structureFunctions[this.selectedAction])[0]);
+        this.setParameter(Object.keys(this.structureFunctions[this.selectedAction].params)[0]);
     }
 
     @action.bound
@@ -53,7 +64,7 @@ class SinglyLinkedListStore {
 
     @action.bound
     execute(content?: string) {
-        this.structureFunctions[this.selectedAction][this.selectedParameter](content);
+        this.structureFunctions[this.selectedAction].params[this.selectedParameter](content);
         this.iterator = this.structure.getIterator();
     }
 }
